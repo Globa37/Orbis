@@ -15,7 +15,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
   const label = (role: string) => SHOTS.find((s) => s.role === role)?.label ?? role;
 
   return (
-    <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-row lg:gap-6">
+    <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-row lg:gap-6 lg:self-start">
       <div
         role="tablist"
         aria-label={`${name} views`}

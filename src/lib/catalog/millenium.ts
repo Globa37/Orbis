@@ -3,16 +3,23 @@ import { GALLERY_ORDER, imagePath, shot } from "./shots";
 
 const PRICE = 8000; // €80.00
 
-/** Spec sheet shared by every MILLENIUM reference — one watch, five dials. */
+/**
+ * Verified supplier specifications, shared by every MILLENIUM reference —
+ * one watch, five dials.
+ *
+ * This list is deliberately closed. Nothing may be added here that is not on
+ * the confirmed specification sheet: no finishing techniques, no materials
+ * beyond those stated, no case-back or warranty detail.
+ */
 const SHARED_SPECS = [
-  { label: "Case", value: "38.5 mm cushion, polished stainless steel" },
-  { label: "Thickness", value: "10.2 mm" },
-  { label: "Crystal", value: "Domed sapphire, anti-reflective" },
-  { label: "Dial", value: "Applied ORBIS orb, twelve applied markers" },
-  { label: "Hands", value: "Faceted dauphine, rhodium-plated" },
-  { label: "Movement", value: "Quartz, two-hand" },
-  { label: "Bracelet", value: "Three-link steel, brushed and polished" },
-  { label: "Water resistance", value: "5 ATM" },
+  { label: "Case diameter", value: "40 mm" },
+  { label: "Case thickness", value: "12 mm" },
+  { label: "Case material", value: "Alloy" },
+  { label: "Crystal", value: "Glass" },
+  { label: "Movement", value: "Quartz" },
+  { label: "Water resistance", value: "3 BAR" },
+  { label: "Bracelet", value: "Stainless steel" },
+  { label: "Bracelet width", value: "18 mm" },
 ];
 
 function product(
@@ -22,8 +29,7 @@ function product(
   reference: string,
   accent: { base: string; glow: string },
   description: string,
-  colorway: Product["colorway"],
-  dialSpec: string
+  colorway: Product["colorway"]
 ): Product {
   return {
     slug,
@@ -34,13 +40,7 @@ function product(
     colorway,
     accent,
     description,
-    specs: [
-      SHARED_SPECS[0],
-      SHARED_SPECS[1],
-      SHARED_SPECS[2],
-      { label: "Dial", value: dialSpec },
-      ...SHARED_SPECS.slice(4),
-    ],
+    specs: SHARED_SPECS,
     images: [],
   };
 }
@@ -49,10 +49,10 @@ const products: Product[] = [
   product(
     "noir",
     "Noir",
-    "Onyx dial · Rhodium orb",
+    "Black dial · Silver orb",
     "MLN-01",
     { base: "#8E9196", glow: "rgba(160,170,180,0.55)" },
-    "The reference that sets the tone. A vertically brushed onyx dial swallows the light, so the rhodium orb reads as a single illuminated body suspended in the dark. Nothing on this dial exists that does not have to.",
+    "The reference that sets the tone. A deep black dial gives the light nothing to hold on to, so the silver orb reads as a single lit body suspended in the dark. Nothing on this dial exists that does not have to.",
     {
       dial: "#0E0F12",
       dialShade: "#050506",
@@ -61,16 +61,15 @@ const products: Product[] = [
       chapterRing: "#1A1C20",
       chapterRingShade: "#0A0B0D",
       lightMarkers: true,
-    },
-    "Vertically brushed onyx, rhodium orb"
+    }
   ),
   product(
     "celeste",
     "Celeste",
-    "Glacier dial · Obsidian orb",
+    "Glacier dial · Black orb",
     "MLN-02",
     { base: "#A5DCE3", glow: "rgba(165,220,227,0.5)" },
-    "Glacier blue lacquer, laid flat and left alone. The obsidian orb sits hard against it, and the contrast does all the work — the coldest, clearest reading of the MILLENIUM dial.",
+    "Glacier blue, laid flat and left alone. The black orb sits hard against it, and the contrast does all the work — the coldest, clearest reading of the MILLENIUM dial.",
     {
       dial: "#A9DDE4",
       dialShade: "#7FBFC9",
@@ -79,8 +78,7 @@ const products: Product[] = [
       chapterRing: "#C9CFD5",
       chapterRingShade: "#8A929A",
       lightMarkers: false,
-    },
-    "Glacier blue lacquer, obsidian orb"
+    }
   ),
   product(
     "spectrum",
@@ -88,7 +86,7 @@ const products: Product[] = [
     "Silver dial · Spectrum orb",
     "MLN-03",
     { base: "#D9A441", glow: "rgba(217,164,65,0.45)" },
-    "The only reference in which the orb carries colour. Each latitude of the sphere is enamelled a different tone, so the globe grades from red at the pole through amber at the equator to deep blue below. A silver dial keeps it honest.",
+    "The only reference in which the orb carries colour. Each latitude of the sphere takes a different tone, so the globe grades from red at the pole through amber at the equator to deep blue below. A silver dial keeps it honest.",
     {
       dial: "#E9EAEB",
       dialShade: "#B9BEC3",
@@ -97,16 +95,15 @@ const products: Product[] = [
       chapterRing: "#D2D7DC",
       chapterRingShade: "#959DA5",
       lightMarkers: false,
-    },
-    "Silver sunburst, latitude-graded enamel orb"
+    }
   ),
   product(
     "aurora",
     "Aurora",
-    "Rosé dial · Obsidian orb",
+    "Rosé dial · Black orb",
     "MLN-04",
     { base: "#EDA9C0", glow: "rgba(237,169,192,0.45)" },
-    "A rosé dial with the warmth taken out of it — closer to the colour of dust at altitude than to anything decorative. Against the obsidian orb it reads graphic rather than soft.",
+    "A rosé dial with the warmth taken out of it — closer to the colour of dust at altitude than to anything decorative. Against the black orb it reads graphic rather than soft.",
     {
       dial: "#EDA9C0",
       dialShade: "#C4809A",
@@ -115,16 +112,15 @@ const products: Product[] = [
       chapterRing: "#D2D7DC",
       chapterRingShade: "#959DA5",
       lightMarkers: false,
-    },
-    "Rosé lacquer, obsidian orb"
+    }
   ),
   product(
     "solaris",
     "Solaris",
-    "Vermillion dial · Rhodium orb",
+    "Vermillion dial · Silver orb",
     "MLN-05",
     { base: "#B21D22", glow: "rgba(178,29,34,0.5)" },
-    "Deep vermillion, flat and saturated, with the rhodium orb floating over it. The loudest reference in the collection, and still the most restrained thing you will wear.",
+    "Deep vermillion, flat and saturated, with the silver orb floating over it. The loudest reference in the collection, and still the most restrained thing you will wear.",
     {
       dial: "#B21D22",
       dialShade: "#7C1216",
@@ -133,8 +129,7 @@ const products: Product[] = [
       chapterRing: "#D2D7DC",
       chapterRingShade: "#959DA5",
       lightMarkers: false,
-    },
-    "Vermillion lacquer, rhodium orb"
+    }
   ),
 ];
 
@@ -144,7 +139,7 @@ export const MILLENIUM: Collection = {
   index: "01",
   tagline: "Five dials. One orbit.",
   intro:
-    "MILLENIUM is the first ORBIS collection: a single cushion case, held constant, and five readings of the same orb. The case, the markers, the hands and the bracelet never change. Only the light falling on the dial does.",
+    "MILLENIUM is the first ORBIS collection: a 40 mm alloy case on a stainless-steel bracelet, held constant, and five readings of the same orb. The case, the markers, the hands and the bracelet never change. Only the light falling on the dial does.",
   world: {
     name: "The Long Horizon",
     plate: "/world/millenium-horizon.webp",

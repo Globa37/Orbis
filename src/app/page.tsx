@@ -9,7 +9,7 @@ const PILLARS = [
   {
     n: "01",
     title: "One case, held constant",
-    body: "A 38.5 mm polished cushion in stainless steel, unchanged across the collection. What changes is the light that falls on the dial.",
+    body: "A 40 mm alloy case on a stainless-steel bracelet, unchanged across the collection. What changes is the light that falls on the dial.",
   },
   {
     n: "02",

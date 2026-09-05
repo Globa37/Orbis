@@ -63,7 +63,7 @@ export default async function CollectionPage({
                 </div>
                 <div>
                   <dt className="u-eyebrow !text-[0.6rem]">Case</dt>
-                  <dd className="mt-2 text-text">38.5 mm cushion, steel</dd>
+                  <dd className="mt-2 text-text">40 mm alloy, steel bracelet</dd>
                 </div>
                 <div>
                   <dt className="u-eyebrow !text-[0.6rem]">References</dt>

@@ -113,7 +113,8 @@ export default async function ProductPage({
 
             <p className="mt-8 max-w-lg leading-relaxed text-muted">{product.description}</p>
 
-            <dl className="mt-10 divide-y divide-line border-y border-line">
+            <h2 className="u-eyebrow mt-12">Specification</h2>
+            <dl className="mt-5 divide-y divide-line border-y border-line">
               {product.specs.map((spec) => (
                 <div key={spec.label} className="grid grid-cols-[9rem_1fr] gap-4 py-4 text-sm">
                   <dt className="u-eyebrow !text-[0.6rem] pt-0.5">{spec.label}</dt>
@@ -125,8 +126,8 @@ export default async function ProductPage({
             <div className="mt-10 flex items-start gap-4 rounded-sm border border-line p-5">
               <OrbisMark size={26} className="mt-0.5 shrink-0 text-steel" />
               <p className="text-sm leading-relaxed text-muted">
-                Assembled in small series and delivered in the ORBIS presentation case
-                with a two-year international warranty.
+                Every MILLENIUM shares the same 40 mm alloy case, stainless-steel
+                bracelet and quartz movement. Only the dial changes.
               </p>
             </div>
           </div>

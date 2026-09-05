@@ -13,17 +13,17 @@ const SECTIONS = [
   {
     id: "shipping",
     title: "Shipping & returns",
-    body: "Every order is dispatched insured and signed-for within two working days, with complimentary worldwide delivery. Returns are accepted unworn within thirty days, in the original presentation case.",
+    body: "Orders are dispatched insured and signed-for, with complimentary worldwide delivery. Unworn returns are accepted in their original packaging. Full terms are confirmed at checkout.",
   },
   {
     id: "warranty",
     title: "Warranty",
-    body: "Each ORBIS carries a two-year international warranty against manufacturing defect, registered to the reference number engraved on the case back.",
+    body: "Each ORBIS is covered by an international warranty against manufacturing defect, registered to its reference number. Full warranty terms accompany every watch.",
   },
   {
     id: "servicing",
     title: "Servicing",
-    body: "Battery replacement, gasket renewal and case refinishing are handled in-house. A service takes eight to twelve working days from receipt.",
+    body: "Servicing is handled through the ORBIS atelier. Write to us with your reference number and we will arrange collection and return.",
   },
   {
     id: "contact",

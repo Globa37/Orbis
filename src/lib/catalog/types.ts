@@ -14,7 +14,7 @@ export interface Product {
   slug: string;
   /** Reference name, e.g. "Noir". */
   name: string;
-  /** Marketing subtitle, e.g. "Onyx dial · Rhodium orb". */
+  /** Marketing subtitle, e.g. "Black dial · Silver orb". Colour only — never a material claim. */
   subtitle: string;
   reference: string;
   priceCents: number;
@@ -22,7 +22,7 @@ export interface Product {
   /** Two-stop accent used for this reference's UI moments. */
   accent: { base: string; glow: string };
   description: string;
-  /** Spec sheet rows, rendered in order. */
+  /** Verified specification rows, rendered in order. Never extend without a confirmed source. */
   specs: { label: string; value: string }[];
   images: ProductImage[];
 }
