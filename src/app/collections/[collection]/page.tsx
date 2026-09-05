@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { ProductCard } from "@/components/ProductCard";
 import { COLLECTIONS, getCollection } from "@/lib/catalog/millenium";
 import { formatPrice } from "@/lib/catalog/types";
+import { SITE_NAME, absolute } from "@/lib/site";
 
 export function generateStaticParams() {
   return COLLECTIONS.map((c) => ({ collection: c.slug }));
@@ -18,9 +19,20 @@ export async function generateMetadata({
   const { collection: slug } = await params;
   const collection = getCollection(slug);
   if (!collection) return {};
+  const hero = collection.products[0].images.find((i) => i.role === "lifestyle")!;
+  const path = `/collections/${collection.slug}`;
   return {
     title: collection.name.toUpperCase(),
     description: collection.intro,
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      url: path,
+      title: `ORBIS ${collection.name}`,
+      description: collection.intro,
+      images: [{ url: hero.src, width: hero.width, height: hero.height, alt: hero.alt }],
+    },
+    twitter: { card: "summary_large_image", images: [hero.src] },
   };
 }
 
@@ -35,8 +47,31 @@ export default async function CollectionPage({
 
   const showcase = collection.products[0].images.find((i) => i.role === "lifestyle")!;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `ORBIS ${collection.name}`,
+    description: collection.intro,
+    url: absolute(`/collections/${collection.slug}`),
+    isPartOf: { "@type": "WebSite", name: SITE_NAME, url: absolute("/") },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: collection.products.length,
+      itemListElement: collection.products.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `ORBIS ${collection.name} ${p.name}`,
+        url: absolute(`/collections/${collection.slug}/${p.slug}`),
+      })),
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* The collection gets its own world, not the site's generic one. */}
       <section className="relative flex min-h-[86svh] items-end overflow-hidden">
         <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -121,6 +156,8 @@ export default async function CollectionPage({
                 width={showcase.width}
                 height={showcase.height}
                 loading="lazy"
+                placeholder="blur"
+                blurDataURL={showcase.blurDataURL}
                 sizes="(max-width: 1024px) 92vw, 55vw"
                 className="w-full rounded-sm"
               />

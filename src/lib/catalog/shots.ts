@@ -23,13 +23,13 @@ export interface ShotSpec {
 export const SHOTS: ShotSpec[] = [
   {
     role: "hero", label: "Front",
-    w: 1200, h: 1500, fill: 0.5, focus: { x: 0.5, y: 0.46 },
+    w: 1200, h: 1500, fill: 0.57, focus: { x: 0.5, y: 0.47 },
     plate: { pos: "center 58%", scale: 1.25, blur: 22, opacity: 0.85 },
     shadow: 1, reflection: true,
   },
   {
     role: "angle", label: "Three-quarter",
-    w: 1200, h: 1500, fill: 0.52, focus: { x: 0.52, y: 0.46 },
+    w: 1200, h: 1500, fill: 0.57, focus: { x: 0.52, y: 0.47 },
     plate: { pos: "center 55%", scale: 1.35, blur: 24, opacity: 0.8 },
     rotate: { y: -27, x: 7 },
     shadow: 1, reflection: true,
@@ -50,9 +50,9 @@ export const SHOTS: ShotSpec[] = [
   },
   {
     role: "card", label: "Card",
-    w: 1000, h: 1250, fill: 0.44, focus: { x: 0.5, y: 0.47 },
+    w: 1000, h: 1250, fill: 0.56, focus: { x: 0.5, y: 0.47 },
     plate: { pos: "center 60%", scale: 1.3, blur: 26, opacity: 0.7 },
-    shadow: 0.85, reflection: true,
+    shadow: 0.8, reflection: false,
   },
 ];
 

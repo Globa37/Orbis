@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useCart } from "./cart-store";
+import { CheckoutButton } from "./CheckoutButton";
+import { QtyStepper } from "./QtyStepper";
 import { formatPrice } from "@/lib/catalog/types";
 
 export function CartDrawer() {
-  const { lines, open, setOpen, setQty, remove, subtotalCents, count } = useCart();
+  const { lines, open, setOpen, remove, subtotalCents, count } = useCart();
   const panel = useRef<HTMLDivElement>(null);
   const closeBtn = useRef<HTMLButtonElement>(null);
 
@@ -43,7 +45,7 @@ export function CartDrawer() {
 
   return (
     <div
-      className={`fixed inset-0 z-[80] ${open ? "" : "pointer-events-none"}`}
+      className={`fixed inset-0 z-[80] overflow-hidden ${open ? "" : "pointer-events-none"}`}
       aria-hidden={!open}
     >
       <div
@@ -120,25 +122,7 @@ export function CartDrawer() {
                       </p>
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <div className="flex items-center rounded-full border border-line">
-                        <button
-                          onClick={() => setQty(line.id, line.qty - 1)}
-                          className="u-focus h-8 w-8 text-muted transition-colors hover:text-text"
-                          aria-label={`Decrease quantity of ${line.name}`}
-                        >
-                          −
-                        </button>
-                        <span className="w-6 text-center text-sm tabular-nums" aria-live="polite">
-                          {line.qty}
-                        </span>
-                        <button
-                          onClick={() => setQty(line.id, line.qty + 1)}
-                          className="u-focus h-8 w-8 text-muted transition-colors hover:text-text"
-                          aria-label={`Increase quantity of ${line.name}`}
-                        >
-                          +
-                        </button>
-                      </div>
+                      <QtyStepper id={line.id} qty={line.qty} name={line.name} />
                       <button
                         onClick={() => remove(line.id)}
                         className="u-focus u-link text-[0.7rem] uppercase tracking-[0.2em] text-faint transition-colors hover:text-text"
@@ -161,9 +145,16 @@ export function CartDrawer() {
               <p className="mt-2 text-xs text-faint">
                 Shipping and duties calculated at checkout. Complimentary worldwide delivery.
               </p>
-              <button className="u-focus mt-5 w-full rounded-full bg-text px-6 py-4 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-void transition-colors duration-300 hover:bg-white">
-                Proceed to checkout
-              </button>
+              <div className="mt-5">
+                <CheckoutButton />
+              </div>
+              <Link
+                href="/cart"
+                onClick={() => setOpen(false)}
+                className="u-focus u-link mt-5 block text-center text-[0.7rem] uppercase tracking-[0.24em] text-muted transition-colors hover:text-text"
+              >
+                View bag
+              </Link>
             </div>
           </>
         )}

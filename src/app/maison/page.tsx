@@ -6,7 +6,8 @@ import { OrbisMark } from "@/components/OrbisMark";
 export const metadata: Metadata = {
   title: "Maison",
   description:
-    "How ORBIS is made, shipped, warranted and serviced. One orb, one collection at a time.",
+    "How ORBIS is made, shipped and serviced. One orb, one collection at a time.",
+  alternates: { canonical: "/maison" },
 };
 
 const SECTIONS = [

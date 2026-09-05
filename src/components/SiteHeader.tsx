@@ -14,6 +14,7 @@ const NAV = [
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [bump, setBump] = useState(0);
   const [menu, setMenu] = useState(false);
   const { count, setOpen, ready } = useCart();
   const pathname = usePathname();
@@ -24,6 +25,13 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // A short scale pulse whenever the count changes, so adding registers.
+  const [seenCount, setSeenCount] = useState(count);
+  if (seenCount !== count) {
+    setSeenCount(count);
+    if (count > seenCount) setBump((n) => n + 1);
+  }
 
   // Navigating closes the menu. Adjusting during render avoids a second pass.
   const [menuPath, setMenuPath] = useState(pathname);
@@ -75,7 +83,9 @@ export function SiteHeader() {
           >
             <span className="hidden sm:inline">Bag</span>
             <span
-              className="grid h-5 min-w-5 place-items-center rounded-full border border-line px-1 text-[0.65rem] tabular-nums"
+              key={bump}
+              className="grid h-5 min-w-5 place-items-center rounded-full border border-line px-1 text-[0.65rem] tabular-nums data-[bump]:animate-[orbis-bump_600ms_var(--ease-orbis)]"
+              data-bump={bump > 0 ? "" : undefined}
               aria-hidden="true"
             >
               {ready ? count : 0}

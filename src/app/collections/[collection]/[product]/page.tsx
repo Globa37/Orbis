@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
+import { ColorwaySwitcher } from "@/components/ColorwaySwitcher";
+import { ReferenceNav } from "@/components/ReferenceNav";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/ProductGallery";
 import { Reveal } from "@/components/Reveal";
 import { OrbisMark } from "@/components/OrbisMark";
 import { allProducts, getProduct } from "@/lib/catalog/millenium";
 import { formatPrice } from "@/lib/catalog/types";
+import { SITE_NAME, absolute } from "@/lib/site";
 
 export function generateStaticParams() {
   return allProducts().map(({ collection, product }) => ({
@@ -21,15 +24,24 @@ export async function generateMetadata({
 }: {
   params: Promise<{ collection: string; product: string }>;
 }): Promise<Metadata> {
-  const { collection, product } = await params;
-  const found = getProduct(collection, product);
+  const { collection: cSlug, product: pSlug } = await params;
+  const found = getProduct(cSlug, pSlug);
   if (!found) return {};
+  const { collection, product } = found;
+  const hero = product.images[0];
+  const path = `/collections/${collection.slug}/${product.slug}`;
   return {
-    title: `${found.product.name} — ${found.collection.name.toUpperCase()}`,
-    description: found.product.description,
+    title: `${product.name} — ${collection.name.toUpperCase()}`,
+    description: product.description,
+    alternates: { canonical: path },
     openGraph: {
-      images: [{ url: found.product.images[0].src }],
+      type: "website",
+      url: path,
+      title: `ORBIS ${collection.name} ${product.name}`,
+      description: product.description,
+      images: [{ url: hero.src, width: hero.width, height: hero.height, alt: hero.alt }],
     },
+    twitter: { card: "summary_large_image", images: [hero.src] },
   };
 }
 
@@ -45,21 +57,44 @@ export default async function ProductPage({
 
   const related = collection.products.filter((p) => p.slug !== product.slug).slice(0, 4);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: `ORBIS ${collection.name} ${product.name}`,
-    sku: product.reference,
-    brand: { "@type": "Brand", name: "ORBIS" },
-    description: product.description,
-    image: product.images.map((i) => i.src),
-    offers: {
-      "@type": "Offer",
-      price: (product.priceCents / 100).toFixed(2),
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
+  const productPath = `/collections/${collection.slug}/${product.slug}`;
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: `ORBIS ${collection.name} ${product.name}`,
+      sku: product.reference,
+      mpn: product.reference,
+      brand: { "@type": "Brand", name: SITE_NAME },
+      category: "Wristwatch",
+      description: product.description,
+      image: product.images.map((i) => absolute(i.src)),
+      // Only specification values confirmed by the supplier sheet.
+      additionalProperty: product.specs.map((s) => ({
+        "@type": "PropertyValue",
+        name: s.label,
+        value: s.value,
+      })),
+      offers: {
+        "@type": "Offer",
+        url: absolute(productPath),
+        price: (product.priceCents / 100).toFixed(2),
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        itemCondition: "https://schema.org/NewCondition",
+      },
     },
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: SITE_NAME, item: absolute("/") },
+        { "@type": "ListItem", position: 2, name: collection.name, item: absolute(`/collections/${collection.slug}`) },
+        { "@type": "ListItem", position: 3, name: product.name, item: absolute(productPath) },
+      ],
+    },
+  ];
 
   return (
     <div style={{ ["--accent" as string]: product.accent.base, ["--accent-glow" as string]: product.accent.glow }}>
@@ -103,6 +138,8 @@ export default async function ProductPage({
               Includes VAT. Complimentary worldwide delivery and returns.
             </p>
 
+            <ColorwaySwitcher collection={collection} current={product} />
+
             <div className="mt-9">
               <AddToCart
                 collection={collection}
@@ -135,6 +172,8 @@ export default async function ProductPage({
       </section>
 
       {/* ========================================================== related */}
+      <ReferenceNav collection={collection} current={product} />
+
       {related.length > 0 && (
         <section className="border-t border-line">
           <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">

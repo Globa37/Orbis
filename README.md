@@ -64,9 +64,33 @@ navigation, the footer, the cart and the sitemap all pick it up automatically.
 A future collection can carry its own case geometry by exporting a second
 renderer alongside `watch-svg.ts` and selecting it from collection data.
 
+## Checkout
+
+Checkout is an integration point, not a simulation. Set
+`NEXT_PUBLIC_CHECKOUT_URL` to your payment provider's hosted checkout and the
+button in the bag drawer and on `/cart` becomes a live link. Until it is set the
+button is plainly inert and says so — the site never implies an order can be
+placed.
+
+No warranty terms, return windows, servicing times or certifications are
+asserted anywhere. The Maison page carries deliberately non-specific policy
+copy; replace it with your own terms before launch.
+
+## Specifications
+
+`SHARED_SPECS` in `src/lib/catalog/millenium.ts` is a **closed list** of the
+eight confirmed supplier values. Nothing may be added to it without a confirmed
+source — no finishing techniques, no materials beyond those stated. Product
+subtitles and descriptions describe colour only, never material.
+
 ## Checks
 
 ```bash
-npm run audit   # landmarks, alt text, single h1, horizontal overflow 360px–4K
+npm run audit   # landmarks, alt text, single h1, horizontal overflow 320px–4K
 npm run shots   # screenshots at desktop and mobile
+npm run lint
 ```
+
+`scripts/cart-test.mjs` drives the shopping flow end to end against a running
+build: add, quantity, colourway switching, prev/next navigation, the bag page,
+removal, persistence across reload and the mobile menu.

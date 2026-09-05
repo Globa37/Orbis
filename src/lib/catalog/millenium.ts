@@ -1,5 +1,6 @@
 import type { Collection, Product, ProductImage } from "./types";
 import { GALLERY_ORDER, imagePath, shot } from "./shots";
+import { BLUR } from "./blur.generated";
 
 const PRICE = 8000; // €80.00
 
@@ -159,6 +160,7 @@ function withImages(collection: Collection): Collection {
         width: s.w,
         height: s.h,
         alt: `ORBIS ${collection.name} ${product.name} — ${s.label.toLowerCase()} view. ${product.subtitle}.`,
+        blurDataURL: BLUR[`${collection.slug}/${product.slug}/${role}`] ?? "",
       };
     });
   }
@@ -169,7 +171,12 @@ export const COLLECTIONS: Collection[] = [MILLENIUM].map(withImages);
 
 export function cardImage(collectionSlug: string, productSlug: string) {
   const s = shot("card");
-  return { src: imagePath(collectionSlug, productSlug, "card"), width: s.w, height: s.h };
+  return {
+    src: imagePath(collectionSlug, productSlug, "card"),
+    width: s.w,
+    height: s.h,
+    blurDataURL: BLUR[`${collectionSlug}/${productSlug}/card`] ?? "",
+  };
 }
 
 export function getCollection(slug: string): Collection | undefined {

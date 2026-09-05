@@ -8,6 +8,8 @@ export interface ProductImage {
   width: number;
   height: number;
   alt: string;
+  /** Inline low-quality preview so the frame never pops in from nothing. */
+  blurDataURL: string;
 }
 
 export interface Product {

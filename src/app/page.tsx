@@ -83,6 +83,8 @@ export default function HomePage() {
                 height={heroImage.height}
                 priority
                 fetchPriority="high"
+                placeholder="blur"
+                blurDataURL={heroImage.blurDataURL}
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="u-feather relative h-[40svh] w-full object-cover object-center sm:h-[44svh] lg:h-auto lg:object-contain"
               />

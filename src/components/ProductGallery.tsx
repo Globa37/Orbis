@@ -45,7 +45,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
         ))}
       </div>
 
-      <figure id="gallery-frame" className="relative min-w-0 flex-1 overflow-hidden rounded-sm bg-surface">
+      <figure id="gallery-frame" className="group relative min-w-0 flex-1 overflow-hidden rounded-sm bg-surface">
         <Image
           key={current.src}
           src={current.src}
@@ -53,8 +53,10 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
           width={current.width}
           height={current.height}
           priority={active === 0}
+          placeholder="blur"
+          blurDataURL={current.blurDataURL}
           sizes="(max-width: 1024px) 100vw, 52vw"
-          className="w-full animate-[orbis-fade_600ms_var(--ease-orbis)]"
+          className="w-full animate-[orbis-fade_600ms_var(--ease-orbis)] transition-transform duration-[1200ms] [transition-timing-function:var(--ease-orbis)] group-hover:scale-[1.04]"
         />
         <figcaption className="pointer-events-none absolute bottom-4 left-5 text-[0.65rem] uppercase tracking-[0.26em] text-faint">
           {label(current.role)}

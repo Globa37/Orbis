@@ -45,6 +45,8 @@ export function ProductCard({
             height={card.height}
             priority={priority}
             loading={priority ? undefined : "lazy"}
+            placeholder="blur"
+            blurDataURL={card.blurDataURL}
             sizes="(max-width: 640px) 86vw, (max-width: 1024px) 44vw, (max-width: 1536px) 30vw, 22vw"
             className="w-full transition-[transform,opacity] duration-[900ms] [transition-timing-function:var(--ease-orbis)] group-hover:scale-[1.03] group-hover:opacity-0"
           />
@@ -56,6 +58,8 @@ export function ProductCard({
             width={hover.width}
             height={hover.height}
             loading="lazy"
+            placeholder="blur"
+            blurDataURL={hover.blurDataURL}
             sizes="(max-width: 640px) 86vw, (max-width: 1024px) 44vw, (max-width: 1536px) 30vw, 22vw"
             className="absolute inset-0 h-full w-full object-cover opacity-0 transition-[transform,opacity] duration-[900ms] [transition-timing-function:var(--ease-orbis)] group-hover:scale-[1.03] group-hover:opacity-100"
           />
