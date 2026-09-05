@@ -1,0 +1,65 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import type { ProductImage } from "@/lib/catalog/types";
+import { SHOTS } from "@/lib/catalog/shots";
+
+/**
+ * A showroom rather than a carousel: the active frame stays large, the
+ * alternatives sit beside it, and nothing moves unless the visitor asks.
+ */
+export function ProductGallery({ images, name }: { images: ProductImage[]; name: string }) {
+  const [active, setActive] = useState(0);
+  const current = images[active];
+  const label = (role: string) => SHOTS.find((s) => s.role === role)?.label ?? role;
+
+  return (
+    <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-row lg:gap-6">
+      <div
+        role="tablist"
+        aria-label={`${name} views`}
+        className="flex min-w-0 gap-3 overflow-x-auto pb-1 [scrollbar-width:none] lg:w-24 lg:flex-col lg:overflow-visible lg:pb-0"
+      >
+        {images.map((img, i) => (
+          <button
+            key={img.role}
+            role="tab"
+            aria-selected={i === active}
+            aria-controls="gallery-frame"
+            onClick={() => setActive(i)}
+            className={`u-focus relative aspect-[4/5] w-20 shrink-0 overflow-hidden rounded-sm border transition-colors duration-300 lg:w-full ${
+              i === active ? "border-steel" : "border-line hover:border-muted"
+            }`}
+          >
+            <Image
+              src={img.src}
+              alt=""
+              fill
+              sizes="96px"
+              loading="lazy"
+              className="object-cover"
+            />
+            <span className="sr-only">{label(img.role)}</span>
+          </button>
+        ))}
+      </div>
+
+      <figure id="gallery-frame" className="relative min-w-0 flex-1 overflow-hidden rounded-sm bg-surface">
+        <Image
+          key={current.src}
+          src={current.src}
+          alt={current.alt}
+          width={current.width}
+          height={current.height}
+          priority={active === 0}
+          sizes="(max-width: 1024px) 100vw, 52vw"
+          className="w-full animate-[orbis-fade_600ms_var(--ease-orbis)]"
+        />
+        <figcaption className="pointer-events-none absolute bottom-4 left-5 text-[0.65rem] uppercase tracking-[0.26em] text-faint">
+          {label(current.role)}
+        </figcaption>
+      </figure>
+    </div>
+  );
+}

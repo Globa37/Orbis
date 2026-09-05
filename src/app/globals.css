@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* ============================================================== ORBIS tokens */
+
+@theme {
+  --font-display: var(--font-bodoni), "Times New Roman", serif;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+
+  --color-void: #05070a;
+  --color-ink: #080b10;
+  --color-surface: #0d1117;
+  --color-raised: #131922;
+  --color-line: #1e2732;
+  --color-steel: #c9d1d9;
+  --color-text: #e9edf1;
+  --color-muted: #8b97a5;
+  --color-faint: #5d6875;
+
+  --ease-orbis: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: dark;
+  /* Per-collection accent, overridden on collection and product routes. */
+  --accent: #9aa4ae;
+  --accent-glow: rgba(154, 164, 174, 0.4);
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ========================================================= typographic scale */
+
+.u-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.u-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+}
+
+/* The ORBIS wordmark: wide, geometric, never italic. */
+.u-wordmark {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+}
+
+.u-rule { border-color: var(--color-line); }
+
+/* ================================================================== surfaces */
+
+/* The ORBIS atmosphere: one plate, graded per surface. */
+.u-plate {
+  background-image: url("/world/orbit-plate.webp");
+  background-size: cover;
+  background-position: center 62%;
+  background-repeat: no-repeat;
+}
+
+.u-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 30%, rgba(5, 7, 10, 0.72) 100%),
+    linear-gradient(to bottom, rgba(5, 7, 10, 0.55) 0%, transparent 22%, transparent 66%, var(--color-void) 100%);
+}
+
+/* Fine film grain keeps large gradients from banding on wide gamut displays. */
+.u-grain::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ================================================================== controls */
+
+.u-focus {
+  outline: none;
+}
+.u-focus:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Underline that draws in from the left on hover. */
+.u-link {
+  position: relative;
+}
+.u-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-orbis);
+}
+.u-link:hover::after,
+.u-link:focus-visible::after { transform: scaleX(1); }
+
+/* ================================================================ animations */
+
+@keyframes orbis-rise {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes orbis-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* A very slow parallax drift on the atmosphere. Never draws attention. */
+@keyframes orbis-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
+  50%      { transform: translate3d(0, -1.4%, 0) scale(1.1); }
+}
+
+.u-reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  will-change: opacity, transform;
+}
+.u-reveal[data-shown="true"] {
+  animation: orbis-rise 1.05s var(--ease-orbis) forwards;
+}
+
+.u-drift { animation: orbis-drift 34s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .u-reveal { opacity: 1; transform: none; }
+  .u-drift { animation: none; transform: scale(1.06); }
+}
+
+/*
+ * Feathers only the outer border of a rendered frame, so the product stays at
+ * full opacity but the frame has no hard rectangle edge. Two linear masks are
+ * intersected rather than one radial, which would eat into the watch.
+ */
+.u-feather {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* A soft dark pool behind a feathered frame so it sits in the atmosphere. */
+.u-halo::before {
+  content: "";
+  position: absolute;
+  inset: -16%;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 50% 50%, rgba(5, 7, 10, 0.92), transparent 74%);
+}
+
+::selection { background: var(--accent); color: var(--color-void); }
