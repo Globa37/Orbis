@@ -16,7 +16,7 @@ npm start
 
 ```
 assets/campaign/            the master photograph for each reference
-assets/caseback/            the caseback photography, shared by every reference
+assets/caseback/            photography shared by every reference
 assets/reference/           the original dial artwork, kept as the source of
                             truth for the ORBIS mark
 src/lib/orbis/orb.ts        the ORBIS mark, rebuilt from those originals: an
@@ -24,6 +24,7 @@ src/lib/orbis/orb.ts        the ORBIS mark, rebuilt from those originals: an
                             strokes, two cell-divided limb bands and an
                             equatorial band
 src/lib/catalog/shots.ts    the framings derived from each master photograph
+.github/workflows/assets.yml  rebuilds the image set when the photography changes
 scripts/build-assets.mts    crops and optimises the web image set
 ```
 
@@ -39,19 +40,23 @@ Output lands in `public/products/<collection>/<product>/<role>.webp`
 (~2.2 MB for the full 25-image set), together with inline low-quality previews
 in `src/lib/catalog/blur.generated.ts`.
 
-### The shared casebacks
+### Shared photography
 
 The back of the watch is the same part on every reference, so it is not shot
-per colourway. `SHARED_SHOTS` in `src/lib/catalog/shots.ts` lists the framings
-that are their own photograph rather than a crop of a master, each read from
-`assets/caseback/<source>.png` and derived once into
-`public/products/<collection>/_shared/<role>.webp`. Every product in the
-collection is served that one file.
+per colourway. Anything in `assets/caseback/` is treated as a **shared framing**:
+the build derives it once into
+`public/products/<collection>/_shared/<role>.webp` and appends it to every
+product gallery in the collection.
 
-A shared shot whose source file is absent is reported by `npm run assets` and
-skipped, and the catalog only appends a shared frame once its blur entry
-exists — so a role may be declared before its photograph arrives without
-leaving a broken frame in the gallery.
+That folder is read, not declared. The file name becomes the role and the
+caption — `02-caseback-angle.png` sorts second, is served as
+`caseback-angle.webp` and reads "Caseback angle" — so **adding a view is adding
+a file**, with no code change. An empty folder yields no shared framings.
+See `assets/caseback/README.md`.
+
+Pushing to `assets/` triggers `.github/workflows/assets.yml`, which runs
+`npm run assets` and commits the derived output. Uploading a photograph through
+the GitHub web interface is therefore enough on its own.
 
 ### The ORBIS mark
 
@@ -76,8 +81,8 @@ Nothing in the renderer or the pipeline is specific to MILLENIUM.
 3. Add it to `COLLECTIONS` in `src/lib/catalog/millenium.ts`.
 4. `npm run assets`.
 
-The casebacks in `assets/caseback/` are shared across collections, so a new
-collection picks them up without any extra photography.
+Whatever is in `assets/caseback/` is shared across collections, so a new
+collection picks that photography up without any extra shooting.
 
 Renaming a reference? Add the old slug to the `redirects()` map in
 `next.config.ts` so existing links keep working.

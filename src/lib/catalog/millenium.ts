@@ -1,9 +1,8 @@
 import type { Collection, Product, ProductImage } from "./types";
 import {
   GALLERY_ORDER,
-  SHARED_SHOTS,
+  SHARED_IMAGES,
   imagePath,
-  sharedBlurKey,
   sharedImagePath,
   shot,
   shotHeight,
@@ -178,19 +177,16 @@ function withImages(collection: Collection): Collection {
       };
     });
 
-    // The shared framings close the gallery. A shared shot only appears once
-    // the build has actually derived it, so a role declared ahead of its
-    // photograph never leaves a broken frame on the page.
-    for (const s of SHARED_SHOTS) {
-      const blurDataURL = BLUR[sharedBlurKey(collection.slug, s.role)];
-      if (!blurDataURL) continue;
+    // The shared framings close the gallery. They come from whatever the build
+    // found in assets/caseback/, so an empty folder simply adds nothing here.
+    for (const s of SHARED_IMAGES) {
       product.images.push({
         role: s.role,
         src: sharedImagePath(collection.slug, s.role),
-        width: s.w,
-        height: Math.round(s.w / s.ratio),
+        width: s.width,
+        height: s.height,
         alt: `ORBIS ${collection.name} — ${s.label.toLowerCase()}, shared by every reference in the collection.`,
-        blurDataURL,
+        blurDataURL: s.blurDataURL,
       });
     }
   }

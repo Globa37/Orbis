@@ -1,0 +1,56 @@
+# Derives the web image set whenever the source photography changes.
+#
+# This exists so that adding a photograph is only ever "put the file in the
+# folder". Uploading straight through the GitHub web interface is enough: this
+# job runs the same `npm run assets` a contributor would run locally and commits
+# what it produced, so the derived WebP files and the generated manifests never
+# have to be built by hand.
+name: Assets
+
+on:
+  push:
+    paths:
+      - "assets/**"
+      - "scripts/build-assets.mts"
+      - "src/lib/catalog/shots.ts"
+  workflow_dispatch:
+
+# Two uploads in quick succession would otherwise race to commit.
+concurrency:
+  group: assets-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  derive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Derive the image set
+        run: npm run assets
+
+      - name: Check the site still builds
+        run: npm run build:app
+
+      - name: Commit what changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/products src/lib/catalog/blur.generated.ts \
+                  src/lib/catalog/shared.generated.ts
+          # Nothing to do when the sources produced identical output.
+          if git diff --cached --quiet; then
+            echo "image set already up to date"
+            exit 0
+          fi
+          git commit -m "Derive the image set from the current photography"
+          git push

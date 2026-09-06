@@ -1,4 +1,5 @@
-import type { ImageRole } from "./types";
+import type { CropRole, ImageRole } from "./types";
+import { SHARED_IMAGES } from "./shared.generated";
 
 /**
  * Framings taken from the campaign photography.
@@ -7,10 +8,10 @@ import type { ImageRole } from "./types";
  * genuine crop of that frame — never a second pose invented to fill a gallery.
  * Values are fractions of the source image.
  *
- * SHARED_SHOTS is the one deliberate exception: see the note above it.
+ * SHARED_IMAGES is the one deliberate exception: see the note above it.
  */
 export interface ShotSpec {
-  role: ImageRole | "card";
+  role: CropRole | "card";
   /** Output width in pixels; height follows from the aspect ratio. */
   w: number;
   /** Target aspect ratio, width / height. */
@@ -46,34 +47,25 @@ export const SHOTS: ShotSpec[] = [
 ];
 
 /**
- * Framings that are their own photograph rather than a crop of a reference's
- * master frame.
+ * Shared framings are discovered, not declared.
  *
  * The back of the watch is the same part on all five references — one caseback,
- * five dials — so it is shot once and shared instead of being re-photographed
- * per colourway. Each entry is stored under the collection's _shared/ folder
- * and served to every product in it. A shared shot whose source file is absent
- * is skipped by the build and never reaches the gallery, so adding a role here
- * before its photograph exists is safe.
+ * five dials — so it is shot once and shared rather than re-photographed per
+ * colourway. Any image dropped into assets/caseback/ becomes one of these: the
+ * build derives it into the collection's _shared/ folder and records it in
+ * shared.generated.ts, which is what SHARED_IMAGES re-exports here.
  *
- * `source` is the basename expected in assets/caseback/.
+ * That means adding a view is adding a file. Nothing in this module has to
+ * change, and a folder with no images simply yields no shared framings.
  */
-export interface SharedShotSpec {
-  role: ImageRole;
-  source: string;
-  w: number;
-  ratio: number;
-  label: string;
-}
+export { SHARED_IMAGES };
 
-export const SHARED_SHOTS: SharedShotSpec[] = [
-  { role: "caseback", source: "back-front", w: 1400, ratio: 4 / 3, label: "Caseback" },
-  { role: "caseback-angled", source: "back-angled", w: 1400, ratio: 4 / 3, label: "Caseback angle" },
-];
+/** Output size for a shared framing, which is used whole rather than cropped. */
+export const SHARED_WIDTH = 1400;
 
-export const GALLERY_ORDER: ImageRole[] = ["hero", "angle", "detail", "lifestyle"];
+export const GALLERY_ORDER: CropRole[] = ["hero", "angle", "detail", "lifestyle"];
 
-export function shot(role: ImageRole | "card") {
+export function shot(role: CropRole | "card") {
   const s = SHOTS.find((x) => x.role === role);
   if (!s) throw new Error(`unknown shot ${role}`);
   return s;
@@ -83,7 +75,7 @@ export function shot(role: ImageRole | "card") {
 export function shotLabel(role: string): string {
   return (
     SHOTS.find((s) => s.role === role)?.label ??
-    SHARED_SHOTS.find((s) => s.role === role)?.label ??
+    SHARED_IMAGES.find((s) => s.role === role)?.label ??
     role
   );
 }
@@ -92,15 +84,11 @@ export function shotHeight(s: ShotSpec) {
   return Math.round(s.w / s.ratio);
 }
 
-export function imagePath(collection: string, product: string, role: ImageRole | "card") {
+export function imagePath(collection: string, product: string, role: CropRole | "card") {
   return `/products/${collection}/${product}/${role}.webp`;
 }
 
 /** Shared framings live beside the products, not inside each one. */
 export function sharedImagePath(collection: string, role: ImageRole) {
   return `/products/${collection}/_shared/${role}.webp`;
-}
-
-export function sharedBlurKey(collection: string, role: ImageRole) {
-  return `${collection}/_shared/${role}`;
 }

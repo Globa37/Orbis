@@ -1,6 +1,14 @@
 import type { Colorway } from "@/lib/orbis/watch-svg";
 
-export type ImageRole = "hero" | "detail" | "angle" | "lifestyle" | "caseback" | "caseback-angled";
+/** The four framings cropped from a reference's own master photograph. */
+export type CropRole = "hero" | "detail" | "angle" | "lifestyle";
+
+/**
+ * A framing's identity. Crops use the fixed roles above; a shared photograph
+ * carries its own file name as its role, so new shared images can be added by
+ * dropping a file in without touching this union.
+ */
+export type ImageRole = CropRole | (string & {});
 
 export interface ProductImage {
   role: ImageRole;
