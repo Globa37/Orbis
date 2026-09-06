@@ -1,0 +1,55 @@
+# Publishes the site to GitHub Pages so it can be looked at in a browser.
+#
+# The export is static, so this needs no server: `npm run export` writes the
+# whole site to out/ and Pages serves that folder. A project site lives under
+# /<repo>, which is why BASE_PATH is set — without it every asset would be
+# requested from the domain root and the page would load bare.
+#
+# Enable once under Settings -> Pages -> Source: GitHub Actions.
+name: Pages
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A queued deploy is worth more than a cancelled one, so let a run finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Export the site
+        run: npm run export
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
+      # Pages serves the folder verbatim, and Jekyll would otherwise strip the
+      # _next directory every asset lives in.
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

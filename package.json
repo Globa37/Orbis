@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run assets && next build",
+    "export": "npm run assets && STATIC_EXPORT=1 next build",
     "build:app": "next build",
     "start": "next start",
     "lint": "eslint",

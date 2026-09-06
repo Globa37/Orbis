@@ -114,9 +114,16 @@ body {
 
 /* ================================================================== surfaces */
 
-/* The ORBIS atmosphere: one plate, graded per surface. */
+/*
+ * The ORBIS atmosphere: one plate, graded per surface.
+ *
+ * The URL comes through a variable rather than being written here, because a
+ * static export can be served from a subdirectory. basePath rewrites next/image
+ * and next/link but never a url() inside a stylesheet, so the root layout sets
+ * --plate to the prefixed path and this picks it up.
+ */
 .u-plate {
-  background-image: url("/world/orbit-plate.webp");
+  background-image: var(--plate, url("/world/orbit-plate.webp"));
   background-size: cover;
   background-position: center 62%;
   background-repeat: no-repeat;

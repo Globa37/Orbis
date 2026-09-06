@@ -1,5 +1,6 @@
 import type { CropRole, ImageRole } from "./types";
 import { SHARED_IMAGES } from "./shared.generated";
+import { asset } from "@/lib/site";
 
 /**
  * Framings taken from the campaign photography.
@@ -84,11 +85,16 @@ export function shotHeight(s: ShotSpec) {
   return Math.round(s.w / s.ratio);
 }
 
+/*
+ * Through asset(), because next/image only applies basePath when it is routing
+ * the request through the optimiser. A static export runs unoptimized, so the
+ * src is emitted verbatim and has to carry the prefix already.
+ */
 export function imagePath(collection: string, product: string, role: CropRole | "card") {
-  return `/products/${collection}/${product}/${role}.webp`;
+  return asset(`/products/${collection}/${product}/${role}.webp`);
 }
 
 /** Shared framings live beside the products, not inside each one. */
 export function sharedImagePath(collection: string, role: ImageRole) {
-  return `/products/${collection}/_shared/${role}.webp`;
+  return asset(`/products/${collection}/_shared/${role}.webp`);
 }

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
@@ -6,7 +7,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageTransition } from "@/components/PageTransition";
-import { SITE_NAME, SITE_URL, absolute } from "@/lib/site";
+import { SITE_NAME, SITE_URL, absolute, asset } from "@/lib/site";
 
 // Variable, so the optical-size axis is available: .u-display sets opsz by hand
 // rather than letting the browser scale one static cut to every size.
@@ -61,7 +62,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${bodoni.variable} ${jost.variable}`}>
-      <body>
+      <body style={{ "--plate": `url("${asset("/world/orbit-plate.webp")}")` } as CSSProperties}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
