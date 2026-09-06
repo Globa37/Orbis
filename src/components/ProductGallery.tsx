@@ -44,7 +44,16 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
         ))}
       </div>
 
-      <figure id="gallery-frame" className="group relative min-w-0 flex-1 overflow-hidden rounded-sm bg-surface">
+      {/*
+        The frame hugs its own photograph instead of stretching to the height of
+        the thumbnail rail beside it. Shared framings are landscape where the
+        cropped ones are portrait, and a stretched frame would leave a band of
+        empty surface under them with the caption stranded at its foot.
+      */}
+      <figure
+        id="gallery-frame"
+        className="group relative min-w-0 flex-1 overflow-hidden rounded-sm bg-surface lg:self-start"
+      >
         <Image
           key={current.src}
           src={current.src}
