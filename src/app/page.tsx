@@ -8,19 +8,30 @@ import { asset } from "@/lib/site";
  *
  * Every real page lives under a language segment, so "/" only has to hand over
  * to one. A static export has no server to redirect with, so this does it the
- * two ways a file can: a meta refresh the browser acts on, and a pair of plain
- * links for anyone the refresh does not reach — a crawler, a reader with
- * scripting off, someone who wants the other language.
+ * two ways a file can, and neither is the metadata API: Next writes anything
+ * in `other` as <meta name>, and a refresh only works as <meta http-equiv>,
+ * which is a distinction a browser takes literally.
+ *
+ * So the handover is a script, and under it sit two plain links — for a
+ * crawler, for a reader with scripting off, and for anyone who wants the other
+ * language rather than the default.
  */
+const TARGET = asset(`/${DEFAULT_LANG}/`);
+
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
   alternates: { canonical: `/${DEFAULT_LANG}` },
-  other: { refresh: `0; url=${asset(`/${DEFAULT_LANG}/`)}` },
 };
 
 export default function Doorstep() {
   return (
     <div className="grid min-h-[100svh] place-items-center px-6 text-center">
+      {/* replace, not assign: the doorstep should not sit in the back history. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `location.replace(${JSON.stringify(TARGET)})`,
+        }}
+      />
       <div>
         <p className="u-eyebrow">ORBIS</p>
         <ul className="mt-8 flex items-center justify-center gap-6">
