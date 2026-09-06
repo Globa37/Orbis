@@ -8,4 +8,19 @@ export interface SharedImage {
   blurDataURL: string;
 }
 
-export const SHARED_IMAGES: SharedImage[] = [];
+export const SHARED_IMAGES: SharedImage[] = [
+  {
+    "role": "hf_20260906_153232_8f9939e2-069d-4c37-b1d9-b519f46c8db5",
+    "label": "Hf 20260906 153232 8f9939e2 069d 4c37 b1d9 b519f46c8db5",
+    "width": 1400,
+    "height": 1055,
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoQAAwABABsJZwAAsf1AVnQtAAA/q3e/klPjOam7odOt5CNTuoPcVa6ONdYO6Oagc29ROfq2LkAAA=="
+  },
+  {
+    "role": "hf_20260906_153931_de1aab81-ef1c-4e78-ac1b-a14b83ea5683",
+    "label": "Hf 20260906 153931 de1aab81 ef1c 4e78 ac1b a14b83ea5683",
+    "width": 1400,
+    "height": 1055,
+    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAwABABsJZwAApZJyJkAAP7m929fqV5xXIMhEs8C2q1JcyfY4AAA"
+  }
+];
