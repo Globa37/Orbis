@@ -17,13 +17,19 @@ const PRICE = 8000; // €80.00
  * one watch, five dials.
  *
  * This list is deliberately closed. Nothing may be added here that is not on
- * the confirmed specification sheet: no finishing techniques, no materials
- * beyond those stated, no case-back or warranty detail.
+ * the confirmed specification sheet or engraved on the watch itself: no
+ * finishing techniques, no materials beyond those stated, no warranty detail.
+ *
+ * "Case back" is the one row not taken from the sheet. It is read straight off
+ * the caseback engraving — STAINLESS STEEL BACK — which is legible in the
+ * shared caseback photography. The case itself remains alloy; only the back is
+ * stated as steel, because only that is what the engraving claims.
  */
 const SHARED_SPECS = [
   { label: "Case diameter", value: "40 mm" },
   { label: "Case thickness", value: "12 mm" },
   { label: "Case material", value: "Alloy" },
+  { label: "Case back", value: "Stainless steel" },
   { label: "Crystal", value: "Glass" },
   { label: "Movement", value: "Quartz" },
   { label: "Water resistance", value: "3 BAR" },

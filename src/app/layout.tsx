@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     url: "/",
     title: "ORBIS — Luxury watches from another world",
     description: "MILLENIUM, the first ORBIS collection. Five dials. One orbit.",
-    images: [{ url: "/products/millenium/noir/lifestyle.webp", width: 1400, height: 1750, alt: "ORBIS MILLENIUM Noir" }],
+    images: [{ url: "/products/millenium/onyx/lifestyle.webp", width: 1400, height: 1750, alt: "ORBIS MILLENIUM Onyx" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ORBIS — Luxury watches from another world",
     description: "MILLENIUM, the first ORBIS collection. Five dials. One orbit.",
-    images: ["/products/millenium/noir/lifestyle.webp"],
+    images: ["/products/millenium/onyx/lifestyle.webp"],
   },
   robots: { index: true, follow: true },
 };

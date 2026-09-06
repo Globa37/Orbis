@@ -16,6 +16,7 @@ npm start
 
 ```
 assets/campaign/            the master photograph for each reference
+assets/caseback/            the caseback photography, shared by every reference
 assets/reference/           the original dial artwork, kept as the source of
                             truth for the ORBIS mark
 src/lib/orbis/orb.ts        the ORBIS mark, rebuilt from those originals: an
@@ -37,6 +38,20 @@ regenerates the whole web set, so framings are a decision in
 Output lands in `public/products/<collection>/<product>/<role>.webp`
 (~2.2 MB for the full 25-image set), together with inline low-quality previews
 in `src/lib/catalog/blur.generated.ts`.
+
+### The shared casebacks
+
+The back of the watch is the same part on every reference, so it is not shot
+per colourway. `SHARED_SHOTS` in `src/lib/catalog/shots.ts` lists the framings
+that are their own photograph rather than a crop of a master, each read from
+`assets/caseback/<source>.png` and derived once into
+`public/products/<collection>/_shared/<role>.webp`. Every product in the
+collection is served that one file.
+
+A shared shot whose source file is absent is reported by `npm run assets` and
+skipped, and the catalog only appends a shared frame once its blur entry
+exists — so a role may be declared before its photograph arrives without
+leaving a broken frame in the gallery.
 
 ### The ORBIS mark
 
@@ -60,6 +75,9 @@ Nothing in the renderer or the pipeline is specific to MILLENIUM.
    (or .webp/.jpg) and the collection's environment plate in `public/world/`.
 3. Add it to `COLLECTIONS` in `src/lib/catalog/millenium.ts`.
 4. `npm run assets`.
+
+The casebacks in `assets/caseback/` are shared across collections, so a new
+collection picks them up without any extra photography.
 
 Renaming a reference? Add the old slug to the `redirects()` map in
 `next.config.ts` so existing links keep working.

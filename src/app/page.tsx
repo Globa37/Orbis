@@ -191,7 +191,9 @@ export default function HomePage() {
               One light source, held at a fixed angle. A slab of cold stone. Every
               other surface surrendered to shadow. Each MILLENIUM reference was set
               down in the same place, lit the same way and photographed from the same
-              distance — one session, one grade, five dials.
+              distance — one session, one grade, five dials. The back of the watch
+              was shot once and once only: it is the same steel on all five, so it
+              is shown as the same photograph.
             </p>
             <Link
               href={`/collections/${MILLENIUM.slug}`}
