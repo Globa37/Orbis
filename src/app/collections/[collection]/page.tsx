@@ -79,7 +79,7 @@ export default async function CollectionPage({
           <div className="absolute inset-0 bg-gradient-to-b from-void/85 via-void/30 to-void" />
         </div>
 
-        <div className="mx-auto w-full max-w-[110rem] px-5 pb-16 pt-36 sm:px-8 lg:px-12 lg:pb-24">
+        <div className="u-gutter w-full pb-16 pt-36 lg:pb-24">
           <Reveal>
             <p className="u-eyebrow">Collection {collection.index} · {collection.products.length} references</p>
           </Reveal>
@@ -118,7 +118,7 @@ export default async function CollectionPage({
 
       {/* ============================================================= grid */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="u-gutter u-band-tight">
           <div className="grid grid-cols-1 gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {collection.products.map((product, i) => (
               <Reveal key={product.slug} delay={(i % 3) * 90}>
@@ -133,10 +133,19 @@ export default async function CollectionPage({
 
             {/* A quiet placeholder so the grid stays balanced and the roadmap reads. */}
             <Reveal delay={180} className="hidden lg:block">
-              <div className="flex aspect-4/5 flex-col items-start justify-end rounded-sm border border-dashed border-line p-8">
-                <p className="u-eyebrow">Collection 02</p>
-                <p className="mt-3 font-display text-3xl text-muted">In orbit</p>
-                <p className="mt-3 max-w-[16rem] text-sm text-faint">
+              <div className="relative flex aspect-4/5 flex-col items-start justify-end overflow-hidden rounded-sm border border-line/60 p-8">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 400 400"
+                  className="pointer-events-none absolute left-1/2 top-[38%] h-72 w-72 -translate-x-1/2 -translate-y-1/2 text-line"
+                >
+                  <ellipse cx="200" cy="200" rx="150" ry="150" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 7" />
+                  <ellipse cx="200" cy="200" rx="150" ry="56" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 7" />
+                  <ellipse cx="200" cy="200" rx="56" ry="150" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 7" />
+                </svg>
+                <p className="u-eyebrow relative">Collection 02</p>
+                <p className="relative mt-3 font-display text-3xl text-muted">In orbit</p>
+                <p className="relative mt-3 max-w-[16rem] text-sm text-faint">
                   A new case, a new world, the same orb.
                 </p>
               </div>
@@ -147,7 +156,7 @@ export default async function CollectionPage({
 
       {/* ======================================================== campaign */}
       <section className="border-t border-line bg-ink">
-        <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="u-gutter u-band-tight">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
             <Reveal>
               <Image

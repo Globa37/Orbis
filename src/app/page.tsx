@@ -37,7 +37,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(115%_78%_at_50%_40%,transparent_14%,rgba(5,7,10,0.92)_100%)]" />
         </div>
 
-        <div className="mx-auto flex w-full max-w-[110rem] flex-1 flex-col justify-end px-5 pb-12 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-32">
+        <div className="u-gutter flex w-full flex-1 flex-col justify-end pb-12 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-32">
           <div className="flex flex-col items-stretch gap-6 lg:grid lg:items-end lg:gap-16 lg:[grid-template-columns:1.1fr_0.9fr]">
             <div className="order-2 lg:order-none">
               <Reveal>
@@ -92,7 +92,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div aria-hidden="true" className="mx-auto w-full max-w-[110rem] px-5 pb-8 sm:px-8 lg:px-12">
+        <div aria-hidden="true" className="u-gutter w-full pb-8">
           <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.28em] text-faint">
             <span className="h-px w-10 bg-line" />
             Scroll
@@ -102,7 +102,7 @@ export default function HomePage() {
 
       {/* ======================================================= manifesto */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-[110rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+        <div className="u-gutter u-band">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
             <Reveal>
               <OrbisMark size={44} className="text-steel" />
@@ -124,13 +124,27 @@ export default function HomePage() {
 
       {/* ========================================================= pillars */}
       <section className="border-t border-line bg-ink">
-        <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="u-gutter u-band-tight">
           <div className="grid gap-px overflow-hidden rounded-sm bg-line md:grid-cols-3">
             {PILLARS.map((p, i) => (
-              <Reveal key={p.n} delay={i * 110} className="bg-ink p-8 lg:p-12">
-                <span className="text-[0.65rem] tabular-nums tracking-[0.28em] text-faint">{p.n}</span>
-                <h2 className="mt-6 font-display text-2xl leading-tight lg:text-3xl">{p.title}</h2>
-                <p className="mt-4 text-sm leading-relaxed text-muted">{p.body}</p>
+              <Reveal
+                key={p.n}
+                delay={i * 110}
+                className="group relative overflow-hidden bg-ink p-8 lg:p-12"
+              >
+                {/* A single orbital arc, drawn once per pillar and lit on hover. */}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 400 400"
+                  className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 text-line transition-[color,transform] duration-[1400ms] [transition-timing-function:var(--ease-orbis)] group-hover:rotate-12 group-hover:text-steel/25"
+                >
+                  <ellipse cx="200" cy="200" rx="190" ry="190" fill="none" stroke="currentColor" strokeWidth="1" />
+                  <ellipse cx="200" cy="200" rx="190" ry="72" fill="none" stroke="currentColor" strokeWidth="1" />
+                  <ellipse cx="200" cy="200" rx="72" ry="190" fill="none" stroke="currentColor" strokeWidth="1" />
+                </svg>
+                <span className="u-num relative text-[0.65rem] tracking-[0.28em] text-faint">{p.n}</span>
+                <h2 className="relative mt-6 font-display text-2xl leading-tight lg:text-3xl">{p.title}</h2>
+                <p className="relative mt-4 max-w-sm text-sm leading-relaxed text-muted">{p.body}</p>
               </Reveal>
             ))}
           </div>
@@ -139,7 +153,7 @@ export default function HomePage() {
 
       {/* ====================================================== collection */}
       <section className="border-t border-line" id="collection">
-        <div className="mx-auto max-w-[110rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+        <div className="u-gutter u-band">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="u-eyebrow">Collection {MILLENIUM.index}</p>
@@ -153,7 +167,7 @@ export default function HomePage() {
             </Link>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-5">
+          <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 2xl:gap-x-7">
             {MILLENIUM.products.map((product, i) => (
               <Reveal key={product.slug} delay={i * 80}>
                 <ProductCard collection={MILLENIUM} product={product} index={i} />
@@ -169,7 +183,7 @@ export default function HomePage() {
           <div className="u-plate u-drift absolute inset-0 opacity-70" style={{ backgroundPosition: "center 30%" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-void via-void/45 to-void" />
         </div>
-        <div className="mx-auto max-w-[110rem] px-5 py-32 sm:px-8 lg:px-12 lg:py-44">
+        <div className="u-gutter u-band">
           <Reveal className="max-w-2xl">
             <p className="u-eyebrow">The world of Millenium</p>
             <h2 className="u-display mt-5 text-[clamp(2.5rem,7vw,5rem)]">{MILLENIUM.world.name}</h2>

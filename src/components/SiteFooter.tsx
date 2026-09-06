@@ -12,7 +12,7 @@ const CARE = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-ink">
-      <div className="mx-auto max-w-[110rem] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+      <div className="u-gutter py-16 lg:py-24">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
             <OrbisMark size={34} className="text-steel" />

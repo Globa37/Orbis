@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-const B = "http://127.0.0.1:3231";
+const B = "http://127.0.0.1:3243";
 const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome", args: ["--no-sandbox"] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const log = (...a) => console.log(...a);
@@ -12,7 +12,7 @@ log("lines:", await page.locator('[role="dialog"] li').count());
 
 await page.getByRole("button", { name: /increase quantity/i }).click();
 await page.waitForTimeout(300);
-log("header count after +1:", (await page.locator("body > header").innerText()).match(/\d+/)?.[0]);
+log("header count after +1:", (await page.getByRole("button", { name: /open bag/i }).innerText()).trim());
 
 // Colourway switcher navigates between references.
 await page.keyboard.press("Escape");

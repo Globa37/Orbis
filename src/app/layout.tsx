@@ -8,12 +8,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { PageTransition } from "@/components/PageTransition";
 import { SITE_NAME, SITE_URL, absolute } from "@/lib/site";
 
+// Variable, so the optical-size axis is available: .u-display sets opsz by hand
+// rather than letting the browser scale one static cut to every size.
 const bodoni = Bodoni_Moda({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-bodoni",
-  // Only 400 is used: .u-display sets the weight and nothing overrides it.
-  weight: ["400"],
+  axes: ["opsz"],
 });
 
 const jost = Jost({

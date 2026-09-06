@@ -41,7 +41,7 @@ export default function MaisonPage() {
           <div className="u-plate u-drift absolute inset-0 opacity-60" style={{ backgroundPosition: "center 24%" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-void via-void/55 to-void" />
         </div>
-        <div className="mx-auto max-w-[110rem] px-5 pb-20 pt-40 sm:px-8 lg:px-12 lg:pb-28 lg:pt-48">
+        <div className="u-gutter pb-20 pt-40 lg:pb-28 lg:pt-48">
           <Reveal>
             <OrbisMark size={42} className="text-steel" />
             <p className="u-eyebrow mt-8">The maison</p>
@@ -57,7 +57,7 @@ export default function MaisonPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+      <section className="u-gutter py-20 lg:py-28">
         <div className="grid gap-px overflow-hidden rounded-sm bg-line md:grid-cols-2">
           {SECTIONS.map((s, i) => (
             <Reveal key={s.id} delay={i * 90} className="bg-void p-8 lg:p-12">

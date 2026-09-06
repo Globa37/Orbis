@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
+import { MobileBuyBar } from "@/components/MobileBuyBar";
 import { ColorwaySwitcher } from "@/components/ColorwaySwitcher";
 import { ReferenceNav } from "@/components/ReferenceNav";
 import { ProductCard } from "@/components/ProductCard";
@@ -103,7 +104,7 @@ export default async function ProductPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="mx-auto max-w-[110rem] px-5 pt-28 sm:px-8 lg:px-12 lg:pt-32">
+      <div className="u-gutter pt-28 lg:pt-32">
         <nav aria-label="Breadcrumb" className="text-[0.7rem] uppercase tracking-[0.24em] text-faint">
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link href="/" className="u-focus transition-colors hover:text-text">ORBIS</Link></li>
@@ -120,7 +121,7 @@ export default async function ProductPage({
       </div>
 
       {/* ========================================================= showroom */}
-      <section className="mx-auto max-w-[110rem] px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
+      <section className="u-gutter py-10 lg:py-14">
         <div className="grid min-w-0 gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 xl:gap-24">
           <ProductGallery images={product.images} name={product.name} />
 
@@ -140,7 +141,7 @@ export default async function ProductPage({
 
             <ColorwaySwitcher collection={collection} current={product} />
 
-            <div className="mt-9">
+            <div className="mt-9" data-buy-anchor>
               <AddToCart
                 collection={collection}
                 product={product}
@@ -172,11 +173,13 @@ export default async function ProductPage({
       </section>
 
       {/* ========================================================== related */}
+      <MobileBuyBar collection={collection} product={product} image={product.images[0].src} />
+
       <ReferenceNav collection={collection} current={product} />
 
       {related.length > 0 && (
         <section className="border-t border-line">
-          <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+          <div className="u-gutter py-20 lg:py-28">
             <Reveal className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="u-display text-[clamp(1.75rem,4vw,3rem)]">
                 The rest of {collection.name}
@@ -189,7 +192,7 @@ export default async function ProductPage({
               </Link>
             </Reveal>
 
-            <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-14 pb-28 sm:grid-cols-2 lg:grid-cols-4 lg:pb-0">
               {related.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 80}>
                   <ProductCard

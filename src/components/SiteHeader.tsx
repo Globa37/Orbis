@@ -6,11 +6,8 @@ import { useEffect, useState } from "react";
 import { OrbisLogo } from "./OrbisMark";
 import { useCart } from "./cart/cart-store";
 import { COLLECTIONS } from "@/lib/catalog/millenium";
-
-const NAV = [
-  ...COLLECTIONS.map((c) => ({ href: `/collections/${c.slug}`, label: c.name })),
-  { href: "/maison", label: "Maison" },
-];
+import { CollectionMenu } from "./CollectionMenu";
+import { DialSwatch } from "./DialSwatch";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,24 +52,28 @@ export function SiteHeader() {
           : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex h-[4.5rem] max-w-[110rem] items-center justify-between px-5 sm:px-8 lg:px-12">
+      <div className="u-gutter flex h-[4.5rem] items-center justify-between">
         <Link href="/" className="u-focus shrink-0 transition-opacity hover:opacity-70" aria-label="ORBIS home">
           <OrbisLogo size={24} />
         </Link>
 
-        <nav aria-label="Collections" className="hidden items-center gap-10 md:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={pathname.startsWith(item.href) ? "page" : undefined}
-              className={`u-focus u-link text-[0.7rem] uppercase tracking-[0.28em] transition-colors duration-300 ${
-                pathname.startsWith(item.href) ? "text-text" : "text-muted hover:text-text"
-              }`}
-            >
-              {item.label}
-            </Link>
+        <nav aria-label="Main" className="hidden items-center gap-10 md:flex">
+          {COLLECTIONS.map((c) => (
+            <CollectionMenu
+              key={c.slug}
+              collection={c}
+              active={pathname.startsWith(`/collections/${c.slug}`)}
+            />
           ))}
+          <Link
+            href="/maison"
+            aria-current={pathname.startsWith("/maison") ? "page" : undefined}
+            className={`u-focus u-link text-[0.7rem] uppercase tracking-[0.28em] transition-colors duration-300 ${
+              pathname.startsWith("/maison") ? "text-text" : "text-muted hover:text-text"
+            }`}
+          >
+            Maison
+          </Link>
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-3">
@@ -118,16 +119,36 @@ export function SiteHeader() {
         }`}
       >
         <nav aria-label="Mobile" className="px-5 py-6">
-          {NAV.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="u-focus block border-b border-line/60 py-5 font-display text-4xl transition-colors last:border-0 hover:text-steel"
-              style={{ transitionDelay: menu ? `${i * 40}ms` : "0ms" }}
-            >
-              {item.label}
-            </Link>
+          {COLLECTIONS.map((c) => (
+            <div key={c.slug} className="border-b border-line/60 pb-6">
+              <Link
+                href={`/collections/${c.slug}`}
+                className="u-focus block py-4 font-display text-4xl transition-colors hover:text-steel"
+              >
+                {c.name}
+              </Link>
+              {/* The dials themselves, so the collection is browsable from the menu. */}
+              <ul className="-mx-1 flex gap-1 overflow-x-auto pb-1 [scrollbar-width:none]">
+                {c.products.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/collections/${c.slug}/${p.slug}`}
+                      className="u-focus flex w-[4.6rem] shrink-0 flex-col items-center gap-2 rounded-sm px-1 py-2"
+                    >
+                      <DialSwatch colorway={p.colorway} id={`m-${p.slug}`} size={40} />
+                      <span className="text-[0.7rem] text-muted">{p.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
+          <Link
+            href="/maison"
+            className="u-focus block py-5 font-display text-4xl transition-colors hover:text-steel"
+          >
+            Maison
+          </Link>
         </nav>
       </div>
     </header>

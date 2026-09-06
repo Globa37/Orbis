@@ -1,7 +1,7 @@
 /** Measures transfer weight and paint timings for the key routes. */
 import { chromium } from "playwright";
 
-const B = process.env.B || "http://127.0.0.1:3231";
+const B = process.env.B || "http://127.0.0.1:3243";
 const ROUTES = ["/", "/collections/millenium", "/collections/millenium/noir", "/cart"];
 const browser = await chromium.launch({
   executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",

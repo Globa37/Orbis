@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="mx-auto max-w-[110rem] px-5 pb-24 pt-32 sm:px-8 lg:px-12 lg:pt-40">
+    <div className="u-gutter pb-24 pt-32 lg:pt-40">
       <h1 className="u-display text-[clamp(2.5rem,8vw,5.5rem)]">Bag</h1>
       <CartView />
     </div>

@@ -66,7 +66,7 @@ export function ReferenceNav({
   return (
     <nav
       aria-label="Collection references"
-      className="mx-auto flex max-w-[110rem] flex-col items-stretch border-t border-line px-5 sm:flex-row sm:gap-6 sm:px-8 lg:px-12"
+      className="u-gutter flex flex-col items-stretch border-t border-line sm:flex-row sm:gap-6"
     >
       <Side collectionSlug={collection.slug} product={prev} dir="prev" />
       <span className="h-px w-full bg-line sm:h-auto sm:w-px" aria-hidden="true" />
