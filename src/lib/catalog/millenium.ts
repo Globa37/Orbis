@@ -105,7 +105,9 @@ const products: Product[] = [
       dial: "#E9EAEB",
       dialShade: "#B9BEC3",
       dialSheen: "#FAFBFB",
-      orb: "chrome",
+      // "spectrum" is the sentinel spectrumFill() keys off; a colour name here
+      // is not a paint the orb understands and renders as flat black.
+      orb: "spectrum",
       chapterRing: "#D2D7DC",
       chapterRingShade: "#959DA5",
       lightMarkers: false,
