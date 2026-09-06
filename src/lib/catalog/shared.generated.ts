@@ -24,6 +24,13 @@ export const SHARED_IMAGES: SharedImage[] = [
     "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAwABABsJZwAApZJyJkAAP7m929fqV5xXIMhEs8C2q1JcyfY4AAA"
   },
   {
+    "role": "hf_20260906_161220_056bd6aa-8622-4b83-b39f-166e21bb6afc",
+    "label": "Hf 20260906 161220 056bd6aa 8622 4b83 b39f 166e21bb6afc",
+    "width": 1400,
+    "height": 1050,
+    "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoQAAwABABsJZwAApzIOwBAAAD2tNtquZzV4qAHih0Hzsr9hCAHIxv8bpbUcAAA"
+  },
+  {
     "role": "higgsfield black",
     "label": "Higgsfield black",
     "width": 1400,
