@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 const CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
-const B = process.env.B || "http://127.0.0.1:3252";
+const B = process.env.B || "http://127.0.0.1:3254";
 const routes = ["/", "/collections/millenium", "/collections/millenium/chrome", "/maison", "/cart", "/nope"];
 const browser = await chromium.launch({ executablePath: CHROME, args: ["--no-sandbox"] });
 for (const r of routes) {

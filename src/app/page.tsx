@@ -19,7 +19,7 @@ const PILLARS = [
   {
     n: "03",
     title: "A world for each collection",
-    body: "MILLENIUM was photographed against The Long Horizon. The next collection will have a sky of its own.",
+    body: "MILLENIUM was shot under First Light: one hard source, a stone floor, everything else given up to shadow. The next collection will have a light of its own.",
   },
 ];
 
@@ -38,20 +38,20 @@ export default function HomePage() {
         </div>
 
         <div className="u-gutter flex w-full flex-1 flex-col justify-end pb-12 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-32">
-          <div className="flex flex-col items-stretch gap-6 lg:grid lg:items-end lg:gap-16 lg:[grid-template-columns:1.1fr_0.9fr]">
+          <div className="flex flex-col items-stretch gap-6 lg:grid lg:items-end lg:gap-16 lg:[grid-template-columns:1fr_44%]">
             <div className="order-2 lg:order-none">
               <Reveal>
                 <p className="u-eyebrow">Collection {MILLENIUM.index}</p>
               </Reveal>
               <Reveal delay={120}>
-                <h1 className="u-display mt-4 text-[clamp(3.25rem,14vw,13rem)] lg:mt-5">
+                <h1 className="u-display mt-4 text-[clamp(3.25rem,11.5vw,11.5rem)] lg:mt-5">
                   Millenium
                 </h1>
               </Reveal>
               <Reveal delay={240}>
                 <p className="mt-5 max-w-md text-base leading-relaxed text-muted lg:mt-7 lg:text-[1.0625rem]">
                   {MILLENIUM.tagline} A single cushion case, five readings of the
-                  same orb, photographed against {MILLENIUM.world.name}.
+                  same orb, shot under a single hard light.
                 </p>
               </Reveal>
               <Reveal delay={340}>
@@ -74,7 +74,7 @@ export default function HomePage() {
 
             <Reveal
               delay={120}
-              className="u-halo relative order-1 -mx-5 -mt-6 mb-0 sm:-mx-8 lg:order-none lg:mx-0 lg:mt-0"
+              className="relative order-1 -mx-5 -mt-6 mb-0 sm:-mx-8 lg:order-none lg:ml-0 lg:-mr-8 lg:mt-0 xl:-mr-12"
             >
               <Image
                 src={heroImage.src}
@@ -86,7 +86,7 @@ export default function HomePage() {
                 placeholder="blur"
                 blurDataURL={heroImage.blurDataURL}
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                className="u-feather relative h-[40svh] w-full object-cover object-center sm:h-[44svh] lg:h-auto lg:object-contain"
+                className="relative h-[40svh] w-full object-cover object-center sm:h-[44svh] lg:h-[74svh] lg:object-cover"
               />
             </Reveal>
           </div>
@@ -188,9 +188,10 @@ export default function HomePage() {
             <p className="u-eyebrow">The world of Millenium</p>
             <h2 className="u-display mt-5 text-[clamp(2.5rem,7vw,5rem)]">{MILLENIUM.world.name}</h2>
             <p className="mt-7 max-w-lg leading-relaxed text-muted">
-              A planet seen edge-on, almost entirely in shadow, with one cold arc of
-              light along its limb. Every MILLENIUM reference was photographed into
-              that same horizon — one session, one grade, five dials.
+              One light source, held at a fixed angle. A slab of cold stone. Every
+              other surface surrendered to shadow. Each MILLENIUM reference was set
+              down in the same place, lit the same way and photographed from the same
+              distance — one session, one grade, five dials.
             </p>
             <Link
               href={`/collections/${MILLENIUM.slug}`}

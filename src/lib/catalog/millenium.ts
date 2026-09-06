@@ -142,7 +142,7 @@ export const MILLENIUM: Collection = {
   intro:
     "MILLENIUM is the first ORBIS collection: a 40 mm alloy case on a stainless-steel bracelet, held constant, and five readings of the same orb. The case, the markers, the hands and the bracelet never change. Only the light falling on the dial does.",
   world: {
-    name: "The Long Horizon",
+    name: "First Light",
     plate: "/world/millenium-horizon.webp",
     tone: "#05070A",
   },
