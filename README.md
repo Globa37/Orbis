@@ -58,6 +58,41 @@ Pushing to `assets/` triggers `.github/workflows/assets.yml`, which runs
 `npm run assets` and commits the derived output. Uploading a photograph through
 the GitHub web interface is therefore enough on its own.
 
+## Deploying
+
+### Vercel
+
+The default build is the server build, so Vercel needs no configuration beyond
+the environment below — it detects Next.js, runs `npm run build`, and gets
+image optimisation and the renamed-reference redirects, both of which a static
+export gives up.
+
+| Variable | Required | What it does |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | once a domain is attached | The origin every canonical, Open Graph image and structured-data link is built from. Without it a deployment falls back to naming itself; the literal `https://orbis.watch` is only used when there is no environment at all. No trailing slash. |
+| `NEXT_PUBLIC_CHECKOUT_URL` | no | The payment provider's hosted checkout. Until it is set, the checkout button is visibly inert and the bag says so. |
+
+Leave `STATIC_EXPORT` and `BASE_PATH` unset. They exist for the static export
+described below and would turn off the two things Vercel is being used for.
+
+The production branch is whichever branch Vercel is pointed at — set it under
+Settings → Git, or merge into the repository's default branch first.
+
+### A static export
+
+`npm run export` writes the whole site to `out/` as plain files, for a host
+with no Node runtime. Two things do not survive that: the image optimiser
+(the campaign is already pre-rendered to WebP, so this costs little) and the
+redirects, which need a server. `BASE_PATH` prefixes every asset and link for
+a host that serves the site from a subdirectory — GitHub Pages puts a project
+site under `/<repo>`.
+
+Pushing to `assets/` also triggers `.github/workflows/assets.yml`, which
+re-derives the image set and commits it, and `.github/workflows/pages.yml`
+builds and deploys the export to GitHub Pages. Neither interferes with a
+Vercel deployment; delete the Pages workflow if you would rather have one
+place the site lives.
+
 ### The ORBIS mark
 
 `src/lib/orbis/orb.ts` builds the mark from sphere geometry, with band positions
