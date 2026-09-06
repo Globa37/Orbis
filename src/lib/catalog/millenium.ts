@@ -1,5 +1,5 @@
 import type { Collection, Product, ProductImage } from "./types";
-import { GALLERY_ORDER, imagePath, shot } from "./shots";
+import { GALLERY_ORDER, imagePath, shot, shotHeight } from "./shots";
 import { BLUR } from "./blur.generated";
 
 const PRICE = 8000; // €80.00
@@ -48,8 +48,8 @@ function product(
 
 const products: Product[] = [
   product(
-    "noir",
-    "Noir",
+    "onyx",
+    "Onyx",
     "Black dial · Silver orb",
     "MLN-01",
     { base: "#8E9196", glow: "rgba(160,170,180,0.55)" },
@@ -65,12 +65,12 @@ const products: Product[] = [
     }
   ),
   product(
-    "celeste",
-    "Celeste",
-    "Glacier dial · Black orb",
+    "lagoon",
+    "Lagoon",
+    "Lagoon dial · Black orb",
     "MLN-02",
     { base: "#A5DCE3", glow: "rgba(165,220,227,0.5)" },
-    "Glacier blue, laid flat and left alone. The black orb sits hard against it, and the contrast does all the work — the coldest, clearest reading of the MILLENIUM dial.",
+    "Lagoon blue, laid flat and left alone. The black orb sits hard against it, and the contrast does all the work — the coldest, clearest reading of the MILLENIUM dial.",
     {
       dial: "#A9DDE4",
       dialShade: "#7FBFC9",
@@ -82,8 +82,8 @@ const products: Product[] = [
     }
   ),
   product(
-    "spectrum",
-    "Spectrum",
+    "chrome",
+    "Chrome",
     "Silver dial · Spectrum orb",
     "MLN-03",
     { base: "#D9A441", glow: "rgba(217,164,65,0.45)" },
@@ -92,19 +92,19 @@ const products: Product[] = [
       dial: "#E9EAEB",
       dialShade: "#B9BEC3",
       dialSheen: "#FAFBFB",
-      orb: "spectrum",
+      orb: "chrome",
       chapterRing: "#D2D7DC",
       chapterRingShade: "#959DA5",
       lightMarkers: false,
     }
   ),
   product(
-    "aurora",
-    "Aurora",
-    "Rosé dial · Black orb",
+    "blush",
+    "Blush",
+    "Blush dial · Black orb",
     "MLN-04",
     { base: "#EDA9C0", glow: "rgba(237,169,192,0.45)" },
-    "A rosé dial with the warmth taken out of it — closer to the colour of dust at altitude than to anything decorative. Against the black orb it reads graphic rather than soft.",
+    "A blush dial with the warmth taken out of it — closer to the colour of dust at altitude than to anything decorative. Against the black orb it reads graphic rather than soft.",
     {
       dial: "#EDA9C0",
       dialShade: "#C4809A",
@@ -158,7 +158,7 @@ function withImages(collection: Collection): Collection {
         role,
         src: imagePath(collection.slug, product.slug, role),
         width: s.w,
-        height: s.h,
+        height: shotHeight(s),
         alt: `ORBIS ${collection.name} ${product.name} — ${s.label.toLowerCase()} view. ${product.subtitle}.`,
         blurDataURL: BLUR[`${collection.slug}/${product.slug}/${role}`] ?? "",
       };
@@ -174,7 +174,7 @@ export function cardImage(collectionSlug: string, productSlug: string) {
   return {
     src: imagePath(collectionSlug, productSlug, "card"),
     width: s.w,
-    height: s.h,
+    height: shotHeight(s),
     blurDataURL: BLUR[`${collectionSlug}/${productSlug}/card`] ?? "",
   };
 }

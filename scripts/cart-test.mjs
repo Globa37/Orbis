@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-const B = "http://127.0.0.1:3243";
+const B = "http://127.0.0.1:3252";
 const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome", args: ["--no-sandbox"] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const log = (...a) => console.log(...a);
@@ -17,11 +17,11 @@ log("header count after +1:", (await page.getByRole("button", { name: /open bag/
 // Colourway switcher navigates between references.
 await page.keyboard.press("Escape");
 await page.waitForTimeout(500);
-await page.goto(`${B}/collections/millenium/noir`, { waitUntil: "networkidle" });
-await page.locator('a[title*="Celeste"]').click();
-await page.waitForURL("**/celeste", { timeout: 8000 });
-log("switcher navigates:", page.url().endsWith("/celeste"));
-log("selected swatch marked:", await page.locator('a[aria-current="page"][title*="Celeste"]').count() === 1);
+await page.goto(`${B}/collections/millenium/onyx`, { waitUntil: "networkidle" });
+await page.locator('a[title*="Lagoon"]').click();
+await page.waitForURL("**/lagoon", { timeout: 8000 });
+log("switcher navigates:", page.url().endsWith("/lagoon"));
+log("selected swatch marked:", await page.locator('a[aria-current="page"][title*="Lagoon"]').count() === 1);
 
 // Prev/next reference navigation.
 await page.locator('a[rel="next"]').click();

@@ -11,11 +11,21 @@
 
 const RAD = Math.PI / 180;
 
+/** One meridian band of the mark. */
+export interface MeridianBand {
+  /** Centre longitude, in degrees. */
+  lon: number;
+  /** Angular half-width, in degrees. */
+  halfWidth: number;
+  /**
+   * The two inner bands read as solid strokes on the original; only the
+   * limb bands are broken into cells.
+   */
+  solid: boolean;
+}
+
 export interface OrbGeometry {
-  /** Centre longitudes of the meridian bands, in degrees. */
-  meridians: number[];
-  /** Angular half-width of each meridian band, in degrees. */
-  meridianHalfWidth: number;
+  meridians: MeridianBand[];
   /** Bands stop short of the poles, leaving the orb open at top and bottom. */
   latClip: number;
   /** Latitude height of one cell. */
@@ -28,9 +38,17 @@ export interface OrbGeometry {
   lonClip: number;
 }
 
+/*
+ * Measured off the original dials rather than estimated: the limb bands span
+ * roughly 38deg-78deg of longitude, the inner strokes roughly 12deg-34deg.
+ */
 export const ORB_GEOMETRY: OrbGeometry = {
-  meridians: [-70, -25, 25, 70],
-  meridianHalfWidth: 10.5,
+  meridians: [
+    { lon: -58, halfWidth: 20, solid: false },
+    { lon: -23, halfWidth: 10.5, solid: true },
+    { lon: 23, halfWidth: 10.5, solid: true },
+    { lon: 58, halfWidth: 20, solid: false },
+  ],
   latClip: 77,
   cellStep: 11.6,
   cellGap: 2.5,
@@ -90,15 +108,23 @@ export function buildOrb(cx: number, cy: number, r: number, g: OrbGeometry = ORB
   const p = makeProjector(cx, cy, r);
   const cells: OrbCell[] = [];
 
-  for (const lon0 of g.meridians) {
-    const west = lon0 - g.meridianHalfWidth;
-    const east = lon0 + g.meridianHalfWidth;
+  for (const band of g.meridians) {
+    const west = band.lon - band.halfWidth;
+    const east = band.lon + band.halfWidth;
+
+    /*
+     * The inner strokes read as solid on the original, but the spectrum dial
+     * still grades them by latitude — so they are subdivided exactly like the
+     * limb bands, only with no gap between segments. Visually continuous,
+     * still colourable per band of latitude.
+     */
+    const gap = band.solid ? 0 : g.cellGap;
 
     for (let lat = -g.latClip; lat < g.latClip - 1; lat += g.cellStep) {
       const latA = lat;
-      const latB = Math.min(lat + g.cellStep - g.cellGap, g.latClip);
+      const latB = Math.min(lat + g.cellStep - gap, g.latClip);
       // The equatorial band is drawn solid, so skip cells it would swallow.
-      if (latB < -g.equatorHalfWidth || latA > g.equatorHalfWidth) {
+      if (band.solid || latB < -g.equatorHalfWidth || latA > g.equatorHalfWidth) {
         cells.push({
           d: toPath([
             meridianEdge(p, west, latA, latB),

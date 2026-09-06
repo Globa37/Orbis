@@ -1,13 +1,13 @@
 import { chromium } from "playwright";
 const CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
-const B = "http://127.0.0.1:3243";
+const B = "http://127.0.0.1:3252";
 const shots = [
   ["home-hero", "/", 1600, 950, 0],
   ["home-mid", "/", 1600, 950, 2400],
   ["home-grid", "/", 1600, 950, 4200],
   ["collection", "/collections/millenium", 1600, 950, 0],
   ["collection-grid", "/collections/millenium", 1600, 950, 1000],
-  ["product", "/collections/millenium/spectrum", 1600, 950, 120],
+  ["product", "/collections/millenium/chrome", 1600, 950, 120],
   ["mobile-home", "/", 414, 896, 0],
   ["mobile-product", "/collections/millenium/solaris", 414, 896, 120],
 ];

@@ -14,38 +14,40 @@ npm start
 
 ## How this is put together
 
-The unusual part of this project is that **the product photography is generated,
-not photographed** — and it is generated from geometry, not from a diffusion
-model, so it can never drift away from the real watch.
-
 ```
-src/lib/orbis/orb.ts        the ORBIS mark: an orthographic sphere, drawn as
-                            meridian bands subdivided by parallels
-src/lib/orbis/watch-svg.ts  the MILLENIUM watch: case, bezel, chapter ring,
-                            markers, hands, crowns and bracelet, all derived
-                            from a handful of superellipse parameters
-src/lib/catalog/shots.ts    the campaign framings (hero, angle, detail,
-                            lifestyle, card) — one source of truth
-scripts/build-assets.mts    photographs every product into every framing
+assets/campaign/            the master photograph for each reference
+assets/reference/           the original dial artwork, kept as the source of
+                            truth for the ORBIS mark
+src/lib/orbis/orb.ts        the ORBIS mark, rebuilt from those originals: an
+                            orthographic sphere with two solid inner meridian
+                            strokes, two cell-divided limb bands and an
+                            equatorial band
+src/lib/catalog/shots.ts    the framings derived from each master photograph
+scripts/build-assets.mts    crops and optimises the web image set
 ```
-
-The renderer takes a `Colorway` and returns SVG. A colourway only changes dial
-colour, orb colour and chapter-ring tone — **the case, markers, hands, crowns
-and bracelet are shared by every reference and cannot be altered per product.**
-That is deliberate: it is what makes the collection read as one watch in five
-dials, and it makes a whole campaign reproducible from `npm run assets`.
 
 ### The campaign
 
-`scripts/build-assets.mts` composites each vector watch into the ORBIS
-environment plate (`public/world/orbit-plate.webp`) using one lighting and
-grading recipe: a single key at 35° from upper left, the same falloff, the same
-edge dissolve into `#05070a`. Only the framing changes between shots. Because
-every reference passes through the identical pipeline, the collection is
-guaranteed to look like one session.
+There is **one master photograph per reference** in `assets/campaign/`. Every
+framing on the site — campaign, case, dial, setting, card — is a genuine crop of
+that frame, never a second pose invented to fill a gallery. `npm run assets`
+regenerates the whole web set, so framings are a decision in
+`src/lib/catalog/shots.ts` rather than a folder of hand-cut files.
 
 Output lands in `public/products/<collection>/<product>/<role>.webp`
-(~900 KB for the entire 25-image campaign).
+(~2.2 MB for the full 25-image set), together with inline low-quality previews
+in `src/lib/catalog/blur.generated.ts`.
+
+### The ORBIS mark
+
+`src/lib/orbis/orb.ts` builds the mark from sphere geometry, with band positions
+measured off the original dial artwork rather than estimated. The same function
+draws the logo in the header, the dial miniatures in the navigation and the
+colourway switcher — so they can never drift apart.
+
+`src/lib/orbis/watch-svg.ts` still renders the full watch as vector art; it is
+no longer used for the campaign, but it remains the source for the dial
+miniatures.
 
 ## Adding a collection
 
@@ -54,9 +56,13 @@ Nothing in the renderer or the pipeline is specific to MILLENIUM.
 1. Create `src/lib/catalog/<collection>.ts` exporting a `Collection`: its
    `index`, `tagline`, `intro`, its `world` (name, plate, tone), and its
    products with their `colorway` and `accent`.
-2. Drop the collection's environment plate in `public/world/`.
+2. Put one master photograph per reference in `assets/campaign/<slug>.png`
+   (or .webp/.jpg) and the collection's environment plate in `public/world/`.
 3. Add it to `COLLECTIONS` in `src/lib/catalog/millenium.ts`.
 4. `npm run assets`.
+
+Renaming a reference? Add the old slug to the `redirects()` map in
+`next.config.ts` so existing links keep working.
 
 Routes (`/collections/[collection]`, `/collections/[collection]/[product]`),
 navigation, the footer, the cart and the sitemap all pick it up automatically.
