@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
+import { CollectionHero } from "@/components/CollectionHero";
 import { OrbisMark } from "@/components/OrbisMark";
 import { ProductCard } from "@/components/ProductCard";
-import { MILLENIUM, TSUKI, frameImage } from "@/lib/catalog";
+import { MILLENIUM, TSUKI } from "@/lib/catalog";
 import { LANGS, isLang, path as langPath, translator, type Lang } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
@@ -57,8 +57,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!isLang(lang)) notFound();
   const t = translator(lang);
-  const hero = MILLENIUM.products[0];
-  const heroImage = frameImage(MILLENIUM.slug, hero.slug, "lifestyle");
 
   return (
     <>
@@ -70,8 +68,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div className="absolute inset-0 bg-[radial-gradient(115%_78%_at_50%_40%,transparent_14%,rgba(5,7,10,0.92)_100%)]" />
         </div>
 
-        <div className="u-gutter flex w-full flex-1 flex-col justify-end pb-12 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-32">
-          <div className="flex flex-col items-stretch gap-6 lg:grid lg:items-end lg:gap-16 lg:[grid-template-columns:1fr_44%]">
+        <div className="u-gutter flex w-full flex-1 flex-col justify-end pb-12 pt-20 sm:px-8 lg:px-12 lg:pb-16 lg:pt-28">
+          <div className="flex flex-col items-stretch gap-10 lg:grid lg:items-center lg:gap-16 lg:[grid-template-columns:0.92fr_1.08fr]">
             <div className="order-2 lg:order-none">
               <Reveal>
                 <p className="u-eyebrow">
@@ -79,7 +77,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 </p>
               </Reveal>
               <Reveal delay={120}>
-                <h1 className="u-display mt-4 text-[clamp(3.25rem,11.5vw,11.5rem)] lg:mt-5">
+                <h1 className="u-display mt-4 text-[clamp(3rem,9vw,8.5rem)] lg:mt-5">
                   Millenium
                 </h1>
               </Reveal>
@@ -92,35 +90,26 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5 lg:mt-10">
                   <Link
                     href={langPath(lang, `/collections/${MILLENIUM.slug}`)}
-                    className="u-focus rounded-full bg-text px-8 py-4 text-center text-[0.7rem] font-medium uppercase tracking-[0.28em] text-void transition-colors duration-300 hover:bg-white"
-                  >
-                    {t("exploreCollection")}
-                  </Link>
-                  <Link
-                    href={langPath(lang, `/collections/${MILLENIUM.slug}/${hero.slug}`)}
                     className="u-focus u-link self-center px-2 py-2 text-[0.7rem] uppercase tracking-[0.28em] text-muted transition-colors duration-300 hover:text-text sm:py-4"
                   >
-                    {t("startWith")} {hero.name}
+                    {t("exploreCollection")}
                   </Link>
                 </div>
               </Reveal>
             </div>
 
-            <Reveal
-              delay={120}
-              className="relative order-1 -mx-5 -mt-6 mb-0 sm:-mx-8 lg:order-none lg:ml-0 lg:-mr-8 lg:mt-0 xl:-mr-12"
-            >
-              <Image
-                src={heroImage.src}
-                alt={heroImage.alt[lang]}
-                width={heroImage.width}
-                height={heroImage.height}
-                priority
-                fetchPriority="high"
-                placeholder="blur"
-                blurDataURL={heroImage.blurDataURL}
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="relative h-[40svh] w-full object-cover object-center sm:h-[44svh] lg:h-[74svh] lg:object-cover"
+            <Reveal delay={120} className="order-1 lg:order-none">
+              <CollectionHero
+
+                labels={{ pick: t("pickReference"), view: t("startWith") }}
+                refs={MILLENIUM.products.map((p) => ({
+                  slug: p.slug,
+                  name: p.name,
+                  subtitle: p.subtitle[lang],
+                  reference: p.reference,
+                  accent: p.accent.base,
+                  href: langPath(lang, `/collections/${MILLENIUM.slug}/${p.slug}`),
+                }))}
               />
             </Reveal>
           </div>

@@ -60,6 +60,7 @@ const DICT = {
   exploreCollection: { de: "Kollektion ansehen", en: "Explore the collection" },
   startWith: { de: "Beginne mit", en: "Start with" },
   scroll: { de: "Scrollen", en: "Scroll" },
+  pickReference: { de: "Referenz wählen", en: "Choose a reference" },
   theMaison: { de: "Das Haus", en: "The maison" },
   allFiveReferences: { de: "Alle fünf Referenzen", en: "All five references" },
   worldOf: { de: "Die Welt von", en: "The world of" },
