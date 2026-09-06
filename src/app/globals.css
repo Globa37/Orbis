@@ -14,7 +14,8 @@
   --color-steel: #c9d1d9;
   --color-text: #e9edf1;
   --color-muted: #8b97a5;
-  --color-faint: #5d6875;
+  /* Lightest text tone. Held at >= 4.5:1 on every surface (WCAG AA). */
+  --color-faint: #78838f;
 
   --ease-orbis: cubic-bezier(0.16, 1, 0.3, 1);
 }

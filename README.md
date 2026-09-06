@@ -86,10 +86,16 @@ subtitles and descriptions describe colour only, never material.
 ## Checks
 
 ```bash
-npm run audit   # landmarks, alt text, single h1, horizontal overflow 320px–4K
-npm run shots   # screenshots at desktop and mobile
+npm run audit      # contrast gate, then landmarks, alt text, single h1,
+                   # horizontal overflow 320px–4K
+npm run contrast   # WCAG AA gate on the text tokens alone
+npm run perf       # transfer weight and FCP/LCP per route
+npm run shots      # screenshots at desktop and mobile
 npm run lint
 ```
+
+`npm run contrast` fails the build if any text token drops below 4.5:1 against
+any surface it can sit on, so the palette cannot regress.
 
 `scripts/cart-test.mjs` drives the shopping flow end to end against a running
 build: add, quantity, colourway switching, prev/next navigation, the bag page,

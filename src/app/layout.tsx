@@ -12,14 +12,16 @@ const bodoni = Bodoni_Moda({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-bodoni",
-  weight: ["400", "500"],
+  // Only 400 is used: .u-display sets the weight and nothing overrides it.
+  weight: ["400"],
 });
 
 const jost = Jost({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-jost",
-  weight: ["300", "400", "500"],
+  // 400 for body, 500 for buttons and eyebrows. 300 is unused.
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
