@@ -10,59 +10,17 @@ export interface SharedImage {
 
 export const SHARED_IMAGES: SharedImage[] = [
   {
-    "role": "hf_20260906_153232_8f9939e2-069d-4c37-b1d9-b519f46c8db5",
-    "label": "Hf 20260906 153232 8f9939e2 069d 4c37 b1d9 b519f46c8db5",
+    "role": "caseback",
+    "label": "Caseback",
     "width": 1400,
     "height": 1055,
     "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoQAAwABABsJZwAAsf1AVnQtAAA/q3e/klPjOam7odOt5CNTuoPcVa6ONdYO6Oagc29ROfq2LkAAA=="
   },
   {
-    "role": "hf_20260906_153931_de1aab81-ef1c-4e78-ac1b-a14b83ea5683",
-    "label": "Hf 20260906 153931 de1aab81 ef1c 4e78 ac1b a14b83ea5683",
-    "width": 1400,
-    "height": 1055,
-    "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAwABABsJZwAApZJyJkAAP7m929fqV5xXIMhEs8C2q1JcyfY4AAA"
-  },
-  {
-    "role": "hf_20260906_161220_056bd6aa-8622-4b83-b39f-166e21bb6afc",
-    "label": "Hf 20260906 161220 056bd6aa 8622 4b83 b39f 166e21bb6afc",
+    "role": "caseback-angle",
+    "label": "Caseback angle",
     "width": 1400,
     "height": 1050,
     "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoQAAwABABsJZwAApzIOwBAAAD2tNtquZzV4qAHih0Hzsr9hCAHIxv8bpbUcAAA"
-  },
-  {
-    "role": "higgsfield black",
-    "label": "Higgsfield black",
-    "width": 1400,
-    "height": 1871,
-    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQBACdASoQABUAPxl2s1EspySisAgBkCMJZwC2yB6VvEQN7SW8lsveKAD+4dsou4iYc1OcJYrkbKD3R51286un9F5JzscZTsCCbW1WSzqLClBLO7k0wZ1v+eQZDPsAAAA="
-  },
-  {
-    "role": "higgsfield blue",
-    "label": "Higgsfield blue",
-    "width": 1400,
-    "height": 1871,
-    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABQBACdASoQABUAPxl2s1EspySisAgBkCMJZQCdB3gAfMTcj5QpiskoXEAAAP7goxLkTMzFtFcN0UPTgy8rGyxgzCz0YYsj6or4+sHP/2ITPxXdlwlMVHyaByAAAA=="
-  },
-  {
-    "role": "higgsfield chrome",
-    "label": "Higgsfield chrome",
-    "width": 1400,
-    "height": 1871,
-    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQBACdASoQABUAPxl2slCspySisAgBkCMJZwDCgB6UM6HlqQLUelHJAAD+1v7I8WexM8KUIqkVtRb+wMmNVyz6Ko08rd9pUbYf4sZy3WRLuDzvXrDUqqAA"
-  },
-  {
-    "role": "higgsfield pink",
-    "label": "Higgsfield pink",
-    "width": 1400,
-    "height": 1871,
-    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoQABUAPxl2s1CspySisAgBkCMJZQAAYfOPU9CGtQsBJ8jAAP7JtXeb/AbOhvlUda3E5TlGZShXq9CpfSwlmvjPujbPdGZw/8Lor/ENTLWs86spgAA="
-  },
-  {
-    "role": "higgsfield rot",
-    "label": "Higgsfield rot",
-    "width": 1400,
-    "height": 1871,
-    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoQABUAPxl2s1CspySisAgBkCMJZwCw7B6UZPlzuFEVk7AA/tXqyPmdkNbetEhdojUL7J4q5kXAToBY7qHLle7cBB4oyDrXHVNbs23lb6hQdCAktKO0wAAA"
   }
 ];
