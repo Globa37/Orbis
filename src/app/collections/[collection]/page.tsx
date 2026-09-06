@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
 import { ProductCard } from "@/components/ProductCard";
-import { COLLECTIONS, getCollection } from "@/lib/catalog/millenium";
+import { COLLECTIONS, frameImage, getCollection } from "@/lib/catalog/millenium";
 import { formatPrice } from "@/lib/catalog/types";
 import { SITE_NAME, absolute } from "@/lib/site";
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { collection: slug } = await params;
   const collection = getCollection(slug);
   if (!collection) return {};
-  const hero = collection.products[0].images.find((i) => i.role === "lifestyle")!;
+  const hero = frameImage(collection.slug, collection.products[0].slug, "lifestyle");
   const path = `/collections/${collection.slug}`;
   return {
     title: collection.name.toUpperCase(),
@@ -45,7 +45,7 @@ export default async function CollectionPage({
   const collection = getCollection(slug);
   if (!collection) notFound();
 
-  const showcase = collection.products[0].images.find((i) => i.role === "lifestyle")!;
+  const showcase = frameImage(collection.slug, collection.products[0].slug, "lifestyle");
 
   const jsonLd = {
     "@context": "https://schema.org",

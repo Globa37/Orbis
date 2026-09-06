@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { OrbisMark } from "@/components/OrbisMark";
 import { ProductCard } from "@/components/ProductCard";
-import { MILLENIUM } from "@/lib/catalog/millenium";
+import { MILLENIUM, frameImage } from "@/lib/catalog/millenium";
 
 const PILLARS = [
   {
@@ -25,7 +25,7 @@ const PILLARS = [
 
 export default function HomePage() {
   const hero = MILLENIUM.products[0];
-  const heroImage = hero.images.find((i) => i.role === "lifestyle")!;
+  const heroImage = frameImage(MILLENIUM.slug, hero.slug, "lifestyle");
 
   return (
     <>

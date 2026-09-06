@@ -12,15 +12,15 @@ export const SHARED_IMAGES: SharedImage[] = [
   {
     "role": "caseback",
     "label": "Caseback",
-    "width": 1400,
-    "height": 1055,
+    "width": 1200,
+    "height": 1500,
     "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoQAAwABABsJZwAAsf1AVnQtAAA/q3e/klPjOam7odOt5CNTuoPcVa6ONdYO6Oagc29ROfq2LkAAA=="
   },
   {
     "role": "caseback-angle",
     "label": "Caseback angle",
-    "width": 1400,
-    "height": 1050,
+    "width": 1200,
+    "height": 1500,
     "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoQAAwABABsJZwAApzIOwBAAAD2tNtquZzV4qAHih0Hzsr9hCAHIxv8bpbUcAAA"
   }
 ];

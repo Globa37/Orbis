@@ -1,4 +1,4 @@
-import type { Collection, Product, ProductImage } from "./types";
+import type { Collection, CropRole, Product, ProductImage } from "./types";
 import {
   GALLERY_ORDER,
   SHARED_IMAGES,
@@ -204,6 +204,26 @@ export function cardImage(collectionSlug: string, productSlug: string) {
     width: s.w,
     height: shotHeight(s),
     blurDataURL: BLUR[`${collectionSlug}/${productSlug}/card`] ?? "",
+  };
+}
+
+/**
+ * One framing of a reference, for pages that want a single frame rather than
+ * the gallery. Kept separate from product.images so a framing can leave
+ * GALLERY_ORDER — as "lifestyle" has — without breaking a page that uses it.
+ */
+export function frameImage(collectionSlug: string, productSlug: string, role: CropRole) {
+  const found = getProduct(collectionSlug, productSlug);
+  if (!found) throw new Error(`unknown reference ${collectionSlug}/${productSlug}`);
+  const { collection, product } = found;
+  const s = shot(role);
+  return {
+    role,
+    src: imagePath(collectionSlug, productSlug, role),
+    width: s.w,
+    height: shotHeight(s),
+    alt: `ORBIS ${collection.name} ${product.name} — ${s.label.toLowerCase()} view. ${product.subtitle}.`,
+    blurDataURL: BLUR[`${collectionSlug}/${productSlug}/${role}`] ?? "",
   };
 }
 

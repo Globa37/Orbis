@@ -34,10 +34,6 @@ export const SHOTS: ShotSpec[] = [
     w: 1200, ratio: 0.8, scale: 0.66, centre: { x: 0.53, y: 0.44 },
   },
   {
-    role: "detail", label: "Dial",
-    w: 1200, ratio: 1, scale: 0.42, centre: { x: 0.5, y: 0.43 },
-  },
-  {
     role: "lifestyle", label: "Setting",
     w: 1400, ratio: 0.8, scale: 0.86, centre: { x: 0.5, y: 0.56 },
   },
@@ -61,10 +57,21 @@ export const SHOTS: ShotSpec[] = [
  */
 export { SHARED_IMAGES };
 
-/** Output size for a shared framing, which is used whole rather than cropped. */
-export const SHARED_WIDTH = 1400;
+/*
+ * Shared framings are cut to the same frame as the cropped ones, so a caseback
+ * sits in the gallery at the size of every other view rather than breaking the
+ * run. The sources are landscape, so this is a centre crop, not a fit.
+ */
+export const SHARED_WIDTH = 1200;
+export const SHARED_RATIO = 0.8;
 
-export const GALLERY_ORDER: CropRole[] = ["hero", "angle", "detail", "lifestyle"];
+/*
+ * What the gallery shows, in order. "lifestyle" is deliberately absent: it is
+ * the wide environment frame the home and collection pages open with, and
+ * repeating it inside the gallery only said the same thing twice. Those pages
+ * reach it through frameImage() instead of searching a product's gallery.
+ */
+export const GALLERY_ORDER: CropRole[] = ["hero", "angle"];
 
 export function shot(role: CropRole | "card") {
   const s = SHOTS.find((x) => x.role === role);
@@ -98,3 +105,4 @@ export function imagePath(collection: string, product: string, role: CropRole | 
 export function sharedImagePath(collection: string, role: ImageRole) {
   return asset(`/products/${collection}/_shared/${role}.webp`);
 }
+

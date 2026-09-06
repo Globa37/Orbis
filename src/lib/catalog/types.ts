@@ -1,7 +1,7 @@
 import type { Colorway } from "@/lib/orbis/watch-svg";
 
-/** The four framings cropped from a reference's own master photograph. */
-export type CropRole = "hero" | "detail" | "angle" | "lifestyle";
+/** The framings cropped from a reference's own master photograph. */
+export type CropRole = "hero" | "angle" | "lifestyle";
 
 /**
  * A framing's identity. Crops use the fixed roles above; a shared photograph

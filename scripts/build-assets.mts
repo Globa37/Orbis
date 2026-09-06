@@ -18,7 +18,13 @@ import { mkdirSync, existsSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
 import { COLLECTIONS } from "../src/lib/catalog/millenium";
-import { SHARED_WIDTH, SHOTS, shotHeight, type ShotSpec } from "../src/lib/catalog/shots";
+import {
+  SHARED_RATIO,
+  SHARED_WIDTH,
+  SHOTS,
+  shotHeight,
+  type ShotSpec,
+} from "../src/lib/catalog/shots";
 
 const ROOT = process.cwd();
 const OUT = join(ROOT, "public", "products");
@@ -121,9 +127,14 @@ async function main() {
       const dir = join(OUT, collection.slug, "_shared");
       mkdirSync(dir, { recursive: true });
 
-      const meta = await sharp(s.path).metadata();
-      const height = Math.round((SHARED_WIDTH * meta.height!) / meta.width!);
-      const pipeline = sharp(s.path).resize(SHARED_WIDTH, height, { kernel: "lanczos3" });
+      // Cut to the gallery's frame so a shared view sits at the size of every
+      // other one. The sources are landscape, so this crops the sides in.
+      const height = Math.round(SHARED_WIDTH / SHARED_RATIO);
+      const pipeline = sharp(s.path).resize(SHARED_WIDTH, height, {
+        fit: "cover",
+        position: "centre",
+        kernel: "lanczos3",
+      });
 
       await pipeline
         .clone()
