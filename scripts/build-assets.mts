@@ -3,17 +3,28 @@
  *
  * One master photograph per reference lives in assets/campaign/. Every framing
  * is a crop of that frame, so the whole collection stays one session — which is
- * how it was shot. Nothing is generated or re-posed here.
+ * how it was shot. Nothing is re-posed here.
+ *
+ * The casebacks in assets/caseback/ are the exception: the back of the watch is
+ * the same part on every reference, so it is shot once and derived once into
+ * _shared/ rather than copied into all five product folders. A caseback whose
+ * source file is missing is reported and skipped, never faked.
  */
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
 import { COLLECTIONS } from "../src/lib/catalog/millenium";
-import { SHOTS, shotHeight, type ShotSpec } from "../src/lib/catalog/shots";
+import {
+  SHARED_SHOTS,
+  SHOTS,
+  shotHeight,
+  type ShotSpec,
+} from "../src/lib/catalog/shots";
 
 const ROOT = process.cwd();
 const OUT = join(ROOT, "public", "products");
 const SRC = join(ROOT, "assets", "campaign");
+const SHARED_SRC = join(ROOT, "assets", "caseback");
 
 /** Finds the master file for a product, whatever extension it carries. */
 function master(slug: string) {
@@ -22,6 +33,15 @@ function master(slug: string) {
     if (existsSync(p)) return p;
   }
   throw new Error(`no campaign master for "${slug}" in assets/campaign/`);
+}
+
+/** Finds a shared source by basename, whatever extension it carries. */
+function sharedSource(name: string) {
+  for (const ext of ["png", "webp", "jpg", "jpeg"]) {
+    const p = join(SHARED_SRC, `${name}.${ext}`);
+    if (existsSync(p)) return p;
+  }
+  return null;
 }
 
 function cropBox(srcW: number, srcH: number, s: ShotSpec) {
@@ -67,6 +87,38 @@ async function main() {
 
         process.stdout.write(`  ${collection.slug}/${product.slug}/${s.role}\n`);
       }
+    }
+
+    // Shared framings: derived once per collection, not once per reference.
+    for (const s of SHARED_SHOTS) {
+      const src = sharedSource(s.source);
+      if (!src) {
+        process.stdout.write(
+          `  skipped ${collection.slug}/_shared/${s.role} — no assets/caseback/${s.source}.*\n`
+        );
+        continue;
+      }
+      const dir = join(OUT, collection.slug, "_shared");
+      mkdirSync(dir, { recursive: true });
+
+      const h = Math.round(s.w / s.ratio);
+      const pipeline = sharp(src).resize(s.w, h, { fit: "cover", kernel: "lanczos3" });
+
+      await pipeline
+        .clone()
+        .webp({ quality: 84, effort: 6 })
+        .toFile(join(dir, `${s.role}.webp`));
+
+      const lqip = await pipeline
+        .clone()
+        .resize(16, null, { fit: "inside" })
+        .blur(1.1)
+        .webp({ quality: 28 })
+        .toBuffer();
+      blur[`${collection.slug}/_shared/${s.role}`] =
+        `data:image/webp;base64,${lqip.toString("base64")}`;
+
+      process.stdout.write(`  ${collection.slug}/_shared/${s.role}\n`);
     }
   }
 

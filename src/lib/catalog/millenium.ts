@@ -1,5 +1,13 @@
 import type { Collection, Product, ProductImage } from "./types";
-import { GALLERY_ORDER, imagePath, shot, shotHeight } from "./shots";
+import {
+  GALLERY_ORDER,
+  SHARED_SHOTS,
+  imagePath,
+  sharedBlurKey,
+  sharedImagePath,
+  shot,
+  shotHeight,
+} from "./shots";
 import { BLUR } from "./blur.generated";
 
 const PRICE = 8000; // €80.00
@@ -163,6 +171,22 @@ function withImages(collection: Collection): Collection {
         blurDataURL: BLUR[`${collection.slug}/${product.slug}/${role}`] ?? "",
       };
     });
+
+    // The shared framings close the gallery. A shared shot only appears once
+    // the build has actually derived it, so a role declared ahead of its
+    // photograph never leaves a broken frame on the page.
+    for (const s of SHARED_SHOTS) {
+      const blurDataURL = BLUR[sharedBlurKey(collection.slug, s.role)];
+      if (!blurDataURL) continue;
+      product.images.push({
+        role: s.role,
+        src: sharedImagePath(collection.slug, s.role),
+        width: s.w,
+        height: Math.round(s.w / s.ratio),
+        alt: `ORBIS ${collection.name} — ${s.label.toLowerCase()}, shared by every reference in the collection.`,
+        blurDataURL,
+      });
+    }
   }
   return collection;
 }

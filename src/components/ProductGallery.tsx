@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { ProductImage } from "@/lib/catalog/types";
-import { SHOTS } from "@/lib/catalog/shots";
+import { shotLabel } from "@/lib/catalog/shots";
 
 /**
  * A showroom rather than a carousel: the active frame stays large, the
@@ -12,7 +12,6 @@ import { SHOTS } from "@/lib/catalog/shots";
 export function ProductGallery({ images, name }: { images: ProductImage[]; name: string }) {
   const [active, setActive] = useState(0);
   const current = images[active];
-  const label = (role: string) => SHOTS.find((s) => s.role === role)?.label ?? role;
 
   return (
     <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-row lg:gap-6 lg:self-start">
@@ -40,7 +39,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
               loading="lazy"
               className="object-cover"
             />
-            <span className="sr-only">{label(img.role)}</span>
+            <span className="sr-only">{shotLabel(img.role)}</span>
           </button>
         ))}
       </div>
@@ -59,7 +58,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
           className="w-full animate-[orbis-fade_600ms_var(--ease-orbis)] transition-transform duration-[1200ms] [transition-timing-function:var(--ease-orbis)] group-hover:scale-[1.04]"
         />
         <figcaption className="pointer-events-none absolute bottom-4 left-5 text-[0.65rem] uppercase tracking-[0.26em] text-faint">
-          {label(current.role)}
+          {shotLabel(current.role)}
         </figcaption>
       </figure>
     </div>

@@ -3,9 +3,11 @@ import type { ImageRole } from "./types";
 /**
  * Framings taken from the campaign photography.
  *
- * There is one master photograph per reference, so every framing here is a
+ * There is one master photograph per reference, so every framing in SHOTS is a
  * genuine crop of that frame — never a second pose invented to fill a gallery.
  * Values are fractions of the source image.
+ *
+ * SHARED_SHOTS is the one deliberate exception: see the note above it.
  */
 export interface ShotSpec {
   role: ImageRole | "card";
@@ -43,6 +45,32 @@ export const SHOTS: ShotSpec[] = [
   },
 ];
 
+/**
+ * Framings that are their own photograph rather than a crop of a reference's
+ * master frame.
+ *
+ * The back of the watch is the same part on all five references — one caseback,
+ * five dials — so it is shot once and shared instead of being re-photographed
+ * per colourway. Each entry is stored under the collection's _shared/ folder
+ * and served to every product in it. A shared shot whose source file is absent
+ * is skipped by the build and never reaches the gallery, so adding a role here
+ * before its photograph exists is safe.
+ *
+ * `source` is the basename expected in assets/caseback/.
+ */
+export interface SharedShotSpec {
+  role: ImageRole;
+  source: string;
+  w: number;
+  ratio: number;
+  label: string;
+}
+
+export const SHARED_SHOTS: SharedShotSpec[] = [
+  { role: "caseback", source: "back-front", w: 1400, ratio: 4 / 3, label: "Caseback" },
+  { role: "caseback-angled", source: "back-angled", w: 1400, ratio: 4 / 3, label: "Caseback angle" },
+];
+
 export const GALLERY_ORDER: ImageRole[] = ["hero", "angle", "detail", "lifestyle"];
 
 export function shot(role: ImageRole | "card") {
@@ -51,10 +79,28 @@ export function shot(role: ImageRole | "card") {
   return s;
 }
 
+/** Label for any framing, cropped or shared. */
+export function shotLabel(role: string): string {
+  return (
+    SHOTS.find((s) => s.role === role)?.label ??
+    SHARED_SHOTS.find((s) => s.role === role)?.label ??
+    role
+  );
+}
+
 export function shotHeight(s: ShotSpec) {
   return Math.round(s.w / s.ratio);
 }
 
 export function imagePath(collection: string, product: string, role: ImageRole | "card") {
   return `/products/${collection}/${product}/${role}.webp`;
+}
+
+/** Shared framings live beside the products, not inside each one. */
+export function sharedImagePath(collection: string, role: ImageRole) {
+  return `/products/${collection}/_shared/${role}.webp`;
+}
+
+export function sharedBlurKey(collection: string, role: ImageRole) {
+  return `${collection}/_shared/${role}`;
 }

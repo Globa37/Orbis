@@ -1,6 +1,6 @@
 import type { Colorway } from "@/lib/orbis/watch-svg";
 
-export type ImageRole = "hero" | "detail" | "angle" | "lifestyle";
+export type ImageRole = "hero" | "detail" | "angle" | "lifestyle" | "caseback" | "caseback-angled";
 
 export interface ProductImage {
   role: ImageRole;
