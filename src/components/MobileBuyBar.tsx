@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCart } from "./cart/cart-store";
-import { formatPrice } from "@/lib/catalog/types";
+import { formatPrice, translator, type Lang } from "@/lib/i18n";
 import type { Collection, Product } from "@/lib/catalog/types";
 
 /**
@@ -14,12 +14,15 @@ export function MobileBuyBar({
   collection,
   product,
   image,
+  lang,
 }: {
   collection: Collection;
   product: Product;
   image: string;
+  lang: Lang;
 }) {
   const { add } = useCart();
+  const t = translator(lang);
   const [shown, setShown] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -53,7 +56,7 @@ export function MobileBuyBar({
         <div className="flex items-center gap-4 border-t border-line bg-void px-5 py-3">
           <div className="min-w-0 flex-1">
             <p className="truncate font-display text-lg leading-tight">{product.name}</p>
-            <p className="u-num text-sm text-steel">{formatPrice(product.priceCents)}</p>
+            <p className="u-num text-sm text-steel">{formatPrice(product.priceCents, lang)}</p>
           </div>
           <button
             onClick={() => {
@@ -73,7 +76,7 @@ export function MobileBuyBar({
             }}
             className="u-focus shrink-0 rounded-full bg-text px-6 py-3 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-void transition-colors duration-300 active:bg-white"
           >
-            {added ? "Added" : "Add to bag"}
+            {added ? t("addedToBag") : t("addToBag")}
           </button>
         </div>
       </div>

@@ -2,18 +2,22 @@
 
 import { useState } from "react";
 import { useCart } from "./cart/cart-store";
+import { translator, type Lang } from "@/lib/i18n";
 import type { Collection, Product } from "@/lib/catalog/types";
 
 export function AddToCart({
   collection,
   product,
   image,
+  lang,
 }: {
   collection: Collection;
   product: Product;
   image: string;
+  lang: Lang;
 }) {
   const { add } = useCart();
+  const t = translator(lang);
   const [added, setAdded] = useState(false);
 
   return (
@@ -36,7 +40,7 @@ export function AddToCart({
       className="u-focus group relative w-full overflow-hidden rounded-full bg-text px-8 py-4 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-void transition-colors duration-300 hover:bg-white sm:w-auto sm:min-w-[16rem]"
     >
       <span className={`block transition-transform duration-500 [transition-timing-function:var(--ease-orbis)] ${added ? "-translate-y-8" : ""}`}>
-        Add to bag
+        {t("addToBag")}
       </span>
       <span
         aria-hidden={!added}
@@ -44,10 +48,10 @@ export function AddToCart({
           added ? "translate-y-0" : "translate-y-8"
         }`}
       >
-        Added
+        {t("addedToBag")}
       </span>
       <span className="sr-only" role="status">
-        {added ? `${product.name} added to your bag` : ""}
+        {added ? `${product.name}: ${t("addedToBag")}` : ""}
       </span>
     </button>
   );

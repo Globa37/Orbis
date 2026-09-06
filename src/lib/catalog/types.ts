@@ -1,3 +1,4 @@
+import type { Localized } from "@/lib/i18n";
 import type { Colorway } from "@/lib/orbis/watch-svg";
 
 /** The framings cropped from a reference's own master photograph. */
@@ -15,53 +16,61 @@ export interface ProductImage {
   src: string;
   width: number;
   height: number;
-  alt: string;
+  alt: Localized;
   /** Inline low-quality preview so the frame never pops in from nothing. */
   blurDataURL: string;
 }
 
+export interface Spec {
+  label: Localized;
+  value: Localized;
+}
+
 export interface Product {
   slug: string;
-  /** Reference name, e.g. "Noir". */
+  /** Reference name, e.g. "Onyx". A proper noun, so it is not translated. */
   name: string;
-  /** Marketing subtitle, e.g. "Black dial · Silver orb". Colour only — never a material claim. */
-  subtitle: string;
+  /** Marketing subtitle. Colour only — never a material claim. */
+  subtitle: Localized;
   reference: string;
   priceCents: number;
   colorway: Colorway;
   /** Two-stop accent used for this reference's UI moments. */
   accent: { base: string; glow: string };
-  description: string;
+  description: Localized;
   /** Verified specification rows, rendered in order. Never extend without a confirmed source. */
-  specs: { label: string; value: string }[];
+  specs: Spec[];
   images: ProductImage[];
 }
 
+/**
+ * Whether a collection can be bought yet.
+ *
+ * A collection is announced before it is photographed and priced, and the site
+ * has to be able to say so plainly rather than showing an empty shop. Nothing
+ * in an "announced" collection is purchasable, and the interface says why.
+ */
+export type CollectionStatus = "available" | "announced";
+
 export interface Collection {
   slug: string;
+  /** Collection name, e.g. "Millenium". A proper noun. */
   name: string;
   /** e.g. "01" — shown as an index in navigation. */
   index: string;
-  tagline: string;
+  status: CollectionStatus;
+  tagline: Localized;
   /** Long-form introduction on the collection page. */
-  intro: string;
+  intro: Localized;
   /** The world this collection inhabits, used for its environment art. */
   world: {
-    name: string;
-    /** Ultra-wide plate behind the collection hero. */
-    plate: string;
+    name: Localized;
+    /** Ultra-wide plate behind the collection hero, or null until it is shot. */
+    plate: string | null;
     /** Background tone the plate blends into. */
     tone: string;
+    /** How the world was lit and shot, in the collection's own words. */
+    body: Localized;
   };
   products: Product[];
-}
-
-export const CURRENCY = "EUR";
-
-export function formatPrice(cents: number, locale = "de-DE"): string {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: CURRENCY,
-    minimumFractionDigits: 0,
-  }).format(cents / 100);
 }

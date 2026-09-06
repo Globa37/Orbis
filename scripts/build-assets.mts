@@ -17,7 +17,7 @@
 import { mkdirSync, existsSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
-import { COLLECTIONS } from "../src/lib/catalog/millenium";
+import { COLLECTIONS } from "../src/lib/catalog";
 import {
   SHARED_RATIO,
   SHARED_WIDTH,
@@ -30,6 +30,8 @@ const ROOT = process.cwd();
 const OUT = join(ROOT, "public", "products");
 const SRC = join(ROOT, "assets", "campaign");
 const SHARED_SRC = join(ROOT, "assets", "caseback");
+const WORLD_SRC = join(ROOT, "assets", "world");
+const WORLD_OUT = join(ROOT, "public", "world");
 
 /** Finds the master file for a product, whatever extension it carries. */
 function master(slug: string) {
@@ -66,6 +68,34 @@ function sharedSources() {
     });
 }
 
+/**
+ * Derives a collection's world plate.
+ *
+ * A plate is an ultra-wide backdrop the collection hero sits over, so it is
+ * resized rather than cropped and kept wide. A collection whose plate has not
+ * been shot yet is skipped and keeps the house atmosphere.
+ */
+async function worlds() {
+  if (!existsSync(WORLD_SRC)) {
+    process.stdout.write("  no world plates in assets/world/\n");
+    return;
+  }
+  const files = readdirSync(WORLD_SRC).filter((f) => IMAGE_EXT.test(f)).sort();
+  if (files.length === 0) {
+    process.stdout.write("  no world plates in assets/world/\n");
+    return;
+  }
+  mkdirSync(WORLD_OUT, { recursive: true });
+  for (const file of files) {
+    const name = file.replace(IMAGE_EXT, "");
+    await sharp(join(WORLD_SRC, file))
+      .resize(2000, null, { kernel: "lanczos3" })
+      .webp({ quality: 70, effort: 6 })
+      .toFile(join(WORLD_OUT, `${name}.webp`));
+    process.stdout.write(`  world/${name}\n`);
+  }
+}
+
 function cropBox(srcW: number, srcH: number, s: ShotSpec) {
   const w = Math.round(srcW * s.scale);
   const h = Math.round(w / s.ratio);
@@ -86,6 +116,7 @@ async function main() {
     height: number;
     blurDataURL: string;
   }[] = [];
+  await worlds();
   const shared = sharedSources();
   if (shared.length === 0) {
     process.stdout.write("  no shared framings in assets/caseback/\n");
@@ -123,7 +154,8 @@ async function main() {
     }
 
     // Shared framings: derived once per collection, not once per reference.
-    for (const s of shared) {
+    // A collection with no references shows no gallery, so it needs none.
+    for (const s of collection.products.length > 0 ? shared : []) {
       const dir = join(OUT, collection.slug, "_shared");
       mkdirSync(dir, { recursive: true });
 

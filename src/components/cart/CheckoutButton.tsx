@@ -7,9 +7,12 @@
  * this becomes a live link. Until then it is plainly inert — the site never
  * pretends an order can be placed.
  */
+import { translator, type Lang } from "@/lib/i18n";
+
 const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL;
 
-export function CheckoutButton({ className = "" }: { className?: string }) {
+export function CheckoutButton({ lang, className = "" }: { lang: Lang; className?: string }) {
+  const t = translator(lang);
   const base =
     "u-focus block w-full rounded-full px-6 py-4 text-center text-[0.7rem] font-medium uppercase tracking-[0.28em] transition-colors duration-300";
 
@@ -21,10 +24,10 @@ export function CheckoutButton({ className = "" }: { className?: string }) {
           aria-describedby="checkout-note"
           className={`${base} cursor-not-allowed bg-raised text-faint ${className}`}
         >
-          Proceed to checkout
+          {t("checkout")}
         </button>
         <p id="checkout-note" className="mt-3 text-center text-xs text-faint">
-          Checkout is not yet connected.
+          {t("checkoutNotConnected")}
         </p>
       </>
     );
@@ -32,7 +35,7 @@ export function CheckoutButton({ className = "" }: { className?: string }) {
 
   return (
     <a href={CHECKOUT_URL} className={`${base} bg-text text-void hover:bg-white ${className}`}>
-      Proceed to checkout
+      {t("checkout")}
     </a>
   );
 }

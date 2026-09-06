@@ -3,10 +3,8 @@ import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/cart-store";
-import { CartDrawer } from "@/components/cart/CartDrawer";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { PageTransition } from "@/components/PageTransition";
+import { SupportProvider } from "@/components/support/support-store";
+import { DEFAULT_LANG, LOCALE } from "@/lib/i18n";
 import { SITE_NAME, SITE_URL, absolute, asset } from "@/lib/site";
 
 // Variable, so the optical-size axis is available: .u-display sets opsz by hand
@@ -59,9 +57,17 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+/**
+ * The document shell, above the language segment.
+ *
+ * Everything language-dependent — the header, the footer, the copy — lives in
+ * app/[lang]/layout.tsx. This layer holds only what both readings share: the
+ * fonts, the cart, and the <html> element itself, which is written with the
+ * default language and corrected by <HtmlLang> inside the segment.
+ */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${jost.variable}`}>
+    <html lang={LOCALE[DEFAULT_LANG]} className={`${bodoni.variable} ${jost.variable}`}>
       <body style={{ "--plate": `url("${asset("/world/orbit-plate.webp")}")` } as CSSProperties}>
         <script
           type="application/ld+json"
@@ -78,18 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <CartProvider>
-          <a
-            href="#main"
-            className="u-focus sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-2 focus:text-sm focus:text-void"
-          >
-            Skip to content
-          </a>
-          <SiteHeader />
-          <main id="main">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <SiteFooter />
-          <CartDrawer />
+          <SupportProvider>{children}</SupportProvider>
         </CartProvider>
       </body>
     </html>

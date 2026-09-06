@@ -1,25 +1,29 @@
 import Link from "next/link";
+import { path, translator, type Lang } from "@/lib/i18n";
 import type { Collection, Product } from "@/lib/catalog/types";
 
 function Side({
   collectionSlug,
   product,
   dir,
+  lang,
 }: {
   collectionSlug: string;
   product: Product;
   dir: "prev" | "next";
+  lang: Lang;
 }) {
   const next = dir === "next";
+  const t = translator(lang);
   return (
     <Link
-      href={`/collections/${collectionSlug}/${product.slug}`}
+      href={path(lang, `/collections/${collectionSlug}/${product.slug}`)}
       rel={next ? "next" : "prev"}
       className={`u-focus group flex min-w-0 flex-1 flex-col gap-1 py-6 sm:py-8 ${
         next ? "sm:items-end sm:text-right" : "items-start"
       }`}
     >
-      <span className="u-eyebrow !text-[0.6rem]">{next ? "Next" : "Previous"} reference</span>
+      <span className="u-eyebrow !text-[0.6rem]">{next ? t("nextReference") : t("previousReference")}</span>
       <span className="flex min-w-0 items-center gap-2.5 font-display text-2xl transition-colors duration-300 group-hover:text-steel sm:gap-3 sm:text-3xl lg:text-4xl">
         {!next && (
           <svg
@@ -55,9 +59,11 @@ function Side({
 export function ReferenceNav({
   collection,
   current,
+  lang,
 }: {
   collection: Collection;
   current: Product;
+  lang: Lang;
 }) {
   const i = collection.products.findIndex((p) => p.slug === current.slug);
   const prev = collection.products[(i - 1 + collection.products.length) % collection.products.length];
@@ -65,12 +71,12 @@ export function ReferenceNav({
 
   return (
     <nav
-      aria-label="Collection references"
+      aria-label={translator(lang)("references")}
       className="u-gutter flex flex-col items-stretch border-t border-line sm:flex-row sm:gap-6"
     >
-      <Side collectionSlug={collection.slug} product={prev} dir="prev" />
+      <Side collectionSlug={collection.slug} product={prev} dir="prev" lang={lang} />
       <span className="h-px w-full bg-line sm:h-auto sm:w-px" aria-hidden="true" />
-      <Side collectionSlug={collection.slug} product={next} dir="next" />
+      <Side collectionSlug={collection.slug} product={next} dir="next" lang={lang} />
     </nav>
   );
 }

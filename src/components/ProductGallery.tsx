@@ -4,12 +4,21 @@ import Image from "next/image";
 import { useState } from "react";
 import type { ProductImage } from "@/lib/catalog/types";
 import { shotLabel } from "@/lib/catalog/shots";
+import type { Lang } from "@/lib/i18n";
 
 /**
  * A showroom rather than a carousel: the active frame stays large, the
  * alternatives sit beside it, and nothing moves unless the visitor asks.
  */
-export function ProductGallery({ images, name }: { images: ProductImage[]; name: string }) {
+export function ProductGallery({
+  images,
+  name,
+  lang,
+}: {
+  images: ProductImage[];
+  name: string;
+  lang: Lang;
+}) {
   const [active, setActive] = useState(0);
   const current = images[active];
 
@@ -39,7 +48,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
               loading="lazy"
               className="object-cover"
             />
-            <span className="sr-only">{shotLabel(img.role)}</span>
+            <span className="sr-only">{shotLabel(img.role, lang)}</span>
           </button>
         ))}
       </div>
@@ -57,7 +66,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
         <Image
           key={current.src}
           src={current.src}
-          alt={current.alt}
+          alt={current.alt[lang]}
           width={current.width}
           height={current.height}
           priority={active === 0}
@@ -67,7 +76,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
           className="w-full animate-[orbis-fade_600ms_var(--ease-orbis)] transition-transform duration-[1200ms] [transition-timing-function:var(--ease-orbis)] group-hover:scale-[1.04]"
         />
         <figcaption className="pointer-events-none absolute bottom-4 left-5 text-[0.65rem] uppercase tracking-[0.26em] text-faint">
-          {shotLabel(current.role)}
+          {shotLabel(current.role, lang)}
         </figcaption>
       </figure>
     </div>

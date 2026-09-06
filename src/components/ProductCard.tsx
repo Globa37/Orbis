@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cardImage } from "@/lib/catalog/millenium";
-import { formatPrice } from "@/lib/catalog/types";
+import { cardImage } from "@/lib/catalog";
+import { formatPrice, path, translator, type Lang } from "@/lib/i18n";
 import type { Collection, Product } from "@/lib/catalog/types";
 
 export function ProductCard({
@@ -9,12 +9,15 @@ export function ProductCard({
   product,
   priority = false,
   index,
+  lang,
 }: {
   collection: Collection;
   product: Product;
   priority?: boolean;
   index: number;
+  lang: Lang;
 }) {
+  const t = translator(lang);
   const card = cardImage(collection.slug, product.slug);
   const hover = product.images.find((i) => i.role === "angle") ?? product.images[0];
 
@@ -24,9 +27,9 @@ export function ProductCard({
       style={{ ["--accent" as string]: product.accent.base, ["--accent-glow" as string]: product.accent.glow }}
     >
       <Link
-        href={`/collections/${collection.slug}/${product.slug}`}
+        href={path(lang, `/collections/${collection.slug}/${product.slug}`)}
         className="u-focus block"
-        aria-label={`${product.name} — ${product.subtitle}, ${formatPrice(product.priceCents)}`}
+        aria-label={`${product.name} — ${product.subtitle[lang]}, ${formatPrice(product.priceCents, lang)}`}
       >
         <div className="relative overflow-hidden rounded-sm bg-surface">
           {/* An accent bloom that only appears on hover — the dial colour, not a border. */}
@@ -40,7 +43,7 @@ export function ProductCard({
           />
           <Image
             src={card.src}
-            alt={`ORBIS ${collection.name} ${product.name}. ${product.subtitle}.`}
+            alt={`ORBIS ${collection.name} ${product.name}. ${product.subtitle[lang]}.`}
             width={card.width}
             height={card.height}
             priority={priority}
@@ -72,15 +75,15 @@ export function ProductCard({
           <div className="min-w-0">
             <p className="u-eyebrow !text-[0.6rem]">{collection.name}</p>
             <h3 className="mt-1.5 font-display text-[1.75rem] leading-none">{product.name}</h3>
-            <p className="mt-2 truncate text-sm text-faint">{product.subtitle}</p>
+            <p className="mt-2 truncate text-sm text-faint">{product.subtitle[lang]}</p>
           </div>
           <p className="shrink-0 pt-4 text-sm tabular-nums text-steel">
-            {formatPrice(product.priceCents)}
+            {formatPrice(product.priceCents, lang)}
           </p>
         </div>
 
         <span className="mt-4 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.28em] text-muted transition-colors duration-300 group-hover:text-text">
-          Discover
+          {t("reference")}
           <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true" className="transition-transform duration-500 [transition-timing-function:var(--ease-orbis)] group-hover:translate-x-1.5">
             <path d="M0 4h12M9 1l3 3-3 3" stroke="currentColor" strokeWidth="1" />
           </svg>

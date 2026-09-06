@@ -1,3 +1,4 @@
+import type { Lang, Localized } from "@/lib/i18n";
 import type { CropRole, ImageRole } from "./types";
 import { SHARED_IMAGES } from "./shared.generated";
 import { asset } from "@/lib/site";
@@ -21,24 +22,24 @@ export interface ShotSpec {
   scale: number;
   /** Crop centre, as fractions of the source. */
   centre: { x: number; y: number };
-  label: string;
+  label: Localized;
 }
 
 export const SHOTS: ShotSpec[] = [
   {
-    role: "hero", label: "Campaign",
+    role: "hero", label: { de: "Kampagne", en: "Campaign" },
     w: 1200, ratio: 0.8, scale: 1, centre: { x: 0.5, y: 0.5 },
   },
   {
-    role: "angle", label: "Case",
+    role: "angle", label: { de: "Gehäuse", en: "Case" },
     w: 1200, ratio: 0.8, scale: 0.66, centre: { x: 0.53, y: 0.44 },
   },
   {
-    role: "lifestyle", label: "Setting",
+    role: "lifestyle", label: { de: "Umgebung", en: "Setting" },
     w: 1400, ratio: 0.8, scale: 0.86, centre: { x: 0.5, y: 0.56 },
   },
   {
-    role: "card", label: "Card",
+    role: "card", label: { de: "Karte", en: "Card" },
     w: 1000, ratio: 0.8, scale: 0.74, centre: { x: 0.5, y: 0.46 },
   },
 ];
@@ -79,13 +80,24 @@ export function shot(role: CropRole | "card") {
   return s;
 }
 
-/** Label for any framing, cropped or shared. */
-export function shotLabel(role: string): string {
-  return (
-    SHOTS.find((s) => s.role === role)?.label ??
-    SHARED_IMAGES.find((s) => s.role === role)?.label ??
-    role
-  );
+/*
+ * A shared framing takes its caption from its file name, which can only be one
+ * language. These are the roles the shop actually ships, translated; anything
+ * else dropped into the folder keeps its file name in both, which is the
+ * honest fallback for a caption nobody has written yet.
+ */
+const SHARED_LABELS: Record<string, Localized> = {
+  caseback: { de: "Gehäuseboden", en: "Caseback" },
+  "caseback-angle": { de: "Gehäuseboden schräg", en: "Caseback angle" },
+};
+
+/** Caption for any framing, cropped or shared. */
+export function shotLabel(role: string, lang: Lang): string {
+  const crop = SHOTS.find((s) => s.role === role);
+  if (crop) return crop.label[lang];
+  const known = SHARED_LABELS[role];
+  if (known) return known[lang];
+  return SHARED_IMAGES.find((s) => s.role === role)?.label ?? role;
 }
 
 export function shotHeight(s: ShotSpec) {

@@ -3,6 +3,7 @@
 import {
   createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState,
 } from "react";
+import type { Localized } from "@/lib/i18n";
 
 export interface CartLine {
   id: string;
@@ -10,7 +11,7 @@ export interface CartLine {
   productSlug: string;
   name: string;
   collectionName: string;
-  subtitle: string;
+  subtitle: Localized;
   reference: string;
   priceCents: number;
   image: string;
@@ -24,8 +25,16 @@ type Action =
   | { type: "remove"; id: string }
   | { type: "clear" };
 
-const STORAGE_KEY = "orbis.cart.v1";
-const MAX_QTY = 10;
+/*
+ * v2: a line's subtitle used to be one string and is now a pair, one reading
+ * per language. A v1 bag left in a browser would render an object where the
+ * subtitle goes, so the key moves rather than trying to migrate it — an
+ * abandoned bag is a smaller loss than a broken one.
+ */
+const STORAGE_KEY = "orbis.cart.v2";
+
+/** Ten per reference. Small series, and a guard against a stuck key. */
+export const MAX_QTY = 10;
 
 function reducer(state: CartLine[], action: Action): CartLine[] {
   switch (action.type) {
@@ -55,6 +64,9 @@ interface CartApi {
   lines: CartLine[];
   count: number;
   subtotalCents: number;
+  /** VAT already contained in the subtotal, at the German rate. */
+  vatCents: number;
+  atMax: boolean;
   ready: boolean;
   open: boolean;
   setOpen: (v: boolean) => void;
@@ -104,10 +116,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<CartApi>(() => {
     const count = lines.reduce((n, l) => n + l.qty, 0);
+    const subtotalCents = lines.reduce((n, l) => n + l.qty * l.priceCents, 0);
     return {
       lines,
       count,
-      subtotalCents: lines.reduce((n, l) => n + l.qty * l.priceCents, 0),
+      subtotalCents,
+      // Prices are quoted inclusive, so this is the share already in them.
+      vatCents: Math.round((subtotalCents * 19) / 119),
+      atMax: lines.some((l) => l.qty >= MAX_QTY),
       ready,
       open,
       setOpen,
