@@ -22,5 +22,40 @@ export const SHARED_IMAGES: SharedImage[] = [
     "width": 1400,
     "height": 1055,
     "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAwABABsJZwAApZJyJkAAP7m929fqV5xXIMhEs8C2q1JcyfY4AAA"
+  },
+  {
+    "role": "higgsfield black",
+    "label": "Higgsfield black",
+    "width": 1400,
+    "height": 1871,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQBACdASoQABUAPxl2s1EspySisAgBkCMJZwC2yB6VvEQN7SW8lsveKAD+4dsou4iYc1OcJYrkbKD3R51286un9F5JzscZTsCCbW1WSzqLClBLO7k0wZ1v+eQZDPsAAAA="
+  },
+  {
+    "role": "higgsfield blue",
+    "label": "Higgsfield blue",
+    "width": 1400,
+    "height": 1871,
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABQBACdASoQABUAPxl2s1EspySisAgBkCMJZQCdB3gAfMTcj5QpiskoXEAAAP7goxLkTMzFtFcN0UPTgy8rGyxgzCz0YYsj6or4+sHP/2ITPxXdlwlMVHyaByAAAA=="
+  },
+  {
+    "role": "higgsfield chrome",
+    "label": "Higgsfield chrome",
+    "width": 1400,
+    "height": 1871,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQBACdASoQABUAPxl2slCspySisAgBkCMJZwDCgB6UM6HlqQLUelHJAAD+1v7I8WexM8KUIqkVtRb+wMmNVyz6Ko08rd9pUbYf4sZy3WRLuDzvXrDUqqAA"
+  },
+  {
+    "role": "higgsfield pink",
+    "label": "Higgsfield pink",
+    "width": 1400,
+    "height": 1871,
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoQABUAPxl2s1CspySisAgBkCMJZQAAYfOPU9CGtQsBJ8jAAP7JtXeb/AbOhvlUda3E5TlGZShXq9CpfSwlmvjPujbPdGZw/8Lor/ENTLWs86spgAA="
+  },
+  {
+    "role": "higgsfield rot",
+    "label": "Higgsfield rot",
+    "width": 1400,
+    "height": 1871,
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoQABUAPxl2s1CspySisAgBkCMJZwCw7B6UZPlzuFEVk7AA/tXqyPmdkNbetEhdojUL7J4q5kXAToBY7qHLle7cBB4oyDrXHVNbs23lb6hQdCAktKO0wAAA"
   }
 ];
