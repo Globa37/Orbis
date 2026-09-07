@@ -168,7 +168,7 @@ export const MILLENIUM: Collection = {
   },
   world: {
     name: { de: "Erstes Licht", en: "First Light" },
-    plate: "/world/orbit-plate.webp",
+    plate: "/world/millenium.webp",
     tone: "#05070A",
     body: {
       de: "Eine Lichtquelle, in festem Winkel gehalten. Eine Platte aus kaltem Stein. Jede andere Fläche dem Schatten überlassen. Jede Referenz wurde am selben Ort abgesetzt, gleich ausgeleuchtet und aus derselben Entfernung fotografiert — eine Sitzung, eine Farbstimmung, fünf Zifferblätter.",
