@@ -89,8 +89,8 @@ async function worlds() {
   for (const file of files) {
     const name = file.replace(IMAGE_EXT, "");
     await sharp(join(WORLD_SRC, file))
-      .resize(2000, null, { kernel: "lanczos3" })
-      .webp({ quality: 70, effort: 6 })
+            .resize(2560, null, { kernel: "lanczos3", withoutEnlargement: true })
+      .webp({ quality: 86, effort: 6 })
       .toFile(join(WORLD_OUT, `${name}.webp`));
     process.stdout.write(`  world/${name}\n`);
   }
