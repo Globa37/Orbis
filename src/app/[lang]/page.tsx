@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { CollectionHero } from "@/components/CollectionHero";
@@ -210,11 +209,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       */}
       <section className="relative overflow-hidden border-t border-line">
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="u-plate u-drift absolute inset-0 opacity-80" style={{ backgroundPosition: "center 22%" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-void via-void/35 to-void" />
+          <div className="u-plate u-drift absolute inset-0" style={{ backgroundPosition: "center 22%" }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-void/75 via-void/35 to-void" />
         </div>
         <div className="u-gutter u-band">
-          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-20">
+          <div className="max-w-2xl">
             <Reveal>
               <p className="u-eyebrow">
                 {t("worldOf")} {MILLENIUM.name}
@@ -233,28 +232,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               </Link>
             </Reveal>
 
-            {/* The one frame in the set that shows the collection rather than a
-                reference: all five on the same slab, under the same light. */}
-            <Reveal delay={120}>
-              <Image
-                src={asset("/products/millenium/collection-880.webp")}
-                alt={
-                  lang === "de"
-                    ? "Die fünf MILLENIUM-Referenzen nebeneinander auf einer Steinplatte, unter einer einzigen harten Lichtquelle."
-                    : "The five MILLENIUM references side by side on a stone slab under a single hard light."
-                }
-                width={880}
-                height={1168}
-                loading="lazy"
-                sizes="(max-width: 1024px) 100vw, 46vw"
-                /* The frame is tall; cropped to 4:5 it keeps the shaft and the
-                   slab without leaving the text column stranded beside it. */
-                className="aspect-[4/5] w-full rounded-sm object-cover object-[50%_47%]"
-              />
-            </Reveal>
           </div>
 
-          <Reveal delay={140} className="mt-16 lg:mt-24">
+          <Reveal delay={140} className="mt-20 lg:mt-28">
             <p className="u-eyebrow mb-8">{t("theCompleteCollection")}</p>
             <CollectionLineup collection={MILLENIUM} lang={lang} />
           </Reveal>
