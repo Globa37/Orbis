@@ -9,6 +9,7 @@
  */
 import sharp from "sharp";
 import { mkdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
 
 const MASK_W = 1532, MASK_H = 2048;
 const BBOX = {
@@ -62,4 +63,27 @@ for (const [name, [l, t, r, b]] of Object.entries(BBOX)) {
       .toFile(`public/cutouts/${name}-${px}.webp`);
   }
   console.log(name, `${w}x${h}`);
+}
+
+/*
+ * The group frame.
+ *
+ * All five references on one slab under one light — the only photograph in the
+ * set that shows the collection rather than a reference, so it is the one the
+ * world band opens on. Nothing is cut out of it: it is used as shot.
+ */
+const GROUP = "assets/campaign/kollektionsbild.png";
+if (existsSync(GROUP)) {
+  const src = sharp(GROUP);
+  const { width, height } = await src.metadata();
+  for (const px of [880, 640, 440]) {
+    await src.clone().resize({ width: px })
+      .webp({ quality: 86, effort: 6 })
+      .toFile(`public/products/millenium/collection-${px}.webp`);
+  }
+  // The placeholder the page shows while the frame is still arriving.
+  const lqip = await src.clone().resize({ width: 20 }).webp({ quality: 40 }).toBuffer();
+  console.log("collection frame", `${width}x${height}`, "lqip", `data:image/webp;base64,${lqip.toString("base64")}`.length, "chars");
+  await sharp(await src.clone().resize({ width: 20 }).webp({ quality: 40 }).toBuffer())
+    .toFile("public/products/millenium/collection-lqip.webp");
 }

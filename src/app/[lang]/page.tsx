@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { CollectionHero } from "@/components/CollectionHero";
@@ -213,8 +214,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div className="absolute inset-0 bg-gradient-to-b from-void via-void/35 to-void" />
         </div>
         <div className="u-gutter u-band">
-          <Reveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-            <div className="max-w-xl">
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-20">
+            <Reveal>
               <p className="u-eyebrow">
                 {t("worldOf")} {MILLENIUM.name}
               </p>
@@ -224,16 +225,36 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <p className="mt-7 max-w-lg leading-relaxed text-muted">
                 {MILLENIUM.world.body[lang]}
               </p>
-            </div>
-            <Link
-              href={langPath(lang, `/collections/${MILLENIUM.slug}`)}
-              className="u-focus u-link shrink-0 self-start text-[0.7rem] uppercase tracking-[0.28em] text-text lg:pb-3"
-            >
-              {t("enterCollection")}
-            </Link>
-          </Reveal>
+              <Link
+                href={langPath(lang, `/collections/${MILLENIUM.slug}`)}
+                className="u-focus u-link mt-9 inline-block text-[0.7rem] uppercase tracking-[0.28em] text-text"
+              >
+                {t("enterCollection")}
+              </Link>
+            </Reveal>
 
-          <Reveal delay={140} className="mt-14 lg:mt-20">
+            {/* The one frame in the set that shows the collection rather than a
+                reference: all five on the same slab, under the same light. */}
+            <Reveal delay={120}>
+              <Image
+                src={asset("/products/millenium/collection-880.webp")}
+                alt={
+                  lang === "de"
+                    ? "Die fünf MILLENIUM-Referenzen nebeneinander auf einer Steinplatte, unter einer einzigen harten Lichtquelle."
+                    : "The five MILLENIUM references side by side on a stone slab under a single hard light."
+                }
+                width={880}
+                height={1168}
+                loading="lazy"
+                sizes="(max-width: 1024px) 100vw, 46vw"
+                /* The frame is tall; cropped to 4:5 it keeps the shaft and the
+                   slab without leaving the text column stranded beside it. */
+                className="aspect-[4/5] w-full rounded-sm object-cover object-[50%_47%]"
+              />
+            </Reveal>
+          </div>
+
+          <Reveal delay={140} className="mt-16 lg:mt-24">
             <p className="u-eyebrow mb-8">{t("theCompleteCollection")}</p>
             <CollectionLineup collection={MILLENIUM} lang={lang} />
           </Reveal>
