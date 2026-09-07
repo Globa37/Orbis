@@ -80,6 +80,40 @@ body {
   font-feature-settings: "kern", "liga", "calt";
 }
 
+/*
+ * Display type at hero scale.
+ *
+ * Bodoni carries an optical-size axis, and `font-optical-sizing: auto` maps it
+ * to the rendered size — so a 130px heading asks for the 96pt design, whose
+ * hairlines are drawn for print at that size. On a near-black screen those
+ * thins were dropping out: "Millenium" lost the stems of its i's. Pinning opsz
+ * to a text size restores enough weight in the thin strokes to survive without
+ * touching the weight axis, so the Didone contrast the brand is built on stays
+ * intact — this is not the same as setting it bolder.
+ *
+ * The fill is a shallow vertical gradient rather than flat white, so the letter
+ * sits in the plate's light instead of on top of it.
+ */
+.u-display-xl {
+  font-variation-settings: "opsz" 16;
+  font-optical-sizing: none;
+  letter-spacing: -0.014em;
+  background-image: linear-gradient(176deg, #FFFFFF 6%, #E8EDF1 38%, #B4BEC7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Descenders and the gradient box both need room, or the fill clips. */
+  padding-block-end: 0.06em;
+}
+
+/* Forced-colours users get the system pair; a clipped gradient reads as blank. */
+@media (forced-colors: active) {
+  .u-display-xl {
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
 /* Numerals in prices, references and quantities never shift width. */
 .u-num {
   font-variant-numeric: tabular-nums lining-nums;

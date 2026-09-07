@@ -18,7 +18,7 @@ export default function NotFound() {
       <div>
         <OrbisMark size={48} className="mx-auto text-steel" />
         <p className="u-eyebrow mt-8">{t("outOfOrbit")}</p>
-        <h1 className="u-display mt-5 text-[clamp(3rem,12vw,8rem)]">404</h1>
+        <h1 className="u-display u-display-xl mt-5 text-[clamp(3rem,12vw,8rem)]">404</h1>
         <p className="mx-auto mt-6 max-w-sm leading-relaxed text-muted">
           {t("notFoundBody")}
         </p>

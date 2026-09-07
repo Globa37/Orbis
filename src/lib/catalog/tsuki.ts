@@ -24,9 +24,10 @@ export const TSUKI: Collection = {
   },
   world: {
     name: { de: "Stilles Wasser", en: "Still Water" },
-    // Until the plate is shot, the page draws its own night. See the world
-    // section of the README for how to add it.
-    plate: null,
+    // Rendered by scripts/build-plates.mjs, not photographed: the moon low
+    // over water is the collection's premise, and drawing it keeps it sharp at
+    // any width. Swap in a photograph here when there is one.
+    plate: "/world/still-water.webp",
     tone: "#060A12",
     body: {
       de: "Kein Stein, keine harte Kante. TSUKI wird über stillem Wasser aufgenommen, das einzige Licht der Mond tief am Horizont, seine Spur als schmaler Silberpfad über die Fläche gelegt. Nebel liegt flach auf dem Wasser, das ferne Ufer bleibt eine Andeutung. Wo Erstes Licht alles freilegt, hält Stilles Wasser fast alles zurück.",

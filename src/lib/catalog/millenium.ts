@@ -171,8 +171,8 @@ export const MILLENIUM: Collection = {
     plate: "/world/orbit-plate.webp",
     tone: "#05070A",
     body: {
-      de: "Eine Lichtquelle, in festem Winkel gehalten. Eine Platte aus kaltem Stein. Jede andere Fläche dem Schatten überlassen. Jede MILLENIUM-Referenz wurde am selben Ort abgesetzt, gleich ausgeleuchtet und aus derselben Entfernung fotografiert — eine Sitzung, eine Farbstimmung, fünf Zifferblätter. Die Rückseite der Uhr wurde ein einziges Mal aufgenommen: Es ist bei allen fünf derselbe Stahl, also wird sie als dasselbe Foto gezeigt.",
-      en: "One light source, held at a fixed angle. A slab of cold stone. Every other surface surrendered to shadow. Each MILLENIUM reference was set down in the same place, lit the same way and photographed from the same distance — one session, one grade, five dials. The back of the watch was shot once and once only: it is the same steel on all five, so it is shown as the same photograph.",
+      de: "Eine Lichtquelle, in festem Winkel gehalten. Eine Platte aus kaltem Stein. Jede andere Fläche dem Schatten überlassen. Jede Referenz wurde am selben Ort abgesetzt, gleich ausgeleuchtet und aus derselben Entfernung fotografiert — eine Sitzung, eine Farbstimmung, fünf Zifferblätter.",
+      en: "One light source, held at a fixed angle. A slab of cold stone. Every other surface surrendered to shadow. Each reference was set down in the same place, lit the same way and photographed from the same distance — one session, one grade, five dials.",
     },
   },
   products,

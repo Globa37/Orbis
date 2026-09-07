@@ -30,7 +30,7 @@ export default async function CartPage({ params }: { params: Promise<{ lang: str
 
   return (
     <div className="u-gutter pb-24 pt-32 lg:pt-40">
-      <h1 className="u-display text-[clamp(2.5rem,8vw,5.5rem)]">{t("bag")}</h1>
+      <h1 className="u-display u-display-xl text-[clamp(2.5rem,8vw,5.5rem)]">{t("bag")}</h1>
       <CartView lang={lang} />
     </div>
   );

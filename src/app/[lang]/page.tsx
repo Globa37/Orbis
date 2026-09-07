@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { CollectionHero } from "@/components/CollectionHero";
+import { CollectionLineup } from "@/components/CollectionLineup";
 import { OrbisMark } from "@/components/OrbisMark";
 import { ProductCard } from "@/components/ProductCard";
 import { MILLENIUM, TSUKI } from "@/lib/catalog";
+import { asset } from "@/lib/site";
 import { LANGS, isLang, path as langPath, translator, type Lang } from "@/lib/i18n";
+import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
@@ -49,8 +52,8 @@ const PILLARS: Record<Lang, { n: string; title: string; body: string }[]> = {
 };
 
 const MANIFESTO: Record<Lang, string> = {
-  de: "ORBIS baut Uhren für Menschen, die nach oben schauen. Jedes Zifferblatt trägt denselben Orb — eine in Meridianen gezeichnete Kugel — und jede Kollektion gibt dieser Kugel einen anderen Himmel, vor dem sie steht.",
-  en: "ORBIS makes watches for people who look up. Every dial carries the same orb — a sphere drawn in meridians — and every collection gives that sphere a different sky to sit against.",
+  de: "Uhren für Menschen, die nach oben schauen. Jedes Zifferblatt trägt denselben Orb — und jede Kollektion gibt ihm einen anderen Himmel.",
+  en: "Watches for people who look up. Every dial carries the same orb — and every collection gives it a sky of its own.",
 };
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -77,7 +80,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 </p>
               </Reveal>
               <Reveal delay={120}>
-                <h1 className="u-display mt-4 text-[clamp(3rem,9vw,8.5rem)] lg:mt-5">
+                <h1 className="u-display u-display-xl mt-4 text-[clamp(3rem,9vw,8.5rem)] lg:mt-5">
                   Millenium
                 </h1>
               </Reveal>
@@ -135,9 +138,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <p className="u-display text-[clamp(1.9rem,4.2vw,3.5rem)] leading-[1.08]">
                 {MANIFESTO[lang]}
               </p>
-              <p className="mt-8 max-w-xl leading-relaxed text-muted">
-                {MILLENIUM.world.body[lang]}
-              </p>
             </Reveal>
           </div>
         </div>
@@ -180,7 +180,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <p className="u-eyebrow">
                   {t("collectionN")} {MILLENIUM.index}
                 </p>
-              <h2 className="u-display mt-4 text-[clamp(2.5rem,7vw,5.5rem)]">Millenium</h2>
+              <h2 className="u-display u-display-xl mt-4 text-[clamp(2.5rem,7vw,5.5rem)]">Millenium</h2>
             </div>
             <Link
               href={langPath(lang, `/collections/${MILLENIUM.slug}`)}
@@ -201,56 +201,110 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       </section>
 
       {/* =========================================================== world */}
+      {/*
+        The world band doubles as the collection's campaign frame: the grid
+        above is for choosing a reference, this is for seeing the five as one
+        set — which is the whole argument of MILLENIUM, since only the dial
+        changes across it.
+      */}
       <section className="relative overflow-hidden border-t border-line">
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="u-plate u-drift absolute inset-0 opacity-70" style={{ backgroundPosition: "center 30%" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-void via-void/45 to-void" />
+          <div className="u-plate u-drift absolute inset-0 opacity-80" style={{ backgroundPosition: "center 22%" }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-void via-void/35 to-void" />
         </div>
         <div className="u-gutter u-band">
-          <Reveal className="max-w-2xl">
-            <p className="u-eyebrow">
-              {t("worldOf")} {MILLENIUM.name}
-            </p>
-            <h2 className="u-display mt-5 text-[clamp(2.5rem,7vw,5rem)]">
-              {MILLENIUM.world.name[lang]}
-            </h2>
-            <p className="mt-7 max-w-lg leading-relaxed text-muted">
-              {MILLENIUM.world.body[lang]}
-            </p>
+          <Reveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+            <div className="max-w-xl">
+              <p className="u-eyebrow">
+                {t("worldOf")} {MILLENIUM.name}
+              </p>
+              <h2 className="u-display u-display-xl mt-5 text-[clamp(2.5rem,7vw,5rem)]">
+                {MILLENIUM.world.name[lang]}
+              </h2>
+              <p className="mt-7 max-w-lg leading-relaxed text-muted">
+                {MILLENIUM.world.body[lang]}
+              </p>
+            </div>
             <Link
               href={langPath(lang, `/collections/${MILLENIUM.slug}`)}
-              className="u-focus u-link mt-9 inline-block text-[0.7rem] uppercase tracking-[0.28em] text-text"
+              className="u-focus u-link shrink-0 self-start text-[0.7rem] uppercase tracking-[0.28em] text-text lg:pb-3"
             >
               {t("enterCollection")}
             </Link>
+          </Reveal>
+
+          <Reveal delay={140} className="mt-14 lg:mt-20">
+            <p className="u-eyebrow mb-8">{t("theCompleteCollection")}</p>
+            <CollectionLineup collection={MILLENIUM} lang={lang} />
           </Reveal>
         </div>
       </section>
 
       {/* ==================================================== next collection */}
-      <section className="border-t border-line bg-ink">
-        <div className="u-gutter u-band-tight">
-          <Reveal className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
-            <div>
-              <p className="u-eyebrow">
-                {t("collectionN")} {TSUKI.index}
-              </p>
-              <h2 className="u-display mt-4 text-[clamp(2.5rem,7vw,5rem)]">{TSUKI.name}</h2>
-              <p className="mt-4 font-display text-2xl text-steel">{TSUKI.tagline[lang]}</p>
+      {/*
+        TSUKI gets its own sky rather than a paragraph at the foot of the page.
+        The plate, the tone and the rhythm are its own; the type, the hairlines
+        and the eyebrow are the house's, so the two collections read as two
+        rooms in one building.
+      */}
+      <section
+        className="relative overflow-hidden border-t border-line"
+        style={{ "--plate": `url("${asset("/world/still-water.webp")}")` } as CSSProperties}
+      >
+        {/*
+          The tone belongs on this layer, not on the section: a background
+          colour on the section paints over its own negatively-stacked
+          children, which is what was hiding the plate.
+        */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ backgroundColor: TSUKI.world.tone }}>
+          {/* Narrow viewports put the moon above the type, wide ones beside it. */}
+          <div className="u-plate u-drift absolute inset-0 [background-position:68%_16%] lg:[background-position:58%_34%]" />
+          {/* The scrim follows: vertical where the type sits under the moon,
+              horizontal where it sits next to it. */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(6,10,18,0.50)_20%,rgba(6,10,18,0.93)_38%,rgba(6,10,18,0.96)_100%)] lg:hidden" />
+          <div className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(96deg,rgba(6,10,18,0.93)_0%,rgba(6,10,18,0.78)_34%,rgba(6,10,18,0.12)_62%,transparent_88%)]" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#060A12] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#060A12] to-transparent" />
+        </div>
+
+        <div className="u-gutter pb-[clamp(6rem,15vw,15rem)] pt-[clamp(11rem,26vw,15rem)]">
+          <Reveal className="max-w-xl">
+            <p className="u-eyebrow">
+              {t("collectionN")} {TSUKI.index}
+            </p>
+            {/* The character sits beside the name at the same optical weight as
+                a reference number — a mark, not decoration. */}
+            <div className="mt-5 flex items-baseline gap-6">
+              <h2 className="u-display u-display-xl text-[clamp(2.75rem,8vw,6.5rem)]">{TSUKI.name}</h2>
+              <span
+                lang="ja"
+                aria-hidden="true"
+                className="font-display text-[clamp(1.25rem,3vw,2.25rem)] leading-none text-steel/70"
+              >
+                月
+              </span>
             </div>
-            <div className="self-end">
-              <p className="max-w-lg leading-relaxed text-muted">{TSUKI.intro[lang]}</p>
-              <div className="mt-8 flex flex-wrap items-center gap-5">
-                <Link
-                  href={langPath(lang, `/collections/${TSUKI.slug}`)}
-                  className="u-focus rounded-full border border-line px-7 py-3.5 text-[0.7rem] uppercase tracking-[0.28em] text-text transition-colors duration-300 hover:border-steel"
-                >
-                  {TSUKI.world.name[lang]}
-                </Link>
-                <span className="text-[0.65rem] uppercase tracking-[0.24em] text-faint">
-                  {t("comingSoon")}
-                </span>
-              </div>
+            <p className="mt-4 font-display text-[clamp(1.25rem,2.6vw,1.9rem)] leading-snug text-steel">
+              {TSUKI.tagline[lang]}
+            </p>
+
+            {/* One hairline, set where a shoji frame would put it. */}
+            <span aria-hidden="true" className="mt-10 block h-px w-24 bg-steel/35" />
+
+            <p className="u-eyebrow mt-8 text-steel/80">{TSUKI.world.name[lang]}</p>
+
+            <p className="mt-5 max-w-lg leading-relaxed text-muted">{TSUKI.intro[lang]}</p>
+
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Link
+                href={langPath(lang, `/collections/${TSUKI.slug}`)}
+                className="u-focus rounded-full border border-steel/40 px-8 py-4 text-[0.7rem] uppercase tracking-[0.28em] text-text transition-colors duration-300 hover:border-steel hover:bg-steel/10"
+              >
+                {t("enterCollection")}
+              </Link>
+              <span className="text-[0.65rem] uppercase tracking-[0.24em] text-faint">
+                {t("comingSoon")}
+              </span>
             </div>
           </Reveal>
         </div>

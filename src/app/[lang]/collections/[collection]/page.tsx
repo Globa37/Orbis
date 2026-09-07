@@ -132,7 +132,7 @@ export default async function CollectionPage({
             </p>
           </Reveal>
           <Reveal delay={110}>
-            <h1 className="u-display mt-5 text-[clamp(3.5rem,15vw,13rem)]">{collection.name}</h1>
+            <h1 className="u-display u-display-xl mt-5 text-[clamp(3.5rem,15vw,13rem)]">{collection.name}</h1>
           </Reveal>
           <Reveal delay={220}>
             <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-20">
@@ -261,7 +261,7 @@ function Shop({ collection, lang }: { collection: Collection; lang: Lang }) {
               <p className="u-eyebrow">
                 {t("worldOf")} {collection.name}
               </p>
-              <h2 className="u-display mt-5 text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05]">
+              <h2 className="u-display u-display-xl mt-5 text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05]">
                 {collection.world.name[lang]}
               </h2>
               <p className="mt-7 leading-relaxed text-muted">{collection.world.body[lang]}</p>
@@ -295,7 +295,7 @@ function Announced({ collection, lang }: { collection: Collection; lang: Lang })
             <p className="u-eyebrow mt-8">
               {t("worldOf")} {collection.name}
             </p>
-            <h2 className="u-display mt-4 text-[clamp(2.25rem,6vw,4rem)] leading-[1.05]">
+            <h2 className="u-display u-display-xl mt-4 text-[clamp(2.25rem,6vw,4rem)] leading-[1.05]">
               {collection.world.name[lang]}
             </h2>
           </Reveal>

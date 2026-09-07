@@ -143,7 +143,7 @@ export default async function ProductPage({
             <p className="u-eyebrow">
               {collection.name} · {product.reference}
             </p>
-            <h1 className="u-display mt-4 text-[clamp(3rem,9vw,6rem)]">{product.name}</h1>
+            <h1 className="u-display u-display-xl mt-4 text-[clamp(3rem,9vw,6rem)]">{product.name}</h1>
             <p className="mt-4 text-lg text-muted">{product.subtitle[lang]}</p>
 
             <p className="mt-8 text-2xl tabular-nums text-steel">

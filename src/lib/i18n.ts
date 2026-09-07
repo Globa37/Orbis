@@ -61,6 +61,7 @@ const DICT = {
   startWith: { de: "Beginne mit", en: "Start with" },
   scroll: { de: "Scrollen", en: "Scroll" },
   pickReference: { de: "Referenz wählen", en: "Choose a reference" },
+  theCompleteCollection: { de: "Die vollständige Kollektion", en: "The complete collection" },
   theMaison: { de: "Das Haus", en: "The maison" },
   allFiveReferences: { de: "Alle fünf Referenzen", en: "All five references" },
   worldOf: { de: "Die Welt von", en: "The world of" },

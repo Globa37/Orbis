@@ -106,7 +106,7 @@ export default async function MaisonPage({ params }: { params: Promise<{ lang: s
           <Reveal>
             <OrbisMark size={42} className="text-steel" />
             <p className="u-eyebrow mt-8">{t("theMaison")}</p>
-            <h1 className="u-display mt-5 max-w-4xl text-[clamp(2.5rem,8vw,6rem)]">{head.title}</h1>
+            <h1 className="u-display u-display-xl mt-5 max-w-4xl text-[clamp(2.5rem,8vw,6rem)]">{head.title}</h1>
             <p className="mt-8 max-w-xl leading-relaxed text-muted">{head.intro}</p>
           </Reveal>
         </div>
