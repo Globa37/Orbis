@@ -163,7 +163,7 @@ export function SiteHeader({ lang }: { lang: Lang }) {
               </ul>
             </div>
           ))}
-                    <Link
+                             <Link
             href={path(lang, "/maison")}
             className="u-focus block py-5 font-display text-4xl transition-colors hover:text-steel"
           >
