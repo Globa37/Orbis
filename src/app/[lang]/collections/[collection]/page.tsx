@@ -111,8 +111,7 @@ export default async function CollectionPage({
       >
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <div className="u-plate u-drift absolute inset-0" style={{ backgroundPosition: "center 52%" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-void/85 via-void/30 to-void" />
-        </div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-void/30 via-void/12 to-void" />
 
         <div className="u-gutter w-full pb-16 pt-36 lg:pb-24">
           <Reveal>
