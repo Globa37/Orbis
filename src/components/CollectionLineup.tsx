@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { asset } from "@/lib/site";
-import type { Collection } from "@/lib/catalog/types";
+import type { Collection, Product } from "@/lib/catalog/types";
 import { path as langPath, type Lang } from "@/lib/i18n";
 
 /*
@@ -14,23 +14,41 @@ import { path as langPath, type Lang } from "@/lib/i18n";
  * glance and only the dials differ. Same cutouts as the hero, so it costs
  * nothing extra to load.
  *
- * Each watch stands on a plinth. Four layers make a cutout sit in a scene
- * instead of floating over it, stacked in the order the eye reads them —
- *
- *   1. a plinth: a shallow lit ellipse at the baseline, which gives the watch
- *      a surface to stand on rather than a line to hover above;
- *   2. a contact shadow on that surface, tight and dark under the bracelet;
- *   3. a mirrored copy of the same file below it, faded and blurred;
- *   4. a bloom in the dial's own colour, so light appears to come off the
- *      object rather than stopping at its cut edge.
- *
- * Pointing at a watch lights its plinth in that dial's colour and lifts the
- * watch off it slightly. The light and the lift share one timing, so the two
- * read as a single movement rather than two effects firing at once.
- *
- * All of it is CSS over the existing cutout: no second render, no extra bytes,
- * and the reflection reuses the file the browser already has.
+ * Pointing at a watch lights the space behind it in that dial's own colour,
+ * as though the wall had picked the dial up. Nothing lights from below and
+ * nothing sits under the watch: the light is in the background, the watch
+ * stays a silhouette against it, and the row stays quiet until something is
+ * pointed at.
  */
+
+/*
+ * The light behind each watch.
+ *
+ * Four of the five dials carry one colour, so their accent token is the whole
+ * answer. CHROME is the exception — its orb is banded red, amber, green and
+ * blue from pole to pole — and a single gold wash behind it would contradict
+ * the one dial in the collection that actually carries colour. So Chrome gets
+ * the bands themselves, laid out top to bottom in the dial's own order and
+ * blurred until they read as light rather than as stripes.
+ */
+const SPECTRUM =
+  "linear-gradient(180deg, rgba(198,58,52,0.55) 0%, rgba(214,164,65,0.5) 34%, rgba(58,140,96,0.42) 64%, rgba(46,86,168,0.42) 100%)";
+
+/* An ellipse-shaped fade, so the light has no edges of its own. */
+const SOFT: CSSProperties = {
+  maskImage: "radial-gradient(52% 42% at 50% 44%, #000 10%, transparent 72%)",
+  WebkitMaskImage: "radial-gradient(52% 42% at 50% 44%, #000 10%, transparent 72%)",
+};
+
+function aura(product: Product): CSSProperties {
+  if (product.slug === "chrome") {
+    return { background: SPECTRUM, ...SOFT };
+  }
+  return {
+    background:
+      "radial-gradient(52% 40% at 50% 44%, var(--accent-glow), transparent 74%)",
+  };
+}
 
 /* The watch box height, written once. The reflection strip is a fraction of
  * it, and the mirrored image has to be exactly as tall as the original or the
@@ -38,7 +56,7 @@ import { path as langPath, type Lang } from "@/lib/i18n";
 const BOX = "h-[34svh] sm:h-[38svh] lg:h-[30svh] xl:h-[34svh]";
 const STRIP = "h-[7svh] sm:h-[8svh] lg:h-[6svh] xl:h-[7svh]";
 
-/* One timing for every moving part, so the lift and the light travel together
+/* One timing for every moving part, so the light and the lift travel together
  * instead of racing each other. */
 const EASE = "duration-[900ms] [transition-timing-function:var(--ease-orbis)]";
 
@@ -71,12 +89,7 @@ export function CollectionLineup({
           <li
             key={product.slug}
             className="min-w-[47%] shrink-0 snap-start sm:min-w-[29%] lg:min-w-0"
-            style={
-              {
-                "--accent-glow": product.accent.glow,
-                "--accent-base": product.accent.base,
-              } as CSSProperties
-            }
+            style={{ ["--accent-glow" as string]: product.accent.glow }}
           >
             <Link
               href={langPath(lang, `/collections/${collection.slug}/${product.slug}`)}
@@ -85,26 +98,12 @@ export function CollectionLineup({
               {/* One shared baseline: every watch is bottom-aligned in an equal
                   box, so the row reads as a lineup and not as five pictures. */}
               <div className={`relative flex ${BOX} items-end justify-center`}>
-                {/* The dial's colour thrown back into the air around the watch.
-                    Always on, just barely — hover only lifts it. */}
+                {/* The wall behind the watch, lit in the dial's colour. Dark at
+                    rest; the whole effect is the fade from nothing to this. */}
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-0 opacity-25 blur-2xl transition-opacity ${EASE} group-hover:opacity-60 group-focus-visible:opacity-60`}
-                  style={{
-                    background:
-                      "radial-gradient(52% 38% at 50% 44%, var(--accent-glow), transparent 72%)",
-                  }}
-                />
-
-                {/* The plinth's own light, under its surface. Off at rest, so
-                    the row stays quiet until something is pointed at. */}
-                <span
-                  aria-hidden="true"
-                  className={`pointer-events-none absolute -bottom-4 left-1/2 h-16 w-[86%] -translate-x-1/2 rounded-[50%] opacity-0 blur-xl transition-opacity ${EASE} group-hover:opacity-90 group-focus-visible:opacity-90`}
-                  style={{
-                    background:
-                      "radial-gradient(closest-side, var(--accent-glow), transparent 72%)",
-                  }}
+                  className={`pointer-events-none absolute inset-x-[-12%] inset-y-[-6%] opacity-0 blur-3xl transition-opacity ${EASE} group-hover:opacity-100 group-focus-visible:opacity-100`}
+                  style={aura(product)}
                 />
 
                 <Image
@@ -114,7 +113,7 @@ export function CollectionLineup({
                   height={1563}
                   loading="lazy"
                   sizes="(max-width: 640px) 42vw, (max-width: 1024px) 27vw, 18vw"
-                  className={`relative h-full w-auto max-w-full object-contain transition-transform ${EASE} group-hover:-translate-y-2 group-focus-visible:-translate-y-2`}
+                  className={`relative h-full w-auto max-w-full object-contain transition-transform ${EASE} group-hover:-translate-y-1.5 group-focus-visible:-translate-y-1.5`}
                 />
 
                 {/* Contact shadow. Tight and dark right under the bracelet,
@@ -124,24 +123,11 @@ export function CollectionLineup({
                   aria-hidden="true"
                   className="pointer-events-none absolute bottom-0 h-8 w-[64%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(0,0,0,0.72),transparent)] blur-[5px]"
                 />
-
-                {/* The plinth. A shallow ellipse straddling the baseline: its
-                    top half reads as the surface the watch stands on, and the
-                    hairline along its leading edge catches the key light —
-                    white at rest, the dial's colour on hover. */}
-                <span
-                  aria-hidden="true"
-                  className={`pointer-events-none absolute -bottom-2 left-1/2 h-6 w-[74%] -translate-x-1/2 rounded-[50%] shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-shadow ${EASE} group-hover:shadow-[inset_0_1px_0_var(--accent-base)] group-focus-visible:shadow-[inset_0_1px_0_var(--accent-base)]`}
-                  style={{
-                    background:
-                      "radial-gradient(closest-side, rgba(255,255,255,0.13), rgba(255,255,255,0.03) 58%, transparent)",
-                  }}
-                />
               </div>
 
-              {/* The surface below the plinth. Same file, flipped and dimmed,
-                  positioned at the top of its strip so the visible part is the
-                  bottom of the watch — the only part a reflection would show. */}
+              {/* The surface. Same file, flipped and dimmed, positioned at the
+                  top of its strip so the visible part is the bottom of the
+                  watch — the only part a reflection would show. */}
               <div
                 aria-hidden="true"
                 className={`relative ${STRIP} overflow-hidden`}
@@ -158,6 +144,9 @@ export function CollectionLineup({
                   className={`absolute left-1/2 top-0 ${BOX} w-auto max-w-none -translate-x-1/2 -scale-y-100 object-contain opacity-20 blur-[2px] transition-opacity ${EASE} group-hover:opacity-30`}
                 />
               </div>
+
+              {/* The line they all stand on. */}
+              <span aria-hidden="true" className="mt-1 block h-px w-full bg-line" />
 
               <span className="mt-4 block font-display text-lg leading-none text-text transition-colors duration-300 group-hover:text-white lg:text-xl">
                 {product.name}
