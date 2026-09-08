@@ -17,8 +17,8 @@ export const BLUR: Record<string, string> = {
   "millenium/blush/angle": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAABwBACdASoQABQAPxl2slCspySisAgBkCMJZQCsBagBTUmrkdmAKu4ebsd0NAD7qXjVvRI5JPQvrpUHzdDAoUuwsFPbrUYzl/TGi4I+eKl6cAAA",
   "millenium/blush/lifestyle": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwBACdASoQABQAPxl0sVCspqSisAgBkCMJZQDCgBuMrcjGYI5rVqPRHkAAyxU41Sq6R2Vn9mJ1hZF4gWBK9pkg23Ctv5/mrVFPOv6lgJesUbDlpeb8AA==",
   "millenium/blush/card": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAwCdASoQABQAPxl4s1EspySisAgBkCMJZQCsABuwo2pz72bitfFAAPj70/xRzImrQhaSkz+xZuZ5aFGtN0tkN3l3k8z5wLft0Yn2d/MikCATz0+rX/8mjXkAAA==",
-  "millenium/solaris/hero": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoQABQAPxl2s1EspySisAgBkCMJZwCw7B6CS4I/0/ewGAAA/sXfHwyUFkzWaoT0XX0KGCVaQcp0y0TvoHtdioVm/9ICGZMt5MpN02qsQoqFiQAA",
-  "millenium/solaris/angle": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoQABQAPxl2slCspySisAgBkCMJZQCsAB59W753sD9gyg4AAPZMuVkm2w/uSF9gHZgLdPbhOeLuMPDQWs6W1v5pkhM0+gCe8vckHQEuDFCAPgAA",
-  "millenium/solaris/lifestyle": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoQABQAPxl2s1CspySisAgBkCMJZQCw7BSrj2jEFhcYvrmgAM3YEPxsz0Fium5gQvkuIusq9WsKTTBrRfc7LTNjY2BhGv5l44/7RAQMWMKoagAA",
-  "millenium/solaris/card": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwBACdASoQABQAPxl2tFGspyUisAgBkCMJZQCxDHACd0zQ0A68H7ft6AAA/N+KcPfzlYfdV7oLSymEhCE3s5kzklx5c42NRqsm/jV1EL9vu86YjSZxo28VmptI4AAA",
+  "millenium/solaris/hero": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABwAwCdASoQABQAPxl2s1CspySisAgBkCMJZwAASFX8PAxcHaAA/mFQEm/6g5TxyLoYm2r2Pdiv6GdX096/3n80xmB5v/SR0zxMNVgtEsU+1ZgauevPj7e1QAA=",
+  "millenium/solaris/angle": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABQBACdASoQABQAPxl4s1CspySisAgBkCMJZQDG9BuJ9zLrMhZQrzjT+eQAAP1ztxog0gk59hLCbWiXUxayyQUJmoMqBYPhHYZuXKP/SR2QpagZLcpf/oxgAAA=",
+  "millenium/solaris/lifestyle": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABQAPxl4slCspySisAgBkCMJZQCw7BttIFl5TjylSl1gAPubgJH5op7hXQGj+lGwmPuMPOOyEpo69WbA7BD1PQ2tohNgUMucGPm+2q8AAA==",
+  "millenium/solaris/card": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACQAwCdASoQABQAPxl2slCspySisAgBkCMJZwCzgBttIJG9R/vWAM4usvSg4L4ro+UrZkq5e6ned5eOxYKgOgsDs11acUW1ubry06bAfwOwkXZI3MR5uHRDAAA=",
 };
