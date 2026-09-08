@@ -264,8 +264,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               horizontal where it sits next to it. */}
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(6,10,18,0.50)_20%,rgba(6,10,18,0.93)_38%,rgba(6,10,18,0.96)_100%)] lg:hidden" />
           <div className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(96deg,rgba(6,10,18,0.93)_0%,rgba(6,10,18,0.78)_34%,rgba(6,10,18,0.12)_62%,transparent_88%)]" />
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#060A12] to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#060A12] to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-bfrom-[#1A1310] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1A1310] to-transparent" />
         </div>
 
         <div className="u-gutter pb-[clamp(6rem,15vw,15rem)] pt-[clamp(11rem,26vw,15rem)]">
