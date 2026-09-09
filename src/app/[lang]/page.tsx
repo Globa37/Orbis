@@ -126,7 +126,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* ======================================================= manifesto */}
+                {/* ======================================================= manifesto */}
       <section className="border-t border-line">
         <div className="u-gutter u-band">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
@@ -142,7 +142,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
-
       {/* ========================================================= pillars */}
       <section className="border-t border-line bg-ink">
         <div className="u-gutter u-band-tight">
