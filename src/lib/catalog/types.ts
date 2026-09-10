@@ -42,21 +42,23 @@ export interface Product {
   description: Localized;
   /** Verified specification rows, rendered in order. Never extend without a confirmed source. */
   specs: Spec[];
-    images: ProductImage[];
+  images: ProductImage[];
 }
 
 export type CollectionStatus = "available" | "announced";
 
 export interface Collection {
   slug: string;
-  index: number;
+  index: string;
   name: string;
+  tagline: Localized;
   intro: Localized;
   status: CollectionStatus;
   world: {
     name: Localized;
     plate?: string;
+    body: Localized;
+    tone: string;
   };
   products: Product[];
 }
-
