@@ -20,8 +20,19 @@ export function AddToCart({
   const t = translator(lang);
   const [added, setAdded] = useState(false);
 
-  /*
-   * A reference that cannot be shipped does not get a button that looks like it
-   * can. Rendering a disabled notice instead of hiding the control keeps the
-   * layout and tells the reader why nothing happens, and the state is read from
-   * the catalog
+  if (product.soldOut) {
+    return (
+      <p
+        className="w-full rounded-full border border-line px-8 py-4 text-center text-[0.7rem] font-medium uppercase tracking-[0.28em] text-faint sm:w-auto sm:min-w-[16rem]"
+        role="status"
+      >
+        {t("soldOut")}
+      </p>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => {
+        add({
+          id:
