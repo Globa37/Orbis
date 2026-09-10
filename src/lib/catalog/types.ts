@@ -42,14 +42,21 @@ export interface Product {
   description: Localized;
   /** Verified specification rows, rendered in order. Never extend without a confirmed source. */
   specs: Spec[];
-  images: ProductImage[];
+    images: ProductImage[];
 }
 
-/**
- * Whether a collection can be bought yet.
- *
- * A collection is announced before it is photographed and priced, and the site
- * has to be able to say so plainly rather than showing an empty shop. Nothing
- * in an "announced" collection is purchasable, and the interface says why.
- */
 export type CollectionStatus = "available" | "announced";
+
+export interface Collection {
+  slug: string;
+  index: number;
+  name: string;
+  intro: Localized;
+  status: CollectionStatus;
+  world: {
+    name: Localized;
+    plate?: string;
+  };
+  products: Product[];
+}
+
