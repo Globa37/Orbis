@@ -82,7 +82,8 @@ const DICT = {
   quantity: { de: "Menge", en: "Quantity" },
   decrease: { de: "Menge verringern", en: "Decrease quantity" },
   increase: { de: "Menge erhöhen", en: "Increase quantity" },
-  comingSoon: { de: "Bald verfügbar", en: "Coming soon" },
+   comingSoon: { de: "Bald verfügbar", en: "Coming soon" },
+  soldOut: { de: "Ausverkauft", en: "Sold out" },
   notYetForSale: {
     de: "Diese Kollektion ist noch nicht bestellbar.",
     en: "This collection is not yet available to order.",
