@@ -52,4 +52,4 @@ export interface Product {
  * has to be able to say so plainly rather than showing an empty shop. Nothing
  * in an "announced" collection is purchasable, and the interface says why.
  */
-export type CollectionStatus = "available" |
+export type CollectionStatus = "available" | "announced";
