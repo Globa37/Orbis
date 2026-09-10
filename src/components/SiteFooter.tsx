@@ -87,7 +87,7 @@ export function SiteFooter({ lang }: { lang: Lang }) {
             <div className="mt-5 flex items-center gap-3">
               <SupportButton lang={lang} className="-ml-2" />
               <a
-                href="mailto:atelier@orbis.watch"
+                href="mailto:orbis.emre@gmail.com"
                 className="u-focus u-link text-sm text-muted transition-colors hover:text-text"
               >
                 atelier@orbis.watch
