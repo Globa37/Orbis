@@ -158,10 +158,6 @@ const products: Product[] = [
 
 // Solaris ist ausverkauft, bis Nachschub da ist.
 products.find((p) => p.slug === "solaris")!.soldOut = true;
-
-export const MILLENIUM: Collection = {
-  slug: "millenium",
-
 export const MILLENIUM: Collection = {
   slug: "millenium",
   name: "Millenium",
