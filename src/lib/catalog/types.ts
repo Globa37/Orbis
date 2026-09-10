@@ -33,7 +33,11 @@ export interface Product {
   /** Marketing subtitle. Colour only — never a material claim. */
   subtitle: Localized;
   reference: string;
+  priceCents: number;  reference: string;
   priceCents: number;
+  /** Ausverkauft: nicht bestellbar, bleibt aber im Katalog sichtbar. */
+  soldOut?: boolean;
+  colorway: Colorway;
   colorway: Colorway;
   /** Two-stop accent used for this reference's UI moments. */
   accent: { base: string; glow: string };
