@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { translator, type Lang } from "@/lib/i18n";
 import { useSupport } from "./support-store";
 
-const ATELIER = "atelier@orbis.watch";
+const ATELIER = "orbis.emre@gmail.com";
 
 /**
  * Writing to the atelier, without a server to write to.
