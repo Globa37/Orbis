@@ -103,7 +103,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
             <Reveal delay={120} className="order-1 lg:order-none">
               <CollectionHero
-
                 labels={{ pick: t("pickReference"), view: t("startWith") }}
                 refs={MILLENIUM.products.map((p) => ({
                   slug: p.slug,
@@ -126,7 +125,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-                {/* ======================================================= manifesto */}
+      {/* ======================================================= manifesto */}
       <section className="border-t border-line">
         <div className="u-gutter u-band">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
@@ -142,6 +141,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
       {/* ========================================================= pillars */}
       <section className="border-t border-line bg-ink">
         <div className="u-gutter u-band-tight">
@@ -249,7 +249,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       */}
       <section
         className="relative overflow-hidden border-t border-line"
-        style={{ "--plate": `url("${asset("/world/still-water.webp")}")` } as CSSProperties}
+        style={
+          TSUKI.world.plate
+            ? ({ "--plate": `url("${asset(TSUKI.world.plate)}")` } as CSSProperties)
+            : undefined
+        }
       >
         {/*
           The tone belongs on this layer, not on the section: a background
@@ -257,14 +261,19 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           children, which is what was hiding the plate.
         */}
         <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ backgroundColor: TSUKI.world.tone }}>
-          {/* Narrow viewports put the moon above the type, wide ones beside it. */}
-          <div className="u-plate u-drift absolute inset-0 [background-position:68%_16%] lg:[background-position:58%_34%]" />
+          {/*
+            The plate is a wide landscape — roofline low, moon right of centre.
+            Filling a tall narrow section with it crops away both, so on small
+            screens it gets a band of its own at the top and the type sits below
+            on the flat tone. Wide screens can hold the whole frame.
+          */}
+          <div className="u-plate u-drift absolute inset-x-0 top-0 h-[46%] [background-position:62%_40%] lg:h-full lg:[background-position:center_46%]" />
           {/* The scrim follows: vertical where the type sits under the moon,
               horizontal where it sits next to it. */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(6,10,18,0.50)_20%,rgba(6,10,18,0.93)_38%,rgba(6,10,18,0.96)_100%)] lg:hidden" />
-          <div className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(96deg,rgba(6,10,18,0.93)_0%,rgba(6,10,18,0.78)_34%,rgba(6,10,18,0.12)_62%,transparent_88%)]" />
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-bfrom-[#1A1310] to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1A1310] to-transparent" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(16,14,11,0.32)_16%,rgba(16,14,11,0.72)_30%,rgba(16,14,11,0.93)_44%,rgba(16,14,11,0.96)_100%)] lg:hidden" />
+          <div className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(96deg,rgba(16,14,11,0.94)_0%,rgba(16,14,11,0.76)_32%,rgba(16,14,11,0.14)_60%,transparent_86%)]" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#100E0B] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#100E0B] to-transparent" />
         </div>
 
         <div className="u-gutter pb-[clamp(6rem,15vw,15rem)] pt-[clamp(11rem,26vw,15rem)]">

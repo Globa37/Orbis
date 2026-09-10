@@ -157,7 +157,7 @@ body {
  * --plate to the prefixed path and this picks it up.
  */
 .u-plate {
-  background-image: var(--plate, url("/world/orbit-plate.webp"));
+  background-image: var(--plate, url("/world/millenium.webp"));
   background-size: cover;
   background-position: center 62%;
   background-repeat: no-repeat;

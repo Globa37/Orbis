@@ -13,7 +13,6 @@
     "start": "next start",
     "lint": "eslint",
     "assets": "tsx scripts/build-assets.mts",
-    "plates": "node scripts/build-plates.mjs",
     "cutouts": "node scripts/build-cutouts.mjs",
     "audit": "node scripts/contrast.mjs && node scripts/audit.mjs",
     "shots": "node scripts/screens.mjs",

@@ -68,7 +68,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={LOCALE[DEFAULT_LANG]} className={`${bodoni.variable} ${jost.variable}`}>
-      <body style={{ "--plate": `url("${asset("/world/orbit-plate.webp")}")` } as CSSProperties}>
+      <body style={{ "--plate": `url("${asset("/world/millenium.webp")}")` } as CSSProperties}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

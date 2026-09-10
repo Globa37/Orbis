@@ -74,7 +74,7 @@ export function SiteHeader({ lang }: { lang: Lang }) {
               active={pathname.startsWith(path(lang, `/collections/${c.slug}`))}
             />
           ))}
-                              <Link
+          <Link
             href={path(lang, "/maison")}
             aria-current={pathname.startsWith(path(lang, "/maison")) ? "page" : undefined}
             className={`u-focus u-link text-[0.7rem] uppercase tracking-[0.28em] transition-colors duration-300 ${
@@ -163,7 +163,7 @@ export function SiteHeader({ lang }: { lang: Lang }) {
               </ul>
             </div>
           ))}
-                             <Link
+          <Link
             href={path(lang, "/maison")}
             className="u-focus block py-5 font-display text-4xl transition-colors hover:text-steel"
           >
