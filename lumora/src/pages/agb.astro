@@ -1,0 +1,137 @@
+---
+import Rechtsseite from "../layouts/Rechtsseite.astro";
+import { preisFormatiert, produkt, voll, kontakt } from "../lib/produkt";
+---
+
+<Rechtsseite
+  titel="Allgemeine Geschäftsbedingungen"
+  beschreibung="AGB für den Kauf des Lumora One — Vertragsschluss, Preise, Lieferung, Gewährleistung."
+>
+  <h2>§ 1 Geltungsbereich, Anbieter</h2>
+  <p>
+    Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen, die
+    Verbraucherinnen und Verbraucher sowie Unternehmen über diese Website bei
+  </p>
+  <p>
+    <span class="u-offen">[[FIRMENNAME]]</span>,{" "}
+    <span class="u-offen">[[STRASSE UND HAUSNUMMER]]</span>,{" "}
+    <span class="u-offen">[[PLZ UND ORT]]</span>
+    {kontakt ? <>, E-Mail: <a href={`mailto:${kontakt}`}>{kontakt}</a></> : <>, E-Mail: <span class="u-offen">[[E-MAIL]]</span></>}
+  </p>
+  <p>(nachfolgend „Anbieter") aufgeben.</p>
+  <p>
+    Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken
+    abschließt, die überwiegend weder ihrer gewerblichen noch ihrer
+    selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).
+    Abweichende Bedingungen der Kundin oder des Kunden werden nicht anerkannt,
+    es sei denn, der Anbieter stimmt ihrer Geltung ausdrücklich schriftlich zu.
+  </p>
+
+  <h2>§ 2 Vertragsschluss</h2>
+  <p>
+    Die Darstellung des Produkts auf dieser Website stellt kein rechtlich
+    bindendes Angebot dar, sondern eine Aufforderung zur Bestellung.
+  </p>
+  <p>
+    Mit dem Klick auf die Schaltfläche <strong>„Zahlungspflichtig bestellen"</strong>
+    gelangen Sie zur Bezahlseite unseres Zahlungsdienstleisters Stripe. Dort
+    geben Sie Ihre Liefer- und Zahlungsdaten ein und schließen den Vorgang ab.
+    Mit dem Abschluss dieses Vorgangs geben Sie ein verbindliches Angebot auf
+    Abschluss eines Kaufvertrags ab.
+  </p>
+  <p>
+    Der Anbieter bestätigt den Eingang der Bestellung unverzüglich per E-Mail.
+    Diese Eingangsbestätigung stellt noch keine Annahme des Angebots dar. Der
+    Kaufvertrag kommt zustande, sobald der Anbieter die Annahme der Bestellung
+    ausdrücklich erklärt oder die Ware versendet.
+  </p>
+  <p>
+    Vor dem Absenden der Bestellung können Sie Ihre Eingaben auf der Bezahlseite
+    jederzeit prüfen und mit den Korrekturfunktionen Ihres Browsers sowie den
+    Bearbeitungsmöglichkeiten der Bezahlseite ändern oder den Vorgang abbrechen.
+  </p>
+
+  <h2>§ 3 Vertragssprache und Speicherung des Vertragstextes</h2>
+  <p>
+    Der Vertragsschluss erfolgt in deutscher Sprache. Der Anbieter speichert den
+    Vertragstext und sendet Ihnen die Bestelldaten sowie diese AGB per E-Mail
+    zu. Den aktuellen Stand dieser AGB können Sie jederzeit auf dieser Seite
+    abrufen und ausdrucken.
+  </p>
+
+  <h2>§ 4 Preise und Versandkosten</h2>
+  <p>
+    Der Kaufpreis für den {voll} beträgt {preisFormatiert} und versteht sich
+    einschließlich der gesetzlichen Umsatzsteuer.
+  </p>
+  <p>
+    Versandkosten: <span class="u-offen">[[VERSANDKOSTEN]]</span>. Die
+    Versandkosten werden Ihnen vor Abgabe der Bestellung gesondert ausgewiesen
+    und sind zusätzlich zum Kaufpreis zu tragen.
+  </p>
+
+  <h2>§ 5 Zahlung</h2>
+  <p>
+    Die Zahlung erfolgt über den Zahlungsdienstleister Stripe Payments Europe,
+    Limited. Welche Zahlungsarten im Einzelfall zur Verfügung stehen, wird Ihnen
+    auf der Bezahlseite angezeigt. Der Kaufpreis ist mit Vertragsschluss sofort
+    zur Zahlung fällig.
+  </p>
+
+  <h2>§ 6 Lieferung</h2>
+  <p>
+    Die Lieferung erfolgt innerhalb Deutschlands an die von Ihnen angegebene
+    Lieferanschrift. Die Lieferzeit beträgt {produkt.lieferzeit} ab
+    Vertragsschluss, sofern nichts anderes vereinbart ist.
+  </p>
+  <p>
+    Ist das Produkt zum Zeitpunkt der Bestellung nicht verfügbar, informiert der
+    Anbieter Sie unverzüglich. Bereits geleistete Zahlungen werden in diesem
+    Fall unverzüglich erstattet.
+  </p>
+
+  <h2>§ 7 Eigentumsvorbehalt</h2>
+  <p>
+    Die Ware bleibt bis zur vollständigen Bezahlung Eigentum des Anbieters.
+  </p>
+
+  <h2>§ 8 Mängelhaftung</h2>
+  <p>
+    Es gilt das gesetzliche Mängelhaftungsrecht der §§ 434 ff. BGB. Für
+    Verbraucher beträgt die Verjährungsfrist für Mängelansprüche bei neuen Waren
+    zwei Jahre ab Ablieferung der Ware.
+  </p>
+  <p>
+    Eine darüber hinausgehende Garantie besteht nur, soweit sie ausdrücklich in
+    Textform übernommen wurde. Eine solche Garantie wird für dieses Produkt
+    derzeit nicht übernommen.
+  </p>
+
+  <h2>§ 9 Widerrufsrecht</h2>
+  <p>
+    Verbraucherinnen und Verbrauchern steht ein gesetzliches Widerrufsrecht zu.
+    Die Einzelheiten ergeben sich aus der{" "}
+    <a href="/widerruf">Widerrufsbelehrung</a>, die Bestandteil dieser AGB ist.
+  </p>
+
+  <h2>§ 10 Streitbeilegung</h2>
+  <p>
+    Die Europäische Kommission hat ihre Plattform zur Online-Streitbeilegung zum
+    20. Juli 2025 eingestellt. Der Anbieter ist nicht bereit und nicht
+    verpflichtet, an Streitbeilegungsverfahren vor einer
+    Verbraucherschlichtungsstelle teilzunehmen.
+  </p>
+
+  <h2>§ 11 Schlussbestimmungen</h2>
+  <p>
+    Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des
+    UN-Kaufrechts. Bei Verbrauchern gilt diese Rechtswahl nur insoweit, als
+    dadurch der Schutz nicht entzogen wird, der durch zwingende Bestimmungen des
+    Rechts des Staates gewährt wird, in dem der Verbraucher seinen gewöhnlichen
+    Aufenthalt hat.
+  </p>
+  <p>
+    Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt
+    die Wirksamkeit der übrigen Bestimmungen davon unberührt.
+  </p>
+</Rechtsseite>

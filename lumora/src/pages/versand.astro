@@ -1,0 +1,63 @@
+---
+import Rechtsseite from "../layouts/Rechtsseite.astro";
+import { produkt, preisFormatiert, versandSatz } from "../lib/produkt";
+---
+
+<Rechtsseite
+  titel="Versand & Zahlung"
+  beschreibung="Lieferzeit, Versandkosten und Zahlungsarten für den Lumora One."
+>
+  <h2>Lieferzeit</h2>
+  <p>
+    Die Lieferzeit beträgt <strong>{produkt.lieferzeit}</strong> ab
+    Vertragsschluss. Wir liefern innerhalb Deutschlands.
+  </p>
+  <p>
+    Sollte sich die Lieferung im Einzelfall verzögern, melden wir uns von selbst
+    bei Ihnen — Sie müssen nicht nachfragen.
+  </p>
+
+  <h2>Versandkosten</h2>
+  <p>
+    {
+      versandSatz.offen ? (
+        <>
+          Versandkosten: <span class="u-offen">[[VERSANDKOSTEN]]</span>
+        </>
+      ) : (
+        <>Der Versand erfolgt {versandSatz.text}.</>
+      )
+    }
+  </p>
+  <p>
+    Die Versandkosten werden Ihnen vor Abgabe der Bestellung auf der Bezahlseite
+    noch einmal gesondert angezeigt.
+  </p>
+
+  <h2>Preis</h2>
+  <p>
+    Der {produkt.modell} kostet <strong>{preisFormatiert}</strong> einschließlich
+    der gesetzlichen Umsatzsteuer. Weitere Varianten oder Zusatzpakete gibt es
+    nicht.
+  </p>
+
+  <h2>Zahlungsarten</h2>
+  <p>
+    Die Zahlung wickeln wir über <strong>Stripe</strong> ab. Welche
+    Zahlungsarten Ihnen konkret angeboten werden — etwa Kreditkarte oder
+    verfügbare Wallet-Verfahren —, zeigt Ihnen die Bezahlseite an. Der Kaufpreis
+    ist mit Vertragsschluss sofort fällig.
+  </p>
+  <p>
+    Ihre Kartendaten geben Sie ausschließlich bei Stripe ein. Wir bekommen sie
+    nicht zu sehen und speichern sie nicht. Näheres dazu steht in der{" "}
+    <a href="/datenschutz">Datenschutzerklärung</a>.
+  </p>
+
+  <h2>Rücksendung</h2>
+  <p>
+    Sie haben ein 14-tägiges Widerrufsrecht. Wie Sie es ausüben, wer die Kosten
+    der Rücksendung trägt und wie schnell wir erstatten, steht vollständig auf
+    der Seite <a href="/widerruf">Widerrufsrecht</a>.
+  </p>
+</Rechtsseite>

@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tokens. Die Farbwelt kommt vom Produkt selbst: weisses Gehaeuse, schwarzes
+   Objektivgitter, blau-violetter Flare in der Linse.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-tinte: #0b1020;
+  --color-tinte-weich: #3d4560;
+  --color-tinte-leise: #6b7492;
+  --color-papier: #ffffff;
+  --color-dunst: #f4f6fb;
+  --color-kante: #e3e8f2;
+
+  --color-strahl: #3b6cff;
+  --color-strahl-tief: #2450d6;
+  --color-glut: #7c5cff;
+  --color-linse: #22d3ee;
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius-blende: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-papier);
+    color: var(--color-tinte);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Sichtbarer Tastaturfokus — ueberall, nicht nur auf Links. */
+  :focus-visible {
+    outline: 3px solid var(--color-strahl);
+    outline-offset: 3px;
+    border-radius: 0.35rem;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-strahl) 22%, transparent);
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Der Beam-Verlauf: Hauptakzent, sparsam einsetzen. */
+  .u-beam {
+    background-image: linear-gradient(
+      108deg,
+      var(--color-strahl) 0%,
+      var(--color-glut) 62%,
+      var(--color-linse) 130%
+    );
+  }
+
+  .u-beam-text {
+    background-image: linear-gradient(
+      104deg,
+      var(--color-strahl-tief) 0%,
+      var(--color-glut) 72%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Weicher Lichtkegel hinter dem Produktfoto. */
+  .u-kegel::before {
+    content: "";
+    position: absolute;
+    inset: -14% -6% -2%;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      55% 50% at 50% 46%,
+      color-mix(in oklab, var(--color-linse) 34%, transparent) 0%,
+      color-mix(in oklab, var(--color-strahl) 22%, transparent) 38%,
+      transparent 72%
+    );
+    filter: blur(26px);
+  }
+
+  .u-karte {
+    background: var(--color-papier);
+    border: 1px solid var(--color-kante);
+    border-radius: var(--radius-blende);
+  }
+
+  /* Offene Platzhalter sollen niemandem durchrutschen. */
+  .u-offen {
+    background: #fff3c4;
+    box-shadow: 0 0 0 1px #e0b400 inset;
+    border-radius: 0.3rem;
+    padding: 0 0.3em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Fliesstext der Rechtsseiten. */
+  .u-recht {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-tinte-weich);
+  }
+  .u-recht h2 {
+    margin-top: 2.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-tinte);
+  }
+  .u-recht h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-tinte);
+  }
+  .u-recht p,
+  .u-recht ul,
+  .u-recht ol {
+    margin-bottom: 1rem;
+  }
+  .u-recht ul,
+  .u-recht ol {
+    padding-left: 1.35rem;
+  }
+  .u-recht ul {
+    list-style: disc;
+  }
+  .u-recht ol {
+    list-style: decimal;
+  }
+  .u-recht li {
+    margin-bottom: 0.4rem;
+  }
+  .u-recht a {
+    color: var(--color-strahl-tief);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .u-recht strong {
+    color: var(--color-tinte);
+    font-weight: 600;
+  }
+}
+
+/* Bewegung nur, wenn sie gewuenscht ist. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

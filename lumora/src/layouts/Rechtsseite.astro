@@ -1,0 +1,42 @@
+---
+import Basis from "./Basis.astro";
+
+interface Props {
+  titel: string;
+  beschreibung: string;
+  stand?: string;
+}
+const { titel, beschreibung, stand } = Astro.props;
+---
+
+<Basis titel={`${titel} — Lumora`} beschreibung={beschreibung}>
+  <div class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+    <a
+      href="/"
+      class="inline-flex items-center gap-1.5 text-sm font-medium text-tinte-leise transition-colors hover:text-tinte"
+    >
+      <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+        <path
+          d="M12.7 15.7a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 0-1.4l5-5a1 1 0 1 1 1.4 1.4L8.4 10l4.3 4.3a1 1 0 0 1 0 1.4Z"
+        ></path>
+      </svg>
+      Zurück zum Produkt
+    </a>
+
+    <h1 class="mt-7 text-3xl font-semibold tracking-tight sm:text-4xl">{titel}</h1>
+    {stand && <p class="mt-3 text-sm text-tinte-leise">Stand: {stand}</p>}
+
+    <div class="u-recht mt-10">
+      <slot />
+    </div>
+
+    <div class="mt-14 rounded-blende border border-kante bg-dunst p-6 text-sm">
+      <p class="font-semibold text-tinte">Noch offene Angaben?</p>
+      <p class="mt-1.5 text-tinte-weich">
+        Alles, was hier gelb als <span class="u-offen">[[…]]</span> markiert
+        ist, muss vor dem Livegang durch echte Angaben ersetzt werden. Ein
+        <code>npm run build</code> listet die offenen Stellen am Ende auf.
+      </p>
+    </div>
+  </div>
+</Basis>

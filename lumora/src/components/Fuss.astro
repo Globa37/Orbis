@@ -1,0 +1,62 @@
+---
+import Logo from "./Logo.astro";
+import { kontakt, voll } from "../lib/produkt";
+
+/** Aus jeder Seite heraus erreichbar — Pflicht, nicht Deko. */
+const rechtsseiten = [
+  { href: "/impressum", text: "Impressum" },
+  { href: "/datenschutz", text: "Datenschutz" },
+  { href: "/agb", text: "AGB" },
+  { href: "/widerruf", text: "Widerrufsrecht" },
+  { href: "/versand", text: "Versand & Zahlung" },
+];
+const jahr = new Date().getFullYear();
+---
+
+<footer class="border-t border-kante bg-dunst">
+  <div class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-14">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+      <div class="space-y-3">
+        <Logo klein={true} />
+        <p class="max-w-xs text-sm text-tinte-leise">
+          {voll} — ein Mini-Beamer, ein Preis, keine Abos.
+        </p>
+      </div>
+
+      <nav aria-label="Rechtliches">
+        <ul class="grid gap-x-10 gap-y-2.5 text-sm sm:grid-cols-2">
+          {
+            rechtsseiten.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  class="font-medium text-tinte-weich underline-offset-4 transition-colors hover:text-tinte hover:underline"
+                >
+                  {s.text}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            {
+              kontakt ? (
+                <a
+                  href={`mailto:${kontakt}`}
+                  class="font-medium text-tinte-weich underline-offset-4 transition-colors hover:text-tinte hover:underline"
+                >
+                  {kontakt}
+                </a>
+              ) : (
+                <span class="u-offen text-sm">[[E-MAIL]]</span>
+              )
+            }
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="mt-10 border-t border-kante pt-6 text-xs text-tinte-leise">
+      © {jahr} Lumora. Alle Preise inkl. gesetzlicher Umsatzsteuer.
+    </p>
+  </div>
+</footer>

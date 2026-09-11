@@ -1,0 +1,19 @@
+---
+/**
+ * Gibt einen Produktwert aus — oder, solange er fehlt, einen unuebersehbaren
+ * Platzhalter. Lieber gelb im Layout als eine erfundene Angabe im Shop.
+ */
+interface Props {
+  wert?: string | number | null;
+  name: string;
+}
+const { wert, name } = Astro.props;
+---
+
+{
+  wert === null || wert === undefined || wert === "" ? (
+    <span class="u-offen">[[{name}]]</span>
+  ) : (
+    <>{wert}</>
+  )
+}

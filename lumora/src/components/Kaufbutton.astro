@@ -1,0 +1,52 @@
+---
+import { zahlenLink } from "../lib/produkt";
+
+interface Props {
+  gross?: boolean;
+  klasse?: string;
+}
+const { gross = false, klasse = "" } = Astro.props;
+
+/**
+ * Die Beschriftung ist gesetzlich vorgegeben (§ 312j Abs. 3 BGB) und wird
+ * nicht zu "Jetzt kaufen" verkuerzt.
+ */
+const BESCHRIFTUNG = "Zahlungspflichtig bestellen";
+
+const form = [
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold",
+  "text-papier u-beam shadow-[0_10px_30px_-8px_rgba(59,108,255,.55)]",
+  "transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0",
+  gross ? "px-8 py-4 text-lg w-full sm:w-auto" : "px-6 py-3 text-base",
+  klasse,
+].join(" ");
+
+const formAus = [
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold",
+  "bg-kante text-tinte-leise cursor-not-allowed",
+  gross ? "px-8 py-4 text-lg w-full sm:w-auto" : "px-6 py-3 text-base",
+  klasse,
+].join(" ");
+---
+
+{
+  zahlenLink ? (
+    <a href={zahlenLink} class={form} rel="noopener">
+      {BESCHRIFTUNG}
+      <svg viewBox="0 0 20 20" class="h-4 w-4" aria-hidden="true" fill="currentColor">
+        <path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.6 10 7.3 5.7a1 1 0 0 1 0-1.4Z" />
+      </svg>
+    </a>
+  ) : (
+    <span class="inline-flex flex-col items-start gap-2">
+      <button type="button" class={formAus} disabled aria-describedby="kauf-hinweis">
+        {BESCHRIFTUNG}
+      </button>
+      <span id="kauf-hinweis" class="text-xs font-medium text-tinte-leise">
+        <span class="u-offen">[[STRIPE PAYMENT LINK]]</span> in
+        <code class="text-[0.95em]">src/data/produkt.json</code> eintragen, dann
+        wird der Button aktiv.
+      </span>
+    </span>
+  )
+}

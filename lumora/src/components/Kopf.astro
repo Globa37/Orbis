@@ -1,0 +1,33 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-kante/80 bg-papier/85 backdrop-blur-md"
+>
+  <div
+    class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
+  >
+    <a href="/" class="flex items-center gap-2.5" aria-label="Lumora — Startseite">
+      <Logo />
+    </a>
+
+    <nav aria-label="Seitenbereiche" class="flex items-center gap-1 text-sm">
+      <a
+        href="/#technik"
+        class="hidden rounded-lg px-3 py-2 font-medium text-tinte-weich transition-colors hover:bg-dunst hover:text-tinte sm:inline-block"
+        >Technik</a
+      >
+      <a
+        href="/#daten"
+        class="hidden rounded-lg px-3 py-2 font-medium text-tinte-weich transition-colors hover:bg-dunst hover:text-tinte sm:inline-block"
+        >Daten</a
+      >
+      <a
+        href="/#kaufen"
+        class="rounded-lg px-3 py-2 font-semibold text-strahl-tief transition-colors hover:bg-dunst"
+        >Bestellen</a
+      >
+    </nav>
+  </div>
+</header>

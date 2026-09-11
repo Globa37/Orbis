@@ -1,0 +1,42 @@
+---
+import { readFileSync, existsSync } from "node:fs";
+import path from "node:path";
+
+/**
+ * Erwartet public/bilder/lumora-one.png. scripts/bilder.mjs leitet daraus die
+ * WebP-Breiten ab und hinterlegt in lumora-one.varianten.json, welche davon
+ * es wirklich gibt. Fehlt die Quelle, bleibt nur das PNG im src-Attribut —
+ * die Seite rendert, das Bild fehlt sichtbar.
+ */
+interface Props {
+  alt: string;
+  sizes: string;
+  klasse?: string;
+  prioritaet?: boolean;
+}
+const { alt, sizes, klasse = "", prioritaet = false } = Astro.props;
+
+const manifest = path.resolve("public/bilder/lumora-one.varianten.json");
+const varianten: { breite: number; hoehe: number; breiten: number[] } =
+  existsSync(manifest)
+    ? JSON.parse(readFileSync(manifest, "utf8"))
+    : { breite: 1200, hoehe: 1200, breiten: [] };
+
+const srcset = varianten.breiten
+  .map((b) => `/bilder/lumora-one-${b}.webp ${b}w`)
+  .join(", ");
+---
+
+<picture>
+  {srcset && <source type="image/webp" srcset={srcset} sizes={sizes} />}
+  <img
+    src="/bilder/lumora-one.png"
+    alt={alt}
+    width={varianten.breite}
+    height={varianten.hoehe}
+    class={`h-auto w-full object-contain ${klasse}`}
+    loading={prioritaet ? "eager" : "lazy"}
+    fetchpriority={prioritaet ? "high" : "auto"}
+    decoding={prioritaet ? "sync" : "async"}
+  />
+</picture>

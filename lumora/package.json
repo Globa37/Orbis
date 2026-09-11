@@ -1,0 +1,32 @@
+{
+  "name": "lumora-one",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/bilder.mjs && astro build && node scripts/platzhalter.mjs",
+    "preview": "astro preview",
+    "bilder": "node scripts/bilder.mjs",
+    "platzhalter": "node scripts/platzhalter.mjs",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.16.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^22.20.2",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "vite": "^6.4.3"
+  }
+}

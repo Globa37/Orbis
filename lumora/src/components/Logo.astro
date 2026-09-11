@@ -1,0 +1,35 @@
+---
+/** Marke inline, damit das Wortzeichen die geladene Seitenschrift benutzt. */
+const { klein = false } = Astro.props;
+---
+
+<span class="flex items-center gap-2.5">
+  <svg
+    viewBox="0 0 64 64"
+    class={klein ? "h-7 w-7" : "h-8 w-8"}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <linearGradient id="lg-b" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#3b6cff"></stop>
+        <stop offset=".62" stop-color="#7c5cff"></stop>
+        <stop offset="1" stop-color="#22d3ee"></stop>
+      </linearGradient>
+      <radialGradient id="lg-k" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#ffffff"></stop>
+        <stop offset=".45" stop-color="#22d3ee"></stop>
+        <stop offset="1" stop-color="#3b6cff"></stop>
+      </radialGradient>
+    </defs>
+    <rect width="64" height="64" rx="16" fill="#0b1020"></rect>
+    <circle cx="32" cy="32" r="19" fill="none" stroke="url(#lg-b)" stroke-width="2.5"></circle>
+    <circle cx="32" cy="32" r="12.5" fill="none" stroke="url(#lg-b)" stroke-width="1.5" opacity=".55"></circle>
+    <circle cx="32" cy="32" r="7" fill="url(#lg-k)"></circle>
+    <circle cx="28.4" cy="28.4" r="2.1" fill="#ffffff" opacity=".85"></circle>
+  </svg>
+  <span
+    class={`font-semibold tracking-[0.14em] text-tinte ${klein ? "text-sm" : "text-base"}`}
+    >LUMORA</span
+  >
+</span>

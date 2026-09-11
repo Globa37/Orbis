@@ -1,0 +1,139 @@
+---
+import Rechtsseite from "../layouts/Rechtsseite.astro";
+import { kontakt } from "../lib/produkt";
+---
+
+<Rechtsseite
+  titel="Datenschutzerklärung"
+  beschreibung="Wie auf lumora.de personenbezogene Daten verarbeitet werden — Hosting, Bestellung, Zahlung über Stripe."
+>
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+  </p>
+  <p>
+    <span class="u-offen">[[FIRMENNAME]]</span><br />
+    <span class="u-offen">[[STRASSE UND HAUSNUMMER]]</span><br />
+    <span class="u-offen">[[PLZ UND ORT]]</span><br />
+    E-Mail:{" "}
+    {
+      kontakt ? (
+        <a href={`mailto:${kontakt}`}>{kontakt}</a>
+      ) : (
+        <span class="u-offen">[[E-MAIL]]</span>
+      )
+    }
+  </p>
+
+  <h2>2. Grundsatz: so wenig wie möglich</h2>
+  <p>
+    Diese Seite ist eine statische Website. Sie setzt <strong>keine Cookies</strong>,
+    bindet <strong>kein Analyse- oder Tracking-Werkzeug</strong> ein und lädt
+    keine Inhalte von Drittanbietern nach. Die verwendete Schriftart wird von
+    unserem eigenen Server ausgeliefert, es besteht also keine Verbindung zu
+    Google Fonts oder einem anderen Font-Dienst. Aus diesem Grund gibt es hier
+    auch kein Cookie-Banner — es gäbe nichts, worin eingewilligt werden müsste.
+  </p>
+
+  <h2>3. Aufruf der Website (Server-Logfiles)</h2>
+  <p>
+    Beim Aufruf der Seite werden durch unseren Hoster automatisch Informationen
+    verarbeitet, die Ihr Browser übermittelt. Das sind insbesondere:
+  </p>
+  <ul>
+    <li>aufgerufene Adresse und Zeitpunkt des Abrufs</li>
+    <li>übertragene Datenmenge und Meldung über den Abrufstatus</li>
+    <li>Browsertyp und Browserversion sowie das verwendete Betriebssystem</li>
+    <li>IP-Adresse des anfragenden Geräts</li>
+  </ul>
+  <p>
+    Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse
+    liegt im technisch fehlerfreien Betrieb und in der Sicherheit der Website.
+    Eine Zusammenführung dieser Daten mit anderen Datenquellen findet nicht
+    statt.
+  </p>
+
+  <h3>Hosting</h3>
+  <p>
+    Die Website wird gehostet bei der Vercel Inc., 440 N Barranca Ave #4133,
+    Covina, CA 91723, USA, bzw. deren europäischer Niederlassung. Vercel
+    verarbeitet die oben genannten Daten in unserem Auftrag. Wir haben mit dem
+    Anbieter einen Vertrag über die Auftragsverarbeitung nach Art. 28 DSGVO
+    geschlossen. Soweit Daten in die USA übermittelt werden, stützen wir die
+    Übermittlung auf die Standardvertragsklauseln der Europäischen Kommission
+    bzw. auf das EU-US Data Privacy Framework.
+  </p>
+
+  <h2>4. Bestellung und Zahlungsabwicklung</h2>
+  <p>
+    Der Kauf wird nicht auf dieser Website abgeschlossen. Der Bestellbutton
+    leitet Sie zu einem Bezahlvorgang bei unserem Zahlungsdienstleister weiter:
+  </p>
+  <p>
+    Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal
+    Dock, Dublin, D02 H210, Irland.
+  </p>
+  <p>
+    Dort geben Sie Ihre Zahlungs-, Liefer- und Kontaktdaten ein. Stripe
+    verarbeitet diese Daten, um die Zahlung durchzuführen, und übermittelt uns
+    die für die Vertragsabwicklung erforderlichen Angaben — insbesondere Name,
+    Liefer- und Rechnungsanschrift, E-Mail-Adresse sowie die Bestätigung der
+    Zahlung. <strong>Ihre vollständigen Kartendaten erhalten wir zu keinem
+    Zeitpunkt.</strong>
+  </p>
+  <p>
+    Rechtsgrundlage für die Verarbeitung im Rahmen der Bestellung ist Art. 6
+    Abs. 1 lit. b DSGVO (Erfüllung des Kaufvertrags). Für die anschließende
+    Aufbewahrung der Rechnungs- und Buchungsdaten ist es Art. 6 Abs. 1 lit. c
+    DSGVO in Verbindung mit den handels- und steuerrechtlichen
+    Aufbewahrungsfristen (in der Regel sechs bzw. zehn Jahre).
+  </p>
+  <p>
+    Die Datenschutzhinweise von Stripe finden Sie unter{" "}
+    <a href="https://stripe.com/de/privacy" rel="noopener noreferrer" target="_blank"
+      >stripe.com/de/privacy</a
+    >.
+  </p>
+
+  <h2>5. Kontaktaufnahme per E-Mail</h2>
+  <p>
+    Wenn Sie uns schreiben, verarbeiten wir Ihre Angaben ausschließlich zur
+    Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO,
+    wenn die Anfrage mit einem Vertrag zusammenhängt, ansonsten Art. 6 Abs. 1
+    lit. f DSGVO. Wir löschen die Nachrichten, sobald die Anfrage erledigt ist
+    und keine gesetzlichen Aufbewahrungsfristen entgegenstehen.
+  </p>
+
+  <h2>6. Ihre Rechte</h2>
+  <p>Sie haben uns gegenüber jederzeit das Recht auf</p>
+  <ul>
+    <li>Auskunft über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO),</li>
+    <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO),</li>
+    <li>Löschung (Art. 17 DSGVO),</li>
+    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO),</li>
+    <li>Datenübertragbarkeit (Art. 20 DSGVO) sowie</li>
+    <li>
+      Widerspruch gegen Verarbeitungen, die auf Art. 6 Abs. 1 lit. f DSGVO
+      gestützt sind (Art. 21 DSGVO).
+    </li>
+  </ul>
+  <p>
+    Eine einmal erteilte Einwilligung können Sie jederzeit mit Wirkung für die
+    Zukunft widerrufen.
+  </p>
+
+  <h2>7. Beschwerderecht bei der Aufsichtsbehörde</h2>
+  <p>
+    Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die
+    Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Zuständig ist
+    unter anderem die Aufsichtsbehörde des Bundeslandes unseres Sitzes:{" "}
+    <span class="u-offen">[[ZUSTÄNDIGE AUFSICHTSBEHÖRDE]]</span>.
+  </p>
+
+  <h2>8. Verschlüsselung</h2>
+  <p>
+    Diese Website nutzt aus Sicherheitsgründen eine TLS-Verschlüsselung. Sie
+    erkennen das an der Adresszeile Ihres Browsers, die mit <code>https://</code>
+    beginnt.
+  </p>
+</Rechtsseite>

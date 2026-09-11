@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.DS_Store
+
+# aus public/bilder/lumora-one.png abgeleitet — entsteht beim Build
+public/bilder/lumora-one-*.webp
+public/bilder/lumora-one-og.jpg
+public/bilder/lumora-one.varianten.json

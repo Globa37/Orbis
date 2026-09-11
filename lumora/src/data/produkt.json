@@ -1,0 +1,20 @@
+{
+  "marke": "Lumora",
+  "modell": "Lumora One",
+  "preis": 120,
+  "waehrung": "EUR",
+  "versandkosten": null,
+  "lieferzeit": "1–2 Wochen",
+  "aufloesung": "1080p nativ",
+  "signale": "bis 4K, Ausgabe in 1080p",
+  "lumen": 200,
+  "technik": "LCD mit LED-Lichtquelle",
+  "betriebssystem": "Android 11",
+  "funk": "WLAN, Bluetooth 5.0",
+  "bildgroesse": null,
+  "anschluesse": null,
+  "lautstaerke": null,
+  "gewicht": null,
+  "email": null,
+  "stripePaymentLink": null
+}

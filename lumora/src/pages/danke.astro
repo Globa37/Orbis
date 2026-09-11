@@ -1,0 +1,75 @@
+---
+import Basis from "../layouts/Basis.astro";
+import { produkt, voll, kontakt } from "../lib/produkt";
+---
+
+<Basis
+  titel="Danke für Ihre Bestellung — Lumora"
+  beschreibung="Bestellbestätigung für den Lumora One."
+>
+  <section class="mx-auto max-w-2xl px-5 py-20 text-center sm:px-8 sm:py-28">
+    <div
+      class="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full u-beam text-papier"
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 24" class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m5 12.5 4.5 4.5L19 7.5"></path>
+      </svg>
+    </div>
+
+    <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+      Danke — die Bestellung ist da.
+    </h1>
+
+    <p class="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-tinte-weich">
+      Ihre Zahlung wurde bei Stripe abgeschlossen. Die Bestätigung mit allen
+      Details kommt gleich per E-Mail; schauen Sie gegebenenfalls im
+      Spam-Ordner nach.
+    </p>
+
+    <div class="mx-auto mt-10 max-w-md rounded-blende border border-kante bg-dunst p-7 text-left">
+      <h2 class="text-sm font-semibold tracking-[0.14em] text-tinte-leise uppercase">
+        Wie es weitergeht
+      </h2>
+      <ol class="mt-5 space-y-4 text-sm text-tinte-weich">
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tinte text-[0.7rem] font-semibold text-papier">1</span>
+          <span>Wir bestätigen Ihre Bestellung per E-Mail.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tinte text-[0.7rem] font-semibold text-papier">2</span>
+          <span>
+            Der {voll} geht innerhalb von {produkt.lieferzeit} an Ihre
+            Lieferanschrift raus.
+          </span>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tinte text-[0.7rem] font-semibold text-papier">3</span>
+          <span>
+            Erster Testlauf am besten abends im abgedunkelten Zimmer — dafür ist
+            das Gerät gebaut.
+          </span>
+        </li>
+      </ol>
+    </div>
+
+    <p class="mt-9 text-sm text-tinte-leise">
+      Etwas stimmt nicht? Schreiben Sie uns:{" "}
+      {
+        kontakt ? (
+          <a href={`mailto:${kontakt}`} class="font-medium text-strahl-tief underline underline-offset-2">
+            {kontakt}
+          </a>
+        ) : (
+          <span class="u-offen">[[E-MAIL]]</span>
+        )
+      }
+    </p>
+
+    <a
+      href="/"
+      class="mt-10 inline-flex items-center gap-1.5 text-sm font-medium text-tinte-weich underline-offset-4 hover:text-tinte hover:underline"
+      >Zurück zur Startseite</a
+    >
+  </section>
+</Basis>

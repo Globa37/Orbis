@@ -1,0 +1,108 @@
+---
+import Rechtsseite from "../layouts/Rechtsseite.astro";
+import { kontakt } from "../lib/produkt";
+---
+
+<Rechtsseite
+  titel="Impressum"
+  beschreibung="Anbieterkennzeichnung nach § 5 DDG für den Lumora One Shop."
+>
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>
+    <span class="u-offen">[[FIRMENNAME]]</span><br />
+    <span class="u-offen">[[STRASSE UND HAUSNUMMER]]</span><br />
+    <span class="u-offen">[[PLZ UND ORT]]</span><br />
+    Deutschland
+  </p>
+
+  <h3>Vertreten durch</h3>
+  <p><span class="u-offen">[[VERTRETUNGSBERECHTIGTE PERSON]]</span></p>
+
+  <h3>Kontakt</h3>
+  <p>
+    Telefon: <span class="u-offen">[[TELEFON]]</span><br />
+    E-Mail:{" "}
+    {
+      kontakt ? (
+        <a href={`mailto:${kontakt}`}>{kontakt}</a>
+      ) : (
+        <span class="u-offen">[[E-MAIL]]</span>
+      )
+    }
+  </p>
+
+  <h3>Registereintrag</h3>
+  <p>
+    Registergericht: <span class="u-offen">[[REGISTERGERICHT]]</span><br />
+    Registernummer: <span class="u-offen">[[REGISTERNUMMER]]</span>
+  </p>
+  <p>
+    Betreiben Sie das Geschäft als Einzelunternehmen ohne Handelsregister-
+    eintrag, streichen Sie diesen Abschnitt ersatzlos.
+  </p>
+
+  <h3>Umsatzsteuer-Identifikationsnummer</h3>
+  <p>
+    Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
+    <span class="u-offen">[[UST-IDNR]]</span>
+  </p>
+
+  <h2>Redaktionell verantwortlich</h2>
+  <p>
+    Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:<br />
+    <span class="u-offen">[[VERANTWORTLICHE PERSON]]</span><br />
+    <span class="u-offen">[[ANSCHRIFT DER VERANTWORTLICHEN PERSON]]</span>
+  </p>
+
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>
+    Die Europäische Kommission hat ihre Plattform zur Online-Streitbeilegung
+    (OS-Plattform) zum 20. Juli 2025 eingestellt. Ein Verweis darauf entfällt
+    deshalb.
+  </p>
+  <p>
+    Wir sind <strong>nicht</strong> bereit und nicht verpflichtet, an
+    Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+    teilzunehmen.
+  </p>
+  <p>
+    Falls Sie an einem solchen Verfahren teilnehmen möchten oder nach § 36 VSBG
+    dazu verpflichtet sind, ersetzen Sie den vorstehenden Absatz durch die
+    Angabe der zuständigen Verbraucherschlichtungsstelle mit Anschrift und
+    Website: <span class="u-offen">[[SCHLICHTUNGSSTELLE]]</span>.
+  </p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>
+    Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den
+    allgemeinen Gesetzen verantwortlich. Wir sind als Diensteanbieter jedoch
+    nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
+    überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+    Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der
+    Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon
+    unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der
+    Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden
+    entsprechender Rechtsverletzungen entfernen wir diese Inhalte umgehend.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte
+    wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch
+    keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der
+    jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten
+    Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße
+    überprüft; rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht
+    erkennbar. Bei Bekanntwerden von Rechtsverletzungen entfernen wir derartige
+    Links umgehend.
+  </p>
+
+  <h2>Urheberrecht</h2>
+  <p>
+    Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+    unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche
+    gekennzeichnet. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+    Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
+    schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+  </p>
+</Rechtsseite>

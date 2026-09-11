@@ -1,0 +1,35 @@
+---
+import { preisFormatiert, versandSatz, produkt } from "../lib/produkt";
+
+interface Props {
+  kompakt?: boolean;
+}
+const { kompakt = false } = Astro.props;
+---
+
+<div class={kompakt ? "" : "space-y-1"}>
+  <div class="flex items-baseline gap-2.5">
+    <span
+      class={kompakt
+        ? "text-xl font-semibold text-tinte"
+        : "text-4xl font-semibold tracking-tight text-tinte sm:text-5xl"}
+      >{preisFormatiert}</span
+    >
+    <span class={kompakt ? "text-xs text-tinte-leise" : "text-sm text-tinte-leise"}
+      >inkl. MwSt.</span
+    >
+  </div>
+
+  {/* PAngV: Versand und Lieferzeit gehoeren direkt an den Preis. */}
+  <p class={kompakt ? "text-xs text-tinte-leise" : "text-sm text-tinte-weich"}>
+    {
+      versandSatz.offen ? (
+        <span class="u-offen">{versandSatz.text}</span>
+      ) : (
+        versandSatz.text
+      )
+    }
+    <span aria-hidden="true"> · </span>
+    Lieferzeit {produkt.lieferzeit}
+  </p>
+</div>
